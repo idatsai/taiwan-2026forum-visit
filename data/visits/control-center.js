@@ -1,8 +1,8 @@
 window.RHB_VISITS = window.RHB_VISITS || {};
 window.RHB_VISITS["control-center"] = {
   id: "control-center",
-  eyebrow: "RhB Technical Exchange · 4 September 2026",
-  title: "The 2026 International Forum on Taiwan Cultural Heritage",
+  eyebrow: "ON-SITE VISITS · 1-3 September 2026",
+  title: "WELCOME TO TAIWAN",
   subtitle: "高度自動化下的人機協作",
   heroText: "世界遺產山岳鐵路如何透過集中行控、即時資訊與專業人才，維持單線路網的安全與效率。",
   heroImage: "assets/images/control-center/index_main.jpg",
