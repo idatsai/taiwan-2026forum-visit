@@ -18,9 +18,8 @@ window.RHB_VISITS["control-center"] = {
     {id:"gallery", label:"影像紀錄"}
   ],
   facts: [
-    {value:20260529, display:"2026.05.29", label:"參訪日期", animate:false},
-    {value:45, suffix:"分鐘", label:"現場交流"},
-    {value:12, prefix:"10–", suffix:"站", label:"每位控制員約負責站數"},
+    {value:20260529, display:"2026.09.01", label:"DATES", animate:false},
+    {value:2, suffix:"HOURS", label:"Mountain town guided"}
     {value:4, prefix:"3–", suffix:"年", label:"學徒養成期"}
   ],
   overview: "本次由RhB鐵路行車技術專家兼營運主管Franz Bislin接待，交流內容涵蓋列車運行監控、進站與交會調度、自動化控制、班次資訊發布、跨鐵路公司協作、行控人才培育及異常事件應變。",
