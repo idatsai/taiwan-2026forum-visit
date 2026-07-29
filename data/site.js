@@ -1,9 +1,9 @@
 window.RHB_SITE = {
-  title: "2026 RhB 瑞士鐵道實地訪查",
-  intro: "以重要參訪節點串連技術交流、世界遺產保存、觀光營運與山岳鐵路體驗，逐步累積可供阿里山林鐵借鏡的國際案例。",
+  title: "2026 International Forum on Taiwan Cultural Heritage",
+  intro: "Seeing Taiwan from a Global Perspective, Preserving Heritage for the Future.",
   footer: {
     label: "Switzerland．鐵道國際交流",
-    title: "2026年阿里山林鐵參訪團赴瑞士鐵道出國實地訪查心得與紀錄",
+    title: "2026 International Forum on Taiwan Cultural Heritage",
     copyright: "易圖科技股份有限公司 版權所有 2026 © EasyMap Digital Technology Inc. All Rights Reserved."
   },
   itinerary: [
