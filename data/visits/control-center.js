@@ -1,5 +1,5 @@
 window.RHB_VISITS = window.RHB_VISITS || {};
-window.RHB_VISITS["test"] = {
+window.RHB_VISITS["control-center"] = {
   id: "control-center",
   eyebrow: "September 4, 2026",
   title: "2026 International Forum on Taiwan Cultural Heritage",
