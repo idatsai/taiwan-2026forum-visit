@@ -1,10 +1,10 @@
 window.RHB_VISITS = window.RHB_VISITS || {};
 window.RHB_VISITS["control-center"] = {
   id: "control-center",
-  eyebrow: "RhB Technical Exchange · 29 May 2026",
-  title: "RhB列車控制中心",
-  subtitle: "高度自動化下的人機協作",
-  heroText: "世界遺產山岳鐵路如何透過集中行控、即時資訊與專業人才，維持單線路網的安全與效率。",
+  eyebrow: "September 4, 2026",
+  title: "2026 International Forum on Taiwan Cultural Heritage",
+  subtitle: "The Veins of Ore Never Sleep. Time Flows On.",
+  heroText: "Venue: Center for Public and Business Administration Education (NCCU CPBAE) A2 International Conference Hall",
   heroImage: "assets/images/control-center/control-center-01.jpg",
   meta: ["Landquart", "09:00–09:45", "接待：Franz Bislin"],
   host: {name:"Franz Bislin", role:"鐵路行車技術專家兼營運主管", image:"assets/images/control-center/franz-bislin.jpg", note:"現場說明列車運行監控、交會調度、旅客資訊發布及異常事件處理。"},
