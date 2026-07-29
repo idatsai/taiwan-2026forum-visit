@@ -4,7 +4,7 @@ window.RHB_VISITS["control-center"] = {
   eyebrow: "1-3 September 2026",
   title: "ON-SITE VISITS",
   subtitle: "2026 International Forum on Taiwan Cultural Heritage",
-  heroText: "世界遺產山岳鐵路如何透過集中行控、即時資訊與專業人才，維持單線路網的安全與效率。",
+  heroText: "Focusing on the Shuei-Jin-Jiou Mining Sites, one of the potential World Heritage sites in Taiwan.",
   heroImage: "assets/images/control-center/index_main.jpg",
   meta: ["TaiwanMiningHeritage", "Taiwan", "BOCH"],
   host: {name:"Franz Bislin", role:"金瓜石的天公仔囝故事館創辦人", image:"assets/images/control-center/franz-bislin.jpg", note:"由礦工後代吳朝潭與妻子王佳蘭共同創辦的在地文化空間，致力於保存金瓜石的礦業歷史、礦山生活記憶與藝術傳承。"},
