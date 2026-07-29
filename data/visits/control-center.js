@@ -11,7 +11,7 @@ window.RHB_VISITS["control-center"] = {
   lead: "The Shuei-Jin-Jiou Mining Sites is not only a significant testament to the development of Taiwan's mining industry, but also a cultural landscape shaped by the intertwined histories of local communities, industry, transportation, and everyday life.",
   nav: [
     {id:"overview", label:"參訪概要"},
-    {id:"system", label:"系統運作"},
+    {id:"system", label:"住宿介紹 / Accommodation"},
     {id:"people", label:"人才培訓"},
     {id:"response", label:"異常應變"},
     {id:"lessons", label:"借鏡方向"},
