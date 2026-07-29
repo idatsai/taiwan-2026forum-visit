@@ -8,7 +8,7 @@ window.RHB_VISITS["control-center"] = {
   heroImage: "assets/images/control-center/index_main.jpg",
   meta: ["TaiwanMiningHeritage", "Taiwan", "BOCH"],
   host: {name:"Franz Bislin", role:"鐵路行車技術專家兼營運主管", image:"assets/images/control-center/franz-bislin.jpg", note:"現場說明列車運行監控、交會調度、旅客資訊發布及異常事件處理。"},
-  lead: "RhB的經驗顯示，世界遺產鐵路的保存並不等於停止現代化；相反地，唯有持續強化號誌、行控與旅客資訊系統，才能在保存歷史價值的同時，維持鐵路作為公共運輸系統的生命力。",
+  lead: "The Shuei-Jin-Jiou Mining Sites is not only a significant testament to the development of Taiwan's mining industry, but also a cultural landscape shaped by the intertwined histories of local communities, industry, transportation, and everyday life.",
   nav: [
     {id:"overview", label:"參訪概要"},
     {id:"system", label:"系統運作"},
