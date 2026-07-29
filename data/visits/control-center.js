@@ -2,10 +2,10 @@ window.RHB_VISITS = window.RHB_VISITS || {};
 window.RHB_VISITS["control-center"] = {
   id: "control-center",
   eyebrow: "RhB Technical Exchange · 4 September 2026",
-  title: "TAIWAN FORUM",
+  title: "The 2026 International Forum on Taiwan Cultural Heritage",
   subtitle: "高度自動化下的人機協作",
   heroText: "世界遺產山岳鐵路如何透過集中行控、即時資訊與專業人才，維持單線路網的安全與效率。",
-  heroImage: "assets/images/control-center/control-center-01.jpg",
+  heroImage: "assets/images/control-center/index_main.jpg",
   meta: ["Landquart", "09:00–09:45", "接待：Franz Bislin"],
   host: {name:"Franz Bislin", role:"鐵路行車技術專家兼營運主管", image:"assets/images/control-center/franz-bislin.jpg", note:"現場說明列車運行監控、交會調度、旅客資訊發布及異常事件處理。"},
   lead: "RhB的經驗顯示，世界遺產鐵路的保存並不等於停止現代化；相反地，唯有持續強化號誌、行控與旅客資訊系統，才能在保存歷史價值的同時，維持鐵路作為公共運輸系統的生命力。",
