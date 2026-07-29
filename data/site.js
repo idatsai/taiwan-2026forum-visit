@@ -9,6 +9,6 @@ window.RHB_SITE = {
   itinerary: [
     {date:"1 SEP.", place:"蘇黎世 Zürich", title:"抵達瑞士・考察展開", note:"由城市交通與瑞士鐵道環境開始觀察。", status:"done"},
     {date:"2 SEP.", place:"庫爾 Chur", title:"RhB營運與路網初探", note:"進入雷蒂亞鐵路核心營運區域。", status:"done"},
-    {date:"3 SEP.", place:"蘭德夸特 Landquart", title:"列車控制中心", note:"集中行控、自動化調度與異常應變。", visit:"control-center", status:"active"},
+    {date:"3 SEP.", place:"蘭德夸特 Landquart", title:"列車控制中心", note:"集中行控、自動化調度與異常應變。", status:"done"},
   ]
 };
