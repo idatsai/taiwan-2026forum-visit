@@ -10,12 +10,12 @@ window.RHB_VISITS["control-center"] = {
   host: {name:"Wu Chao-tan", role:"金瓜石的天公仔囝故事館創辦人", image:"assets/images/control-center/wu-chaotan.jpg", note:"由礦工後代吳朝潭與妻子王佳蘭共同創辦的在地文化空間，致力於保存金瓜石的礦業歷史、礦山生活記憶與藝術傳承。"},
   lead: "The Shuei-Jin-Jiou Mining Sites is not only a significant testament to the development of Taiwan's mining industry, but also a cultural landscape shaped by the intertwined histories of local communities, industry, transportation, and everyday life.",
   nav: [
-    {id:"overview", label:"參訪概要"},
-    {id:"system", label:"住宿介紹 / Accommodation"},
-    {id:"people", label:"人才培訓"},
-    {id:"response", label:"異常應變"},
-    {id:"lessons", label:"借鏡方向"},
-    {id:"gallery", label:"影像紀錄"}
+    {id:"overview", label:"Overview"},
+    {id:"system", label:"Detailed Itinerary"},
+    {id:"people", label:"Accommodation"},
+    {id:"response", label:"Welcome Dinner"},
+    {id:"lessons", label:"Practical Information"},
+    {id:"gallery", label:"Emergency Contact"}
   ],
 facts: [
   {value:20260529, display:"2026.09.01", label:"DATES", animate:false},
