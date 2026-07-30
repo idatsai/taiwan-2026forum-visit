@@ -53,28 +53,44 @@
     const hiddenNavSections = new Set(['system', 'gallery']);
     $('#navLinks').innerHTML = (d.nav || [])
       .filter(x => !hiddenNavSections.has(x.id))
-      .map(x => `<a href="#${x.id}" data-section="${x.id}">${x.label}</a>`)
+      .map(x => {
+        const label = x.id === 'overview' ? 'Study Journey' : x.label;
+        return `<a href="#${x.id}" data-section="${x.id}">${label}</a>`;
+      })
       .join('');
 
-    $('#facts').innerHTML = (d.facts || []).map((x, i) =>
-      `<div class="fact reveal">
-        <b class="counter" data-index="${i}">${x.animate === false ? x.display : '0'}</b>
-        <span>${x.label}</span>
-      </div>`
-    ).join('');
+    // Replace the former Overview section with a four-part Study Journey.
+    const oldJourney = $('#journey');
+    if(oldJourney){
+      oldJourney.hidden = true;
+      oldJourney.style.display = 'none';
+    }
 
-    $('#overviewText').textContent = d.overview;
+    const overviewSection = $('#overview');
+    overviewSection.innerHTML = `
+      <div class="journey-intro study-journey-block">
+        <div class="journey-copy reveal">
+          <div class="section-kicker">Study Journey</div>
+          <h2>On-site Visit Schedule</h2>
+          <p>Explore the programme across four visit periods.</p>
+        </div>
+        <div class="journey-strip study-journey-strip">
+          ${[
+            'September 1',
+            'September 2',
+            'September 3 Morning',
+            'September 3 Afternoon'
+          ].map((label, index) => `
+            <article class="journey-stop study-journey-stop reveal">
+              <span class="journey-index">${String(index + 1).padStart(2, '0')}</span>
+              <time>${label}</time>
+            </article>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
     $('#quote').textContent = d.quote;
-
-    $('#hostCard').innerHTML = d.host
-      ? `<img src="${d.host.image}" alt="${d.host.name}">
-         <div>
-           <span>Guide & Host</span>
-           <h3>${d.host.name}</h3>
-           <b>${d.host.role}</b>
-           <p>${d.host.note || ''}</p>
-         </div>`
-      : '';
 
     const labels = d.sectionLabels || {};
 
@@ -308,8 +324,11 @@
       {threshold:.4}
     );
 
-    factsObserver.observe($('#facts'));
-    observers.push(factsObserver);
+    const factsTarget = $('#facts');
+    if(factsTarget){
+      factsObserver.observe(factsTarget);
+      observers.push(factsObserver);
+    }
 
     const modal = $('#lightbox');
     const modalImg = $('#lightboxImg');
