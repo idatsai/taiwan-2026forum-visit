@@ -50,9 +50,11 @@
       <a href="${forumUrl}" target="_blank" rel="noopener noreferrer" class="external-link">FORUM WEBSITE ↗</a>
     `;
 
-    $('#navLinks').innerHTML = (d.nav || []).map(x =>
-      `<a href="#${x.id}" data-section="${x.id}">${x.label}</a>`
-    ).join('');
+    const hiddenNavSections = new Set(['system', 'gallery']);
+    $('#navLinks').innerHTML = (d.nav || [])
+      .filter(x => !hiddenNavSections.has(x.id))
+      .map(x => `<a href="#${x.id}" data-section="${x.id}">${x.label}</a>`)
+      .join('');
 
     $('#facts').innerHTML = (d.facts || []).map((x, i) =>
       `<div class="fact reveal">
@@ -214,18 +216,19 @@
     }
 
     $('#lessonCards').innerHTML = cardGrid(d.lessons);
-    $('#reflection').innerHTML = (d.reflection || []).map(x => `<p>${x}</p>`).join('');
+
+    // Hide unused sections: Operations, Reflection, Gallery and Topics.
+    const unusedSectionTargets = ['#operationCards', '#reflection', '#galleryGrid', '#tags'];
+    unusedSectionTargets.forEach(selector => {
+      const target = $(selector);
+      const section = target?.closest('.section');
+      if(section){
+        section.hidden = true;
+        section.style.display = 'none';
+      }
+    });
 
     const path = d.imagePath || 'assets/images/control-center/';
-
-    $('#galleryGrid').innerHTML = (d.gallery || []).map((x, i) =>
-      `<figure class="figure reveal" data-index="${i}" tabindex="0">
-        <img src="${path}${x.file}" alt="${d.title}照片${i + 1}" loading="lazy">
-        <figcaption>${x.caption}</figcaption>
-      </figure>`
-    ).join('');
-
-    $('#tags').innerHTML = (d.tags || []).map(x => `<span class="tag">${x}</span>`).join('');
 
     const footer = site.footer || {};
     $('#footer').innerHTML = `
