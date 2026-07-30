@@ -80,8 +80,10 @@
     $('#systemTitle').textContent = labels.systemTitle || '控制中心如何運作';
     $('#peopleKicker').textContent = labels.peopleKicker || 'People';
     $('#peopleTitle').textContent = labels.peopleTitle || '人才培訓：行控能力需要長期養成';
-    $('#responseKicker').textContent = labels.responseKicker || 'Response';
-    $('#responseTitle').textContent = labels.responseTitle || '異常事件與跨系統協作';
+    const responseKicker = $('#responseKicker');
+    responseKicker.textContent = '';
+    responseKicker.hidden = true;
+    $('#responseTitle').textContent = 'Welcome Dinner · 2 September';
 
     $('#operationCards').innerHTML = cardGrid(d.operationCards);
 
@@ -202,8 +204,7 @@
           </div>
 
           <div class="welcome-dinner-info">
-            <span>WELCOME DINNER</span>
-            <h3>${dinner.title}</h3>
+            <h3>AKA Café</h3>
             <p>${dinner.description}</p>
           </div>
         </article>
