@@ -321,6 +321,23 @@
               <span>${item.label || ''}</span>
               <h3>${item.value || ''}</h3>
               <p>${item.text || ''}</p>
+              ${item.exampleImage ? `
+                <details class="practical-example">
+                  <summary>
+                    <span class="example-open-label">${item.exampleLabel || 'View Example'}</span>
+                    <span class="example-close-label">${item.closeLabel || 'Close Example'}</span>
+                    <b aria-hidden="true">＋</b>
+                  </summary>
+                  <div class="practical-example-panel">
+                    <img
+                      src="${d.imagePath || 'assets/images/control-center/'}${item.exampleImage}"
+                      alt="${item.exampleAlt || item.value || 'Example'}"
+                      loading="lazy"
+                    >
+                    ${item.exampleCaption ? `<p>${item.exampleCaption}</p>` : ''}
+                  </div>
+                </details>
+              ` : ''}
             </div>
           </article>
         `).join('')}
