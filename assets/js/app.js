@@ -92,7 +92,14 @@
       </div>
     `;
 
-    $('#quote').textContent = d.quote;
+    const quoteElement = $('#quote');
+    if(quoteElement){
+      const quoteSection = quoteElement.closest('section');
+      if(quoteSection){
+        quoteSection.hidden = true;
+        quoteSection.style.display = 'none';
+      }
+    }
 
     const labels = d.sectionLabels || {};
 
