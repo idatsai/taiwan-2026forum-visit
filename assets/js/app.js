@@ -71,6 +71,20 @@
       {date:'September 3 Afternoon', title:'International Experts Exchange Meeting'}
     ];
 
+    const firstDay = overviewCards[0] || {};
+    const secondDay = overviewCards[1] || {};
+    const thirdMorning = overviewCards[2] || {};
+    const thirdAfternoon = overviewCards[3] || {};
+
+    const overviewDayCard = (item) => `
+      <a class="journey-stop study-journey-stop overview-day-card reveal" href="#system">
+        <time class="overview-date">${item.date || ''}</time>
+        <b>${item.title || ''}</b>
+        ${item.note ? `<p>${item.note}</p>` : ''}
+        <span class="journey-link">View detailed itinerary ↓</span>
+      </a>
+    `;
+
     overviewSection.innerHTML = `
       <div class="journey-intro study-journey-block">
         <div class="journey-copy reveal">
@@ -78,16 +92,30 @@
           <h2>Programme at a Glance</h2>
           <p>A quick overview of the three-day on-site visit programme.</p>
         </div>
-        <div class="journey-strip study-journey-strip">
-          ${overviewCards.map((item, index) => `
-            <a class="journey-stop study-journey-stop reveal" href="#system">
-              <span class="journey-index">${String(index + 1).padStart(2, '0')}</span>
-              <time>${item.date}</time>
-              <b>${item.title || ''}</b>
-              ${item.note ? `<p>${item.note}</p>` : ''}
-              <span class="journey-link">View detailed itinerary ↓</span>
-            </a>
-          `).join('')}
+
+        <div class="journey-strip study-journey-strip overview-three-day-grid">
+          ${overviewDayCard(firstDay)}
+          ${overviewDayCard(secondDay)}
+
+          <article class="journey-stop study-journey-stop overview-day-three reveal">
+            <time class="overview-date">September 3</time>
+
+            <div class="overview-day-three-sessions">
+              <a class="overview-session" href="#system">
+                <span class="overview-session-label">Morning</span>
+                <b>${thirdMorning.title || ''}</b>
+                ${thirdMorning.note ? `<p>${thirdMorning.note}</p>` : ''}
+                <span class="journey-link">View detailed itinerary ↓</span>
+              </a>
+
+              <a class="overview-session" href="#system">
+                <span class="overview-session-label">Afternoon</span>
+                <b>${thirdAfternoon.title || ''}</b>
+                ${thirdAfternoon.note ? `<p>${thirdAfternoon.note}</p>` : ''}
+                <span class="journey-link">View detailed itinerary ↓</span>
+              </a>
+            </div>
+          </article>
         </div>
       </div>
     `;
