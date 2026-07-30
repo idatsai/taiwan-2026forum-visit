@@ -289,7 +289,43 @@
       $('#responseCards').innerHTML = cardGrid(d.responseCards);
     }
 
-    $('#lessonCards').innerHTML = cardGrid(d.lessons);
+    // Practical Information · icon-based information chart.
+    const practicalSection = $('#lessons');
+    const practicalHeading = practicalSection?.querySelector('.section-head');
+    if(practicalHeading){
+      practicalHeading.innerHTML = `
+        <div>
+          <div class="section-kicker">Visitor Essentials</div>
+          <h2>Practical Information</h2>
+          <p class="section-intro">A quick guide to weather, electricity and everyday essentials during your visit to Taiwan.</p>
+        </div>
+      `;
+    }
+
+    const practicalIcons = {
+      weather: `<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="18" cy="18" r="7"></circle><path d="M18 4v5M18 27v5M4 18h5M27 18h5M8.1 8.1l3.5 3.5M24.4 24.4l3.5 3.5M27.9 8.1l-3.5 3.5"></path><path d="M17 35h19a7 7 0 0 0 0-14 10 10 0 0 0-18.5 3.8A5.2 5.2 0 0 0 17 35Z"></path></svg>`,
+      rain: `<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 25a15 15 0 0 1 30 0Z"></path><path d="M24 10v27a5 5 0 0 0 10 0"></path><path d="M13 30l-2 5M22 30l-2 5M31 30l-2 5"></path></svg>`,
+      power: `<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M27 3 13 27h10l-2 18 14-25H25Z"></path></svg>`,
+      plug: `<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M16 8v10M32 8v10M12 18h24v5a12 12 0 0 1-12 12h0a12 12 0 0 1-12-12Z"></path><path d="M24 35v9"></path></svg>`,
+      clothing: `<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M17 9 8 14l4 9 5-2v19h14V21l5 2 4-9-9-5a8 8 0 0 1-14 0Z"></path><path d="M18 8a7 7 0 0 0 12 0"></path></svg>`,
+      connectivity: `<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="15" y="5" width="18" height="38" rx="3"></rect><path d="M21 10h6M22 37h4"></path><path d="M6 18a15 15 0 0 1 8-8M8 26a8 8 0 0 1 6-6"></path></svg>`
+    };
+
+    const practicalInfo = d.practicalInfo || [];
+    $('#lessonCards').innerHTML = `
+      <div class="practical-info-grid">
+        ${practicalInfo.map(item => `
+          <article class="practical-info-card reveal">
+            <div class="practical-icon">${practicalIcons[item.icon] || practicalIcons.weather}</div>
+            <div class="practical-card-copy">
+              <span>${item.label || ''}</span>
+              <h3>${item.value || ''}</h3>
+              <p>${item.text || ''}</p>
+            </div>
+          </article>
+        `).join('')}
+      </div>
+    `;
 
     // Hide unused sections: Reflection, Gallery and Topics.
     const unusedSectionTargets = ['#reflection', '#galleryGrid', '#tags'];
