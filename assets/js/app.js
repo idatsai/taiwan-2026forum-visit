@@ -1,7 +1,8 @@
 (() => {
   const visits = window.RHB_VISITS || {};
   const site = window.RHB_SITE || {itinerary:[]};
-  const order = ["control-center", "maintenance-center"];
+  const order = ["control-center"];
+  const forumUrl = "https://ezsign.easymap.tw/TCH2026/#/";
   const getId = () => {
     const id = location.hash.replace(/^#visit=/, "");
     return visits[id] ? id : order[0];
@@ -13,13 +14,16 @@
   function render(){
     d=visits[getId()];
     observers.forEach(o=>o.disconnect()); observers=[];
-    document.title = `${d.title}｜瑞士鐵道實地訪查`;
-    document.documentElement.style.setProperty('--hero-image', `url('${d.heroImage}')`); const heroBg=$('#heroBg'); heroBg.src=d.heroImage; heroBg.alt=`${d.title}參訪現場`; 
+    document.title = `${d.title}｜2026 International Forum on Taiwan Cultural Heritage`;
+    document.documentElement.style.setProperty('--hero-image', `url('${d.heroImage}')`); const heroBg=$('#heroBg'); heroBg.src=d.heroImage; heroBg.alt=`${d.title}現地參訪資訊`; 
     $('#eyebrow').textContent=d.eyebrow; $('#title').textContent=d.title; $('#subtitle').textContent=d.subtitle;
-    $('#journeyTitle').textContent=site.title||'RhB瑞士鐵道實地訪查'; $('#journeyIntro').textContent=site.intro||'';
+    $('#journeyTitle').textContent=site.title||'ON-SITE VISIT ITINERARY'; $('#journeyIntro').textContent=site.intro||'';
     $('#journeyStrip').innerHTML=(site.itinerary||[]).map((x,i)=>{const clickable=x.visit&&visits[x.visit];return `<${clickable?'a':'article'} ${clickable?`href="#visit=${x.visit}"`:''} class="journey-stop ${x.visit===d.id?'current':''} ${x.status||''}"><span class="journey-index">${String(i+1).padStart(2,'0')}</span><time>${x.date}</time><small>${x.place}</small><b>${x.title}</b><p>${x.note}</p>${clickable?'<span class="journey-link">查看單元 →</span>':''}</${clickable?'a':'article'}>`}).join('');
     $('#heroText').textContent=d.heroText; $('#meta').innerHTML=d.meta.map(x=>`<span>${x}</span>`).join(''); $('#lead').textContent=d.lead;
-    $('#visitSwitcher').innerHTML=order.map(id=>`<a href="#visit=${id}" class="${id===d.id?'active':''}">${visits[id].title.replace('RhB','')}</a>`).join('');
+    $('#visitSwitcher').innerHTML=`
+      <a href="#visit=control-center" class="active">ON-SITE VISITS</a>
+      <a href="${forumUrl}" target="_blank" rel="noopener noreferrer" class="external-link">FORUM WEBSITE ↗</a>
+    `;
     $('#navLinks').innerHTML=d.nav.map(x=>`<a href="#${x.id}" data-section="${x.id}">${x.label}</a>`).join('');
     $('#facts').innerHTML=d.facts.map((x,i)=>`<div class="fact reveal"><b class="counter" data-index="${i}">${x.animate===false?x.display:'0'}</b><span>${x.label}</span></div>`).join('');
     $('#overviewText').textContent=d.overview; $('#quote').textContent=d.quote;
