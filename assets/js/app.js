@@ -440,6 +440,48 @@
   function setupInteractions(path){
     document.querySelectorAll('.reveal').forEach(x => x.classList.remove('visible'));
 
+    const siteNav = document.querySelector('.site-nav');
+    const navInner = document.querySelector('.nav-inner');
+
+    if(siteNav && navInner && !siteNav.querySelector('.nav-scroll-prev')){
+      const prevNav = document.createElement('button');
+      const nextNav = document.createElement('button');
+
+      prevNav.type = 'button';
+      nextNav.type = 'button';
+      prevNav.className = 'nav-scroll-button nav-scroll-prev';
+      nextNav.className = 'nav-scroll-button nav-scroll-next';
+      prevNav.setAttribute('aria-label', 'Scroll navigation left');
+      nextNav.setAttribute('aria-label', 'Scroll navigation right');
+      prevNav.innerHTML = '&#8592;';
+      nextNav.innerHTML = '&#8594;';
+
+      siteNav.append(prevNav, nextNav);
+
+      const updateNavButtons = () => {
+        const maxScroll = Math.max(0, navInner.scrollWidth - navInner.clientWidth);
+        const hasOverflow = maxScroll > 8;
+
+        prevNav.hidden = !hasOverflow;
+        nextNav.hidden = !hasOverflow;
+        prevNav.disabled = navInner.scrollLeft <= 4;
+        nextNav.disabled = navInner.scrollLeft >= maxScroll - 4;
+      };
+
+      const scrollNavigation = direction => {
+        navInner.scrollBy({
+          left: direction * Math.max(260, navInner.clientWidth * 0.62),
+          behavior: 'smooth'
+        });
+      };
+
+      prevNav.addEventListener('click', () => scrollNavigation(-1));
+      nextNav.addEventListener('click', () => scrollNavigation(1));
+      navInner.addEventListener('scroll', updateNavButtons, {passive:true});
+      window.addEventListener('resize', updateNavButtons);
+      requestAnimationFrame(updateNavButtons);
+    }
+
     const observer = new IntersectionObserver(
       entries => entries.forEach(e => {
         if(e.isIntersecting) e.target.classList.add('visible');
