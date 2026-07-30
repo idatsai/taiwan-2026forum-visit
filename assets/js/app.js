@@ -182,9 +182,18 @@
         <div class="hotel-list">
           ${d.accommodations.map(h => `
             <article class="hotel-card reveal">
-              <div class="hotel-photo-placeholder" aria-label="Hotel photo placeholder">
-                <span>${h.initials || 'HOTEL'}</span>
-                <small>HOTEL PHOTO</small>
+              <div class="hotel-photo-placeholder">
+                ${h.image ? `
+                  <img
+                    class="hotel-photo-image"
+                    src="${d.imagePath || 'assets/images/control-center/'}${h.image}"
+                    alt="${h.imageAlt || `${h.name} exterior`}"
+                    loading="lazy"
+                  >
+                ` : `
+                  <span>${h.initials || 'HOTEL'}</span>
+                  <small>HOTEL PHOTO</small>
+                `}
               </div>
 
               <div class="hotel-info">
