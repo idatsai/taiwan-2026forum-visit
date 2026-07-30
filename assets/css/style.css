@@ -795,3 +795,33 @@ main:before{
     -webkit-backdrop-filter:none;
   }
 }
+
+
+/* v12 · keep Morning / Afternoon programme panels clear of the timeline */
+.itinerary-period{
+  position:relative;
+  z-index:2;
+  margin-left:128px;
+  width:auto;
+  box-sizing:border-box;
+  background:rgba(225,236,234,.72);
+  border-left:3px solid var(--forum-gold);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+
+.itinerary-period:first-child{
+  margin-top:0;
+}
+
+@media(max-width:760px){
+  .itinerary-period{
+    margin-left:98px;
+  }
+}
+
+@media(max-width:480px){
+  .itinerary-period{
+    margin-left:0;
+  }
+}
