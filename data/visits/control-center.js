@@ -116,8 +116,9 @@ window.RHB_VISITS["control-center"] = {
       address: "No. 187, Jinhua St., Daan Dist., Taipei City 106, Taiwan",
       phone: "+886 2 2341 8828",
       phoneHref: "tel:+886223418828",
-      note: "Reception: Enter through the main entrance and take the elevator on the left to the 2nd floor.",
+      note: "Enter through the main entrance and take the elevator on the left to the 2nd floor.",
       mapUrl: "https://maps.app.goo.gl/XvsuMLHi2wmdtYCz8",
+      image: "aka-hotel-exterior.jpg",
       initials: "AKA"
     },
     {
@@ -128,6 +129,7 @@ window.RHB_VISITS["control-center"] = {
       phoneHref: "tel:+886224230111",
       note: "",
       mapUrl: "https://maps.app.goo.gl/2F8HCCM6UDPxfnvLA",
+      image: "k-hotel-exterior.jpeg",
       initials: "K"
     }
   ],
