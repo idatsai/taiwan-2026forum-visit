@@ -5,7 +5,7 @@ window.RHB_VISITS["control-center"] = {
   title: "ON-SITE VISITS",
   subtitle: "2026 International Forum on Taiwan Cultural Heritage",
   heroText: "Focusing on the Shuei-Jin-Jiou Mining Sites, one of the potential World Heritage sites in Taiwan.",
-  heroImage: "assets/images/control-center/index_main.jpg",
+  heroImage: "assets/images/control-center/forum-hero-banner-1920.jpg",
   meta: [
     {label:"Emergency · Ida Tsai  +886 9 3652 5410", href:"tel:+886936525410"},
     {label:"Emergency · Pei Lin  +886 983 129 837", href:"tel:+886983129837"}
