@@ -852,3 +852,151 @@ main:before{
     max-height:340px;
   }
 }
+
+
+/* v14 · navigation readability, Shuei-Jin-Jiou callout, and spacing cleanup */
+
+/* Keep the complete navigation on one line.
+   On narrower screens it becomes a smooth horizontal scroller instead of
+   shrinking or wrapping Practical Information onto a second row. */
+.nav-inner{
+  display:flex;
+  align-items:center;
+  flex-wrap:nowrap;
+  gap:18px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(182,139,52,.48) transparent;
+  -webkit-overflow-scrolling:touch;
+  scroll-behavior:smooth;
+  padding-bottom:4px;
+}
+
+.nav-inner::-webkit-scrollbar{
+  height:5px;
+}
+
+.nav-inner::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+.nav-inner::-webkit-scrollbar-thumb{
+  background:rgba(182,139,52,.45);
+  border-radius:999px;
+}
+
+.brand,
+.visit-switcher,
+.nav-links{
+  flex:0 0 auto;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  flex-wrap:nowrap;
+  gap:24px;
+  min-width:max-content;
+}
+
+.nav-links a{
+  flex:0 0 auto;
+  white-space:nowrap;
+  font-family:"Manrope","Noto Sans TC",sans-serif;
+  font-size:.88rem;
+  font-weight:800;
+  letter-spacing:.025em;
+  line-height:1.2;
+  padding:17px 0 15px;
+}
+
+.visit-switcher{
+  display:flex;
+  align-items:center;
+  flex-wrap:nowrap;
+  gap:8px;
+}
+
+.visit-switcher a,
+.journey-button{
+  white-space:nowrap;
+  font-size:.79rem;
+}
+
+@media(min-width:1180px){
+  .nav-inner{
+    gap:22px;
+  }
+
+  .nav-links{
+    gap:27px;
+  }
+
+  .nav-links a{
+    font-size:.92rem;
+  }
+}
+
+@media(max-width:900px){
+  .site-nav{
+    overflow:hidden;
+  }
+
+  .nav-inner{
+    width:100%;
+    max-width:none;
+    padding-left:20px;
+    padding-right:20px;
+  }
+
+  .nav-links{
+    gap:22px;
+  }
+
+  .nav-links a{
+    font-size:.86rem;
+  }
+}
+
+/* Introductory Shuei-Jin-Jiou statement */
+.lead{
+  max-width:1180px;
+  margin:46px auto 20px;
+  padding:28px 34px;
+  box-sizing:border-box;
+  color:#fff;
+  background:
+    linear-gradient(118deg,rgba(11,65,75,.97),rgba(15,89,101,.92));
+  border:1px solid rgba(217,189,105,.34);
+  border-left:6px solid var(--forum-gold);
+  border-radius:18px;
+  box-shadow:0 18px 42px rgba(12,65,75,.14);
+  font-family:"Manrope","Noto Sans TC",sans-serif;
+  font-size:clamp(1.02rem,1.25vw,1.18rem);
+  font-weight:500;
+  line-height:1.85;
+  letter-spacing:-.01em;
+}
+
+@media(max-width:760px){
+  .lead{
+    margin:30px 18px 12px;
+    padding:22px 22px;
+    border-radius:15px;
+    font-size:.98rem;
+    line-height:1.72;
+  }
+}
+
+/* Once the legacy Core Observation section is hidden, prevent excess spacing
+   between the introductory content and Detailed Itinerary. */
+#overview + section[hidden],
+#overview + section[style*="display: none"]{
+  margin:0!important;
+  padding:0!important;
+}
+
+#system{
+  margin-top:18px;
+}
