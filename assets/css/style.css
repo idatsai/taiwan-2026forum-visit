@@ -1000,3 +1000,169 @@ main:before{
 #system{
   margin-top:18px;
 }
+
+
+/* v15 · Programme at a Glance: three-day editorial layout */
+.overview-three-day-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,2fr);
+  overflow:visible;
+  padding:0;
+  scroll-snap-type:none;
+}
+
+.overview-three-day-grid .study-journey-stop{
+  min-width:0;
+  min-height:270px;
+  padding:30px 30px 28px;
+  border-right:1px solid rgba(159,126,57,.24);
+  border-radius:0;
+  box-shadow:none;
+  text-decoration:none;
+}
+
+.overview-three-day-grid .study-journey-stop:last-child{
+  border-right:0;
+}
+
+/* Remove the pale 01 / 02 / 03 / 04 numerals */
+.overview-three-day-grid .journey-index{
+  display:none!important;
+}
+
+/* Large, left-aligned dates */
+.overview-date{
+  display:block;
+  margin:0 0 22px!important;
+  color:var(--forum-gold)!important;
+  font-family:"Manrope","Noto Sans TC",sans-serif!important;
+  font-size:clamp(1.8rem,2.25vw,2.55rem)!important;
+  font-weight:800!important;
+  line-height:1.02!important;
+  letter-spacing:-.045em!important;
+  text-transform:none;
+}
+
+.overview-day-card b,
+.overview-session b{
+  margin:0 0 8px;
+  color:var(--forum-teal-dark);
+  font-family:"Manrope","Noto Sans TC",sans-serif;
+  font-size:1.05rem;
+  font-weight:750;
+  line-height:1.35;
+}
+
+.overview-day-card p,
+.overview-session p{
+  margin:0;
+  color:var(--muted);
+  font-size:.82rem;
+  line-height:1.55;
+}
+
+.overview-day-card .journey-link,
+.overview-session .journey-link{
+  margin-top:18px;
+  font-size:.76rem;
+}
+
+/* September 3 is one day card, split evenly into morning / afternoon */
+.overview-day-three{
+  display:block;
+  background:
+    linear-gradient(135deg,rgba(15,89,101,.055),rgba(217,189,105,.06)),
+    rgba(255,255,255,.74);
+}
+
+.overview-day-three-sessions{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  min-height:165px;
+  border-top:1px solid rgba(159,126,57,.22);
+}
+
+.overview-session{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  padding:20px 24px 4px 0;
+  color:inherit;
+  text-decoration:none;
+}
+
+.overview-session + .overview-session{
+  padding-left:24px;
+  padding-right:0;
+  border-left:1px solid rgba(159,126,57,.24);
+}
+
+.overview-session-label{
+  display:block;
+  margin-bottom:10px;
+  color:var(--forum-gold);
+  font-family:"Manrope","Noto Sans TC",sans-serif;
+  font-size:.72rem;
+  font-weight:900;
+  letter-spacing:.14em;
+  line-height:1;
+  text-transform:uppercase;
+}
+
+.overview-session .journey-link{
+  margin-top:auto;
+  padding-top:18px;
+}
+
+/* Gentle hover without changing the editorial structure */
+.overview-day-card:hover,
+.overview-session:hover{
+  background:rgba(217,189,105,.07);
+}
+
+@media(max-width:980px){
+  .overview-three-day-grid{
+    display:flex;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:thin;
+  }
+
+  .overview-three-day-grid .overview-day-card{
+    flex:0 0 285px;
+    scroll-snap-align:start;
+  }
+
+  .overview-three-day-grid .overview-day-three{
+    flex:0 0 560px;
+    scroll-snap-align:start;
+  }
+
+  .overview-date{
+    font-size:2rem!important;
+  }
+}
+
+@media(max-width:620px){
+  .overview-three-day-grid .overview-day-card{
+    flex-basis:82vw;
+  }
+
+  .overview-three-day-grid .overview-day-three{
+    flex-basis:88vw;
+  }
+
+  .overview-day-three-sessions{
+    grid-template-columns:1fr;
+  }
+
+  .overview-session{
+    padding:18px 0;
+  }
+
+  .overview-session + .overview-session{
+    padding-left:0;
+    border-left:0;
+    border-top:1px solid rgba(159,126,57,.24);
+  }
+}
