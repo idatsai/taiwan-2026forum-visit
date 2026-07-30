@@ -32,6 +32,7 @@ window.RHB_VISITS["control-center"] = {
       phone: "+886 2 2341 8828",
       phoneHref: "tel:+886223418828",
       note: "Reception: Enter through the main entrance and take the elevator on the left to the 2nd floor.",
+      mapUrl: "https://maps.app.goo.gl/XvsuMLHi2wmdtYCz8",
       initials: "AKA"
     },
     {
@@ -41,6 +42,7 @@ window.RHB_VISITS["control-center"] = {
       phone: "+886 2 2423 0111",
       phoneHref: "tel:+886224230111",
       note: "",
+      mapUrl: "https://maps.app.goo.gl/2F8HCCM6UDPxfnvLA",
       initials: "K"
     }
   ],
