@@ -1166,3 +1166,144 @@ main:before{
     border-top:1px solid rgba(159,126,57,.24);
   }
 }
+
+
+/* v16 · navigation arrow controls and compact intro spacing */
+
+/* Remove the native horizontal scrollbar and reserve room for arrow controls. */
+.site-nav{
+  position:sticky;
+  overflow:hidden;
+}
+
+.nav-inner{
+  max-width:none;
+  padding-left:56px;
+  padding-right:56px;
+  padding-bottom:0;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+}
+
+.nav-inner::-webkit-scrollbar{
+  display:none;
+}
+
+.nav-scroll-button{
+  position:absolute;
+  top:50%;
+  z-index:6;
+  display:grid;
+  place-items:center;
+  width:34px;
+  height:34px;
+  padding:0;
+  border:1px solid rgba(182,139,52,.36);
+  border-radius:50%;
+  color:var(--forum-teal);
+  background:rgba(249,246,238,.96);
+  box-shadow:0 6px 18px rgba(15,89,101,.12);
+  font-family:"Manrope",sans-serif;
+  font-size:1.05rem;
+  font-weight:800;
+  line-height:1;
+  cursor:pointer;
+  transform:translateY(-50%);
+  transition:background .2s ease,color .2s ease,border-color .2s ease,opacity .2s ease;
+}
+
+.nav-scroll-prev{
+  left:12px;
+}
+
+.nav-scroll-next{
+  right:12px;
+}
+
+.nav-scroll-button:hover:not(:disabled){
+  color:#fff;
+  background:var(--forum-teal);
+  border-color:var(--forum-teal);
+}
+
+.nav-scroll-button:disabled{
+  opacity:.28;
+  cursor:default;
+}
+
+.nav-scroll-button[hidden]{
+  display:none;
+}
+
+/* Increase the navigation labels while keeping them on one horizontal line. */
+.nav-links a{
+  font-size:.98rem;
+  font-weight:800;
+  letter-spacing:.015em;
+}
+
+.visit-switcher a,
+.journey-button{
+  font-size:.84rem;
+}
+
+@media(min-width:1180px){
+  .nav-links a{
+    font-size:1rem;
+  }
+}
+
+@media(max-width:900px){
+  .nav-inner{
+    padding-left:52px;
+    padding-right:52px;
+  }
+
+  .nav-links a{
+    font-size:.94rem;
+  }
+}
+
+@media(max-width:600px){
+  .nav-scroll-button{
+    width:31px;
+    height:31px;
+  }
+
+  .nav-scroll-prev{
+    left:8px;
+  }
+
+  .nav-scroll-next{
+    right:8px;
+  }
+}
+
+/* Bring the Shuei-Jin-Jiou statement closer to the navigation and following content. */
+main{
+  padding-top:24px;
+}
+
+.lead{
+  margin:12px auto 14px;
+  padding:22px 32px;
+  font-size:clamp(1.12rem,1.45vw,1.3rem);
+  line-height:1.68;
+}
+
+#system{
+  margin-top:10px;
+}
+
+@media(max-width:760px){
+  main{
+    padding-top:18px;
+  }
+
+  .lead{
+    margin:8px 16px 10px;
+    padding:20px 20px;
+    font-size:1.04rem;
+    line-height:1.62;
+  }
+}
