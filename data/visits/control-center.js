@@ -151,6 +151,45 @@ window.RHB_VISITS["control-center"] = {
   ]
 },
   
+  practicalInfo: [
+    {
+      icon: "weather",
+      label: "WEATHER",
+      value: "26–32°C",
+      text: "September in northern Taiwan is generally warm and humid. Light clothing and sun protection are recommended."
+    },
+    {
+      icon: "rain",
+      label: "RAIN & TYPHOON SEASON",
+      value: "Umbrella Recommended",
+      text: "Short showers may occur, and September is still within Taiwan’s typhoon season. Please check the latest weather updates."
+    },
+    {
+      icon: "power",
+      label: "POWER SUPPLY",
+      value: "110V · 60Hz",
+      text: "Please check whether your electronic devices support Taiwan’s voltage before use."
+    },
+    {
+      icon: "plug",
+      label: "PLUG TYPE",
+      value: "Type A / Type B",
+      text: "Two-flat-pin and three-pin sockets are commonly used. Travellers may need a power adapter."
+    },
+    {
+      icon: "clothing",
+      label: "CLOTHING & FOOTWEAR",
+      value: "Light · Comfortable · Non-slip",
+      text: "Wear comfortable walking shoes for hillside routes and mining sites. Bring a light jacket for air-conditioned venues."
+    },
+    {
+      icon: "connectivity",
+      label: "CONNECTIVITY",
+      value: "Wi-Fi · SIM · Roaming",
+      text: "Hotel and venue Wi-Fi is generally available. A local SIM card or roaming service is recommended for travel days."
+    }
+  ],
+
 facts: [
   {value:20260529, display:"2026.09.01", label:"DATES", animate:false},
   {value:2, suffix:" Hours", label:"Mountain town guided"},
