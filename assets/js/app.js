@@ -50,16 +50,13 @@
       <a href="${forumUrl}" target="_blank" rel="noopener noreferrer" class="external-link">FORUM WEBSITE ↗</a>
     `;
 
-    const hiddenNavSections = new Set(['system', 'gallery']);
+    const hiddenNavSections = new Set(['gallery']);
     $('#navLinks').innerHTML = (d.nav || [])
       .filter(x => !hiddenNavSections.has(x.id))
-      .map(x => {
-        const label = x.id === 'overview' ? 'Study Journey' : x.label;
-        return `<a href="#${x.id}" data-section="${x.id}">${label}</a>`;
-      })
+      .map(x => `<a href="#${x.id}" data-section="${x.id}">${x.label}</a>`)
       .join('');
 
-    // Replace the former Overview section with a four-part Study Journey.
+    // Four-part programme overview.
     const oldJourney = $('#journey');
     if(oldJourney){
       oldJourney.hidden = true;
@@ -67,24 +64,29 @@
     }
 
     const overviewSection = $('#overview');
+    const overviewCards = d.overviewCards || [
+      {date:'September 1', title:'Mining Heritage Landscape Visit'},
+      {date:'September 2', title:'Coal Mining Heritage Visit'},
+      {date:'September 3 Morning', title:'National Railway Museum Visit'},
+      {date:'September 3 Afternoon', title:'International Experts Exchange Meeting'}
+    ];
+
     overviewSection.innerHTML = `
       <div class="journey-intro study-journey-block">
         <div class="journey-copy reveal">
-          <div class="section-kicker">Study Journey</div>
-          <h2>On-site Visit Schedule</h2>
-          <p>Explore the programme across four visit periods.</p>
+          <div class="section-kicker">Overview</div>
+          <h2>Programme at a Glance</h2>
+          <p>A quick overview of the three-day on-site visit programme.</p>
         </div>
         <div class="journey-strip study-journey-strip">
-          ${[
-            'September 1',
-            'September 2',
-            'September 3 Morning',
-            'September 3 Afternoon'
-          ].map((label, index) => `
-            <article class="journey-stop study-journey-stop reveal">
+          ${overviewCards.map((item, index) => `
+            <a class="journey-stop study-journey-stop reveal" href="#system">
               <span class="journey-index">${String(index + 1).padStart(2, '0')}</span>
-              <time>${label}</time>
-            </article>
+              <time>${item.date}</time>
+              <b>${item.title || ''}</b>
+              ${item.note ? `<p>${item.note}</p>` : ''}
+              <span class="journey-link">View detailed itinerary ↓</span>
+            </a>
           `).join('')}
         </div>
       </div>
@@ -94,30 +96,86 @@
 
     const labels = d.sectionLabels || {};
 
-    $('#systemKicker').textContent = labels.systemKicker || 'Operations';
-    $('#systemTitle').textContent = labels.systemTitle || '控制中心如何運作';
-    $('#peopleKicker').textContent = labels.peopleKicker || 'People';
-    $('#peopleTitle').textContent = labels.peopleTitle || '人才培訓：行控能力需要長期養成';
+    $('#systemKicker').textContent = labels.systemKicker || 'Three-Day Programme';
+    $('#systemTitle').textContent = labels.systemTitle || 'Detailed Itinerary';
+    $('#peopleKicker').textContent = labels.peopleKicker || 'Stay';
+    $('#peopleTitle').textContent = labels.peopleTitle || 'Accommodation';
     const responseKicker = $('#responseKicker');
     responseKicker.textContent = '';
     responseKicker.hidden = true;
     $('#responseTitle').textContent = 'Welcome Dinner · 2 September';
 
-    $('#operationCards').innerHTML = cardGrid(d.operationCards);
+    const itineraryDays = d.detailedItinerary || [];
+    $('#operationCards').innerHTML = `
+      <div class="detailed-itinerary">
+        ${itineraryDays.map((day, dayIndex) => `
+          <article class="itinerary-day reveal" id="itinerary-day-${dayIndex + 1}">
+            <header class="itinerary-day-header">
+              <div class="itinerary-day-number">${String(dayIndex + 1).padStart(2, '0')}</div>
+              <div>
+                <span>${day.label || `DAY ${dayIndex + 1}`}</span>
+                <h3>${day.date}</h3>
+                <p>${day.title || ''}</p>
+              </div>
+            </header>
 
-    $('#process').innerHTML = (d.process || []).map((x, i) =>
-      `<details class="process-item reveal" ${i === 0 ? 'open' : ''}>
-        <summary>
-          <span class="step">${String(i + 1).padStart(2, '0')}</span>
-          <span>
-            <b>${x.title}</b>
-            <small>${x.summary}</small>
-          </span>
-          <span class="plus">＋</span>
-        </summary>
-        <p>${x.detail}</p>
-      </details>`
-    ).join('');
+            ${day.meta?.length ? `
+              <div class="itinerary-meta">
+                ${day.meta.map(item => `<span>${item}</span>`).join('')}
+              </div>
+            ` : ''}
+
+            ${day.notice ? `<div class="itinerary-notice">${day.notice}</div>` : ''}
+
+            <div class="itinerary-timeline">
+              ${(day.items || []).map(item => `
+                ${item.section ? `
+                  <div class="itinerary-period">
+                    <span>${item.section}</span>
+                    ${item.sectionTitle ? `<b>${item.sectionTitle}</b>` : ''}
+                  </div>
+                ` : `
+                  <div class="itinerary-entry ${item.type ? `is-${item.type}` : ''}">
+                    <time>${item.time || ''}</time>
+                    <div class="itinerary-entry-body">
+                      <h4>${item.title || ''}</h4>
+                      ${item.location ? `<p class="itinerary-location">${item.location}</p>` : ''}
+                      ${item.note ? `<p>${item.note}</p>` : ''}
+
+                      ${item.venue ? `
+                        <details class="venue-detail">
+                          <summary>Explore Venue <span>＋</span></summary>
+                          <div class="venue-detail-card">
+                            ${item.venue.image
+                              ? `<img src="${item.venue.image}" alt="${item.venue.name || item.title}" loading="lazy">`
+                              : `<div class="venue-photo-placeholder"><span>VENUE PHOTO</span></div>`
+                            }
+                            <div class="venue-detail-copy">
+                              <span>HERITAGE SITE</span>
+                              <h5>${item.venue.name || item.title}</h5>
+                              <p>${item.venue.description || ''}</p>
+                              ${item.venue.focus ? `<div class="venue-focus"><b>Heritage Focus</b><span>${item.venue.focus}</span></div>` : ''}
+                              ${item.venue.mapUrl ? `<a href="${item.venue.mapUrl}" target="_blank" rel="noopener noreferrer">View on Google Maps ↗</a>` : ''}
+                            </div>
+                          </div>
+                        </details>
+                      ` : ''}
+                    </div>
+                  </div>
+                `}
+              `).join('')}
+            </div>
+          </article>
+        `).join('')}
+      </div>
+    `;
+
+    const processBlock = $('#process');
+    if(processBlock){
+      processBlock.innerHTML = '';
+      processBlock.hidden = true;
+      processBlock.style.display = 'none';
+    }
 
     if(d.accommodations?.length){
       $('#peopleText').innerHTML = `
@@ -233,8 +291,8 @@
 
     $('#lessonCards').innerHTML = cardGrid(d.lessons);
 
-    // Hide unused sections: Operations, Reflection, Gallery and Topics.
-    const unusedSectionTargets = ['#operationCards', '#reflection', '#galleryGrid', '#tags'];
+    // Hide unused sections: Reflection, Gallery and Topics.
+    const unusedSectionTargets = ['#reflection', '#galleryGrid', '#tags'];
     unusedSectionTargets.forEach(selector => {
       const target = $(selector);
       const section = target?.closest('.section');
