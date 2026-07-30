@@ -1,3 +1,150 @@
+/* Welcome dinner */
+.welcome-dinner-card{
+  display:grid;
+  grid-template-columns:minmax(0, 1.08fr) minmax(320px, .92fr);
+  overflow:hidden;
+  border-radius:24px;
+  background:#172430;
+  box-shadow:0 18px 45px rgba(20,31,40,.14);
+}
+
+.welcome-dinner-gallery{
+  position:relative;
+  min-width:0;
+  min-height:460px;
+  overflow:hidden;
+  background:#101820;
+}
+
+.welcome-dinner-track{
+  display:flex;
+  width:100%;
+  height:100%;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scrollbar-width:none;
+  overscroll-behavior-x:contain;
+}
+
+.welcome-dinner-track::-webkit-scrollbar{
+  display:none;
+}
+
+.welcome-dinner-slide{
+  flex:0 0 100%;
+  width:100%;
+  height:460px;
+  margin:0;
+  scroll-snap-align:start;
+}
+
+.welcome-dinner-slide img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+}
+
+.welcome-dinner-info{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:54px 48px;
+  color:#fff;
+}
+
+.welcome-dinner-info > span{
+  margin-bottom:18px;
+  color:#efb2b5;
+  font-size:.78rem;
+  font-weight:800;
+  letter-spacing:.17em;
+}
+
+.welcome-dinner-info h3{
+  margin:0 0 24px;
+  color:#fff;
+  font-size:clamp(2rem, 3vw, 3.2rem);
+  line-height:1.06;
+}
+
+.welcome-dinner-info p{
+  margin:0;
+  color:rgba(255,255,255,.82);
+  font-size:1.04rem;
+  line-height:1.9;
+}
+
+.dinner-arrow{
+  position:absolute;
+  top:50%;
+  z-index:2;
+  display:grid;
+  width:46px;
+  height:46px;
+  padding:0;
+  border:1px solid rgba(255,255,255,.5);
+  border-radius:50%;
+  background:rgba(15,25,34,.68);
+  color:#fff;
+  font-size:1.2rem;
+  cursor:pointer;
+  place-items:center;
+  transform:translateY(-50%);
+  backdrop-filter:blur(6px);
+}
+
+.dinner-prev{
+  left:18px;
+}
+
+.dinner-next{
+  right:18px;
+}
+
+.dinner-arrow:hover{
+  background:rgba(15,25,34,.9);
+}
+
+.dinner-dots{
+  position:absolute;
+  bottom:18px;
+  left:50%;
+  z-index:2;
+  display:flex;
+  gap:8px;
+  transform:translateX(-50%);
+}
+
+.dinner-dots button{
+  width:9px;
+  height:9px;
+  padding:0;
+  border:1px solid rgba(255,255,255,.85);
+  border-radius:50%;
+  background:transparent;
+  cursor:pointer;
+}
+
+.dinner-dots button.active{
+  background:#fff;
+}
+
+@media (max-width: 820px){
+  .welcome-dinner-card{
+    grid-template-columns:1fr;
+  }
+
+  .welcome-dinner-gallery,
+  .welcome-dinner-slide{
+    min-height:340px;
+    height:340px;
+  }
+
+  .welcome-dinner-info{
+    padding:36px 28px 42px;
+  }
+}
 :root{--red:#c8102e;--red-dark:#8e0b22;--ink:#1b2733;--muted:#66717c;--paper:#f6f4ef;--card:#fff;--line:#dde2e6;--accent:#e8efe9;--hero-image:none}
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:86px}body{margin:0;font-family:"Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.8}a{color:inherit}.progress{position:fixed;left:0;top:0;height:4px;background:var(--red);width:0;z-index:99;transition:width .08s linear}
 .hero{min-height:78vh;background:linear-gradient(90deg,rgba(14,23,32,.94),rgba(14,23,32,.48)),var(--hero-image) center/cover;display:flex;align-items:flex-end;color:#fff;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;inset:auto -10% -40% 30%;height:70%;background:radial-gradient(circle,rgba(200,16,46,.32),transparent 65%);pointer-events:none}.hero-inner{max-width:1120px;margin:auto;width:100%;padding:90px 28px 72px;position:relative;z-index:1}.eyebrow{letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#ffd8df}.hero h1{font-size:clamp(2.5rem,6vw,5rem);line-height:1.05;margin:.45rem 0 .2rem}.hero h2{font-size:clamp(1.25rem,2.4vw,2rem);font-weight:500;margin:0 0 1.1rem;color:#ffd8df}.hero p{max-width:790px;font-size:1.12rem;color:#f1f3f5}.meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}.meta span{border:1px solid rgba(255,255,255,.42);padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.08);backdrop-filter:blur(8px)}.scroll-cue{position:absolute;right:28px;bottom:24px;font-size:.82rem;letter-spacing:.08em;writing-mode:vertical-rl;opacity:.75}
