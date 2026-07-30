@@ -228,3 +228,54 @@ main{max-width:1120px;margin:auto;padding:58px 28px 100px}.lead{font-size:1.3rem
 .hotel-info{padding:34px 38px;display:flex;flex-direction:column;justify-content:center}.hotel-info h3{font-family:Georgia,"Noto Serif TC",serif;font-size:clamp(1.65rem,3vw,2.35rem);margin:10px 0 22px;color:#fff}.hotel-stay span{display:block;color:#f4aeb9;font-size:.7rem;font-weight:900;letter-spacing:.16em}.hotel-stay b{display:block;margin-top:4px;color:#f4c8cf;font-size:.95rem;line-height:1.55}
 .hotel-info dl{margin:0;display:grid;gap:14px}.hotel-info dl>div{display:grid;grid-template-columns:94px 1fr;gap:15px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}.hotel-info dt{color:#f4aeb9;font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.hotel-info dd{margin:0;color:#e2e8ec;line-height:1.65}.hotel-info a{color:#fff;text-underline-offset:3px}
 @media(max-width:760px){.hotel-card{grid-template-columns:1fr}.hotel-photo-placeholder{min-height:180px}.hotel-info{padding:28px 24px}.hotel-info dl>div{grid-template-columns:1fr;gap:4px}}
+
+
+/* v8 · overview and detailed itinerary */
+.study-journey-stop b{display:block;margin:12px 0 6px;font-family:Georgia,"Noto Serif TC",serif;font-size:1.08rem;line-height:1.35;color:var(--ink)}
+.study-journey-stop p{min-height:auto;margin:0;color:var(--muted)}
+.study-journey-stop .journey-link{margin-top:16px}
+.detailed-itinerary{display:grid;gap:52px}
+.itinerary-day{overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 18px 50px rgba(23,35,48,.07)}
+.itinerary-day-header{display:grid;grid-template-columns:116px 1fr;gap:28px;align-items:center;padding:38px 42px;background:linear-gradient(135deg,#172430,#243747);color:#fff}
+.itinerary-day-number{font-family:Georgia,serif;font-size:4.6rem;line-height:1;color:rgba(255,255,255,.16);font-weight:800}
+.itinerary-day-header span{display:block;color:#f4aeb9;font-size:.72rem;font-weight:900;letter-spacing:.18em}
+.itinerary-day-header h3{margin:5px 0 4px;font-family:Georgia,"Noto Serif TC",serif;font-size:clamp(2rem,4vw,3.15rem);line-height:1.05;color:#fff}
+.itinerary-day-header p{margin:0;color:#dce4e9;font-size:1rem;line-height:1.65}
+.itinerary-meta{display:flex;flex-wrap:wrap;gap:9px;padding:20px 42px 0}
+.itinerary-meta span{padding:6px 12px;border-radius:999px;background:#f3e6e8;color:var(--red-dark);font-size:.78rem;font-weight:800}
+.itinerary-notice{margin:20px 42px 0;padding:17px 19px;border-left:4px solid var(--red);border-radius:0 12px 12px 0;background:#fff4f5;color:#4b5660;font-size:.92rem;line-height:1.7}
+.itinerary-timeline{position:relative;padding:28px 42px 42px}
+.itinerary-timeline:before{content:"";position:absolute;left:151px;top:32px;bottom:45px;width:1px;background:#d9dfe3}
+.itinerary-entry{position:relative;display:grid;grid-template-columns:86px 1fr;gap:42px;padding:17px 0}
+.itinerary-entry:before{content:"";position:absolute;left:104px;top:29px;width:9px;height:9px;border:3px solid #fff;border-radius:50%;background:var(--red);box-shadow:0 0 0 1px var(--red)}
+.itinerary-entry time{padding-top:2px;color:var(--red);font-size:.86rem;font-weight:900;line-height:1.4;text-align:right}
+.itinerary-entry-body{min-width:0;padding:0 0 17px;border-bottom:1px solid #edf0f2}
+.itinerary-entry:last-child .itinerary-entry-body{border-bottom:0}
+.itinerary-entry h4{margin:0;font-family:Georgia,"Noto Serif TC",serif;font-size:1.18rem;line-height:1.45;color:var(--ink)}
+.itinerary-entry p{margin:6px 0 0;color:#64717c;font-size:.9rem;line-height:1.7}
+.itinerary-location{color:var(--red-dark)!important;font-weight:700}
+.itinerary-entry.is-transfer h4,.itinerary-entry.is-train h4{color:#3d6378}
+.itinerary-entry.is-meal h4{color:#9a602d}
+.itinerary-entry.is-hotel h4{color:#75508a}
+.itinerary-period{margin:30px 0 10px;padding:14px 18px;border-radius:12px;background:#eef2f3}
+.itinerary-period:first-child{margin-top:0}
+.itinerary-period span{display:block;color:var(--red);font-size:.7rem;font-weight:900;letter-spacing:.16em}
+.itinerary-period b{display:block;margin-top:2px;font-family:Georgia,"Noto Serif TC",serif;font-size:1.15rem;color:var(--ink)}
+.venue-detail{margin-top:14px;border:1px solid #dfe4e7;border-radius:14px;overflow:hidden;background:#faf9f6}
+.venue-detail summary{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:12px 16px;list-style:none;cursor:pointer;color:var(--red);font-size:.78rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.venue-detail summary::-webkit-details-marker{display:none}
+.venue-detail summary span{font-size:1.15rem;transition:transform .2s}
+.venue-detail[open] summary span{transform:rotate(45deg)}
+.venue-detail-card{display:grid;grid-template-columns:minmax(210px,.8fr) minmax(0,1.2fr);border-top:1px solid #dfe4e7;background:#fff}
+.venue-detail-card img,.venue-photo-placeholder{width:100%;height:100%;min-height:250px;object-fit:cover;display:block}
+.venue-photo-placeholder{display:grid;place-items:center;background:linear-gradient(145deg,#d8d1c2,#b7aa93);color:#3e403d;font-size:.7rem;font-weight:900;letter-spacing:.18em}
+.venue-detail-copy{padding:28px}
+.venue-detail-copy>span{display:block;color:var(--red);font-size:.68rem;font-weight:900;letter-spacing:.15em}
+.venue-detail-copy h5{margin:6px 0 12px;font-family:Georgia,"Noto Serif TC",serif;font-size:1.45rem;line-height:1.3}
+.venue-detail-copy p{margin:0;color:#5b6872;line-height:1.75}
+.venue-focus{display:flex;flex-direction:column;gap:2px;margin-top:18px;padding-top:15px;border-top:1px solid #e5e8ea}
+.venue-focus b{color:var(--red);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+.venue-focus span{color:#52616c;font-size:.88rem}
+.venue-detail-copy a{display:inline-block;margin-top:17px;color:var(--red);font-size:.84rem;font-weight:800;text-underline-offset:3px}
+@media(max-width:760px){.itinerary-day-header{grid-template-columns:72px 1fr;gap:16px;padding:28px 24px}.itinerary-day-number{font-size:3.3rem}.itinerary-meta{padding:18px 24px 0}.itinerary-notice{margin:18px 24px 0}.itinerary-timeline{padding:22px 24px 30px}.itinerary-timeline:before{left:105px}.itinerary-entry{grid-template-columns:63px 1fr;gap:35px}.itinerary-entry:before{left:77px}.itinerary-entry time{text-align:left;font-size:.78rem}.venue-detail-card{grid-template-columns:1fr}.venue-detail-card img,.venue-photo-placeholder{min-height:210px;height:210px}.venue-detail-copy{padding:23px 21px}}
+@media(max-width:480px){.itinerary-day-header{grid-template-columns:1fr}.itinerary-day-number{display:none}.itinerary-timeline:before{display:none}.itinerary-entry{grid-template-columns:1fr;gap:4px;padding:14px 0}.itinerary-entry:before{display:none}.itinerary-entry time{color:var(--red);font-size:.82rem}.itinerary-meta{gap:6px}.itinerary-meta span{font-size:.7rem}.itinerary-notice{font-size:.85rem}}
