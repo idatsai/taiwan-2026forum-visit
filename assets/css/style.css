@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;800;900&display=swap");
+
 /* Welcome dinner */
 .welcome-dinner-card{
   display:grid;
@@ -361,4 +363,435 @@ main{max-width:1120px;margin:auto;padding:58px 28px 100px}.lead{font-size:1.3rem
   color:#6a7680;
   font-size:.76rem;
   line-height:1.55;
+}
+
+
+/* v11 · 2026 forum visual identity
+   Warm paper base + ore gold + mountain green + deep teal.
+   Appended as theme overrides so all previous functions remain intact. */
+:root{
+  --red:#b68b34;
+  --red-dark:#8d6823;
+  --ink:#252624;
+  --muted:#68716c;
+  --paper:#f5f0e5;
+  --card:rgba(255,255,255,.76);
+  --line:rgba(159,126,57,.25);
+  --accent:rgba(62,118,48,.10);
+  --forum-gold:#b68b34;
+  --forum-gold-light:#d9bd69;
+  --forum-green:#39752f;
+  --forum-teal:#0f5965;
+  --forum-teal-dark:#0b414b;
+  --forum-paper:#f5f0e5;
+  --forum-ink:#252624;
+}
+
+html,body,
+button,input,select,textarea{
+  font-family:"Manrope","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;
+}
+
+body{
+  color:var(--forum-ink);
+  background:
+    radial-gradient(circle at 8% 10%,rgba(217,189,105,.11),transparent 28%),
+    radial-gradient(circle at 94% 34%,rgba(15,89,101,.07),transparent 30%),
+    var(--forum-paper);
+}
+
+.hero h1,
+.hero h2,
+.lead,
+.section h2,
+.host-card h3,
+.footer-title,
+.hotel-info h3,
+.hotel-photo-placeholder span,
+.study-journey-stop b,
+.itinerary-day-number,
+.itinerary-day-header h3,
+.itinerary-entry h4,
+.welcome-dinner-info h3{
+  font-family:"Manrope","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;
+}
+
+.hero h1,
+.section h2,
+.itinerary-day-header h3,
+.hotel-info h3,
+.welcome-dinner-info h3{
+  font-weight:800;
+  letter-spacing:-.035em;
+}
+
+.hero h2,
+.lead{
+  font-weight:500;
+  letter-spacing:-.015em;
+}
+
+/* Main navigation and buttons */
+.progress{
+  background:linear-gradient(90deg,var(--forum-gold),var(--forum-green),var(--forum-teal));
+}
+
+.site-nav{
+  background:rgba(249,246,238,.90);
+  border-bottom-color:rgba(159,126,57,.25);
+}
+
+.brand,
+.nav-links a:hover,
+.nav-links a.active,
+.section-kicker,
+.card strong,
+.process-item .step,
+.journey-link{
+  color:var(--forum-teal);
+}
+
+.nav-links a:after{
+  background:linear-gradient(90deg,var(--forum-gold),var(--forum-teal));
+}
+
+.visit-switcher a,
+.journey-button{
+  border-color:var(--forum-teal);
+  color:var(--forum-teal);
+  background:rgba(255,255,255,.72);
+  font-family:"Manrope","Noto Sans TC",sans-serif;
+  font-weight:800;
+}
+
+.visit-switcher a:hover,
+.visit-switcher a.active,
+.journey-button:hover{
+  background:var(--forum-teal);
+  border-color:var(--forum-teal);
+  color:#fff;
+  box-shadow:0 7px 18px rgba(15,89,101,.20);
+}
+
+.back-top{
+  background:var(--forum-teal);
+  box-shadow:0 8px 25px rgba(15,89,101,.28);
+}
+
+.meta a.meta-contact:hover{
+  background:var(--forum-gold);
+  border-color:var(--forum-gold);
+}
+
+/* Section titles */
+.section h2{
+  color:var(--forum-teal-dark);
+  border-left-color:var(--forum-gold);
+}
+
+.section-kicker{
+  color:var(--forum-gold);
+}
+
+/* Cards */
+.card,
+.fact,
+.process-item,
+.figure{
+  background:rgba(255,255,255,.72);
+  border-color:rgba(159,126,57,.22);
+  box-shadow:0 12px 34px rgba(28,58,55,.06);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+.card:hover,
+.figure:hover{
+  box-shadow:0 18px 42px rgba(28,58,55,.12);
+}
+
+.fact{
+  border-top-color:var(--forum-gold);
+}
+
+/* Overview */
+.study-journey-stop{
+  background:rgba(255,255,255,.74);
+  border-color:rgba(159,126,57,.24);
+  box-shadow:0 15px 38px rgba(28,58,55,.07);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+.study-journey-stop b{
+  color:var(--forum-teal-dark);
+}
+
+.study-journey-stop .journey-link{
+  color:var(--forum-gold);
+}
+
+/* Detailed Itinerary: translucent paper cards */
+.detailed-itinerary{
+  gap:58px;
+}
+
+.itinerary-day{
+  position:relative;
+  overflow:hidden;
+  background:rgba(255,255,255,.68);
+  border:1px solid rgba(182,139,52,.32);
+  box-shadow:0 20px 52px rgba(25,67,69,.09);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+
+.itinerary-day:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 94% 8%,rgba(217,189,105,.13),transparent 24%),
+    linear-gradient(120deg,rgba(255,255,255,.20),transparent 45%);
+}
+
+.itinerary-day > *{
+  position:relative;
+  z-index:1;
+}
+
+.itinerary-day-header{
+  background:
+    linear-gradient(120deg,rgba(12,65,75,.97),rgba(15,89,101,.91)),
+    linear-gradient(135deg,var(--forum-teal-dark),var(--forum-teal));
+}
+
+.itinerary-day:nth-child(2) .itinerary-day-header{
+  background:linear-gradient(120deg,#315f2c,#4b8138);
+}
+
+.itinerary-day:nth-child(3) .itinerary-day-header{
+  background:linear-gradient(120deg,#80601f,#b68b34);
+}
+
+.itinerary-day-header span{
+  color:#f2d989;
+}
+
+.itinerary-day-header p{
+  color:rgba(255,255,255,.82);
+}
+
+.itinerary-day-number{
+  color:rgba(255,255,255,.18);
+  font-weight:800;
+}
+
+.itinerary-meta span{
+  background:rgba(182,139,52,.12);
+  color:#765619;
+  border:1px solid rgba(182,139,52,.20);
+}
+
+.itinerary-notice{
+  border-left-color:var(--forum-gold);
+  background:rgba(217,189,105,.12);
+}
+
+.itinerary-timeline:before{
+  width:2px;
+  background:linear-gradient(
+    to bottom,
+    var(--forum-gold) 0%,
+    var(--forum-green) 52%,
+    var(--forum-teal) 100%
+  );
+  opacity:.48;
+}
+
+.itinerary-entry:before{
+  background:var(--forum-paper);
+  border-color:var(--forum-gold);
+  box-shadow:0 0 0 1px var(--forum-gold),0 0 0 5px rgba(182,139,52,.10);
+}
+
+.itinerary-entry time{
+  color:var(--forum-teal);
+  font-family:"Manrope",sans-serif;
+  font-weight:800;
+}
+
+.itinerary-entry h4{
+  color:var(--forum-teal-dark);
+  font-weight:700;
+}
+
+.itinerary-entry-body{
+  border-bottom-color:rgba(116,125,118,.16);
+}
+
+.itinerary-location{
+  color:#8a6827!important;
+}
+
+.itinerary-entry.is-transfer h4,
+.itinerary-entry.is-train h4{
+  color:var(--forum-teal);
+}
+
+.itinerary-entry.is-meal h4{
+  color:#9a6b20;
+}
+
+.itinerary-entry.is-hotel h4{
+  color:#526f3c;
+}
+
+.itinerary-period{
+  background:rgba(15,89,101,.08);
+  color:var(--forum-teal-dark);
+  border:1px solid rgba(15,89,101,.12);
+}
+
+/* Accommodation */
+.hotel-card,
+.host-card{
+  background:linear-gradient(135deg,var(--forum-teal-dark),#153b42);
+  box-shadow:0 20px 48px rgba(13,57,63,.16);
+}
+
+.hotel-info h3{
+  color:#fff;
+}
+
+.hotel-stay span,
+.hotel-info dt,
+.host-card span{
+  color:#e1c66f;
+}
+
+.hotel-stay b,
+.host-card b{
+  color:#f0dda2;
+}
+
+/* Welcome dinner */
+.welcome-dinner-card{
+  background:linear-gradient(135deg,var(--forum-teal-dark),#153b42);
+  box-shadow:0 20px 50px rgba(13,57,63,.16);
+}
+
+.welcome-dinner-info h3{
+  color:#fff;
+}
+
+.dinner-arrow{
+  background:rgba(8,56,65,.72);
+}
+
+.dinner-arrow:hover{
+  background:var(--forum-gold);
+}
+
+/* Practical information */
+.practical-info-card{
+  background:rgba(255,255,255,.68);
+  border-color:rgba(159,126,57,.24);
+  box-shadow:0 14px 38px rgba(28,58,55,.07);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+.practical-info-card:nth-child(3n+2){
+  background:rgba(217,189,105,.10);
+}
+
+.practical-info-card:nth-child(3n){
+  background:rgba(15,89,101,.07);
+}
+
+.practical-icon{
+  color:var(--forum-teal);
+  background:rgba(15,89,101,.08);
+}
+
+.practical-card-copy span{
+  color:var(--forum-gold);
+}
+
+.practical-card-copy h3{
+  color:var(--forum-teal-dark);
+  font-family:"Manrope","Noto Sans TC",sans-serif;
+  font-weight:800;
+}
+
+.practical-example summary{
+  color:var(--forum-teal);
+}
+
+.practical-example summary b{
+  border-color:rgba(15,89,101,.30);
+}
+
+.practical-example[open] summary b{
+  background:var(--forum-teal);
+}
+
+/* Footer */
+.footer{
+  background:linear-gradient(135deg,#0b414b,#12343a);
+}
+
+.footer-label{
+  color:#e1c66f;
+}
+
+.footer-rule{
+  background:linear-gradient(90deg,var(--forum-gold),var(--forum-green));
+}
+
+/* Subtle flowing-line atmosphere inspired by the forum key visual */
+main{
+  position:relative;
+}
+
+main:before{
+  content:"";
+  position:absolute;
+  left:-12vw;
+  right:-12vw;
+  top:9%;
+  height:360px;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.18;
+  background:
+    radial-gradient(ellipse at 28% 50%,transparent 0 52%,rgba(182,139,52,.34) 53% 54%,transparent 55% 60%,rgba(182,139,52,.21) 61% 62%,transparent 63%),
+    radial-gradient(ellipse at 78% 52%,transparent 0 55%,rgba(15,89,101,.24) 56% 57%,transparent 58%);
+}
+
+@media(max-width:800px){
+  .itinerary-day{
+    background:rgba(255,255,255,.78);
+  }
+
+  main:before{
+    opacity:.10;
+  }
+}
+
+@media(prefers-reduced-transparency:reduce){
+  .card,
+  .fact,
+  .process-item,
+  .figure,
+  .study-journey-stop,
+  .itinerary-day,
+  .practical-info-card{
+    background:#fff;
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
 }
