@@ -119,6 +119,7 @@ window.RHB_VISITS["control-center"] = {
       note: "Enter through the main entrance and take the elevator on the left to the 2nd floor.",
       mapUrl: "https://maps.app.goo.gl/XvsuMLHi2wmdtYCz8",
       image: "aka-hotel-exterior.jpg",
+      imageAlt: "Exterior of AKA Hotel",
       initials: "AKA"
     },
     {
@@ -130,6 +131,7 @@ window.RHB_VISITS["control-center"] = {
       note: "",
       mapUrl: "https://maps.app.goo.gl/2F8HCCM6UDPxfnvLA",
       image: "k-hotel-exterior.jpeg",
+      imageAlt: "Exterior of K Hotels Keelung",
       initials: "K"
     }
   ],
