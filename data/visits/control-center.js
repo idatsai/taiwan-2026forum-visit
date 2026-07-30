@@ -6,7 +6,10 @@ window.RHB_VISITS["control-center"] = {
   subtitle: "2026 International Forum on Taiwan Cultural Heritage",
   heroText: "Focusing on the Shuei-Jin-Jiou Mining Sites, one of the potential World Heritage sites in Taiwan.",
   heroImage: "assets/images/control-center/index_main.jpg",
-  meta: ["TaiwanMiningHeritage", "Taiwan", "BOCH"],
+  meta: [
+    {label:"Emergency · Ida Tsai  +886 9 3652 5410", href:"tel:+886936525410"},
+    {label:"Emergency · Pei Lin  +886 983 129 837", href:"tel:+886983129837"}
+  ],
   host: {name:"Wu Chao-tan", role:"金瓜石的天公仔囝故事館創辦人", image:"assets/images/control-center/wu-chaotan.jpg", note:"由礦工後代吳朝潭與妻子王佳蘭共同創辦的在地文化空間，致力於保存金瓜石的礦業歷史、礦山生活記憶與藝術傳承。"},
   lead: "The Shuei-Jin-Jiou Mining Sites is not only a significant testament to the development of Taiwan's mining industry, but also a cultural landscape shaped by the intertwined histories of local communities, industry, transportation, and everyday life.",
   nav: [
@@ -16,6 +19,30 @@ window.RHB_VISITS["control-center"] = {
     {id:"response", label:"Welcome Dinner"},
     {id:"lessons", label:"Practical Information"},
     {id:"gallery", label:"Emergency Contact"}
+  ],
+  sectionLabels: {
+    peopleKicker: "Stay",
+    peopleTitle: "Accommodation"
+  },
+  accommodations: [
+    {
+      name: "AKA Hotel",
+      stay: "From arrival in Taiwan to 1 September; from 2 September until departure",
+      address: "No. 187, Jinhua St., Daan Dist., Taipei City 106, Taiwan",
+      phone: "+886 2 2341 8828",
+      phoneHref: "tel:+886223418828",
+      note: "Reception: Enter through the main entrance and take the elevator on the left to the 2nd floor.",
+      initials: "AKA"
+    },
+    {
+      name: "K Hotels Keelung",
+      stay: "One night · 1 September 2026",
+      address: "No. 7, Yi 1st Rd., Zhongzheng Dist., Keelung City 202, Taiwan",
+      phone: "+886 2 2423 0111",
+      phoneHref: "tel:+886224230111",
+      note: "",
+      initials: "K"
+    }
   ],
 facts: [
   {value:20260529, display:"2026.09.01", label:"DATES", animate:false},
