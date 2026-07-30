@@ -17,7 +17,13 @@
     document.title = `${d.title}｜2026 International Forum on Taiwan Cultural Heritage`;
     document.documentElement.style.setProperty('--hero-image', `url('${d.heroImage}')`); const heroBg=$('#heroBg'); heroBg.src=d.heroImage; heroBg.alt=`${d.title}現地參訪資訊`; 
     $('#eyebrow').textContent=d.eyebrow; $('#title').textContent=d.title; $('#subtitle').textContent=d.subtitle;
-    $('#heroText').textContent=d.heroText; $('#meta').innerHTML=d.meta.map(x=>`<span>${x}</span>`).join(''); $('#lead').textContent=d.lead;
+    $('#heroText').textContent=d.heroText;
+    $('#meta').innerHTML=(d.meta||[]).map(x=>{
+      if(typeof x==='string') return `<span>${x}</span>`;
+      const label=x.label||'';
+      return x.href?`<a href="${x.href}" class="meta-contact">${label}</a>`:`<span>${label}</span>`;
+    }).join('');
+    $('#lead').textContent=d.lead;
     $('#visitSwitcher').innerHTML=`
       <a href="#visit=control-center" class="active">ON-SITE VISITS</a>
       <a href="${forumUrl}" target="_blank" rel="noopener noreferrer" class="external-link">FORUM WEBSITE ↗</a>
@@ -32,7 +38,27 @@
     $('#responseKicker').textContent=labels.responseKicker||'Response'; $('#responseTitle').textContent=labels.responseTitle||'異常事件與跨系統協作';
     $('#operationCards').innerHTML=cardGrid(d.operationCards);
     $('#process').innerHTML=d.process.map((x,i)=>`<details class="process-item reveal" ${i===0?'open':''}><summary><span class="step">${String(i+1).padStart(2,'0')}</span><span><b>${x.title}</b><small>${x.summary}</small></span><span class="plus">＋</span></summary><p>${x.detail}</p></details>`).join('');
-    $('#peopleText').innerHTML=d.people.map(x=>`<p>${x}</p>`).join(''); $('#responseCards').innerHTML=cardGrid(d.responseCards); $('#lessonCards').innerHTML=cardGrid(d.lessons);
+    if(d.accommodations?.length){
+      $('#peopleText').innerHTML=`<div class="hotel-list">${d.accommodations.map(h=>`
+        <article class="hotel-card reveal">
+          <div class="hotel-photo-placeholder" aria-label="Hotel photo placeholder">
+            <span>${h.initials||'HOTEL'}</span>
+            <small>HOTEL PHOTO</small>
+          </div>
+          <div class="hotel-info">
+            <div class="hotel-stay"><span>STAY</span><b>${h.stay}</b></div>
+            <h3>${h.name}</h3>
+            <dl>
+              <div><dt>Address</dt><dd>${h.address}</dd></div>
+              <div><dt>Telephone</dt><dd><a href="${h.phoneHref||'#'}">${h.phone}</a></dd></div>
+              ${h.note?`<div><dt>Reception</dt><dd>${h.note}</dd></div>`:''}
+            </dl>
+          </div>
+        </article>`).join('')}</div>`;
+    }else{
+      $('#peopleText').innerHTML=(d.people||[]).map(x=>`<p>${x}</p>`).join('');
+    }
+    $('#responseCards').innerHTML=cardGrid(d.responseCards); $('#lessonCards').innerHTML=cardGrid(d.lessons);
     $('#reflection').innerHTML=d.reflection.map(x=>`<p>${x}</p>`).join('');
     const path=d.imagePath||'assets/images/control-center/';
     $('#galleryGrid').innerHTML=d.gallery.map((x,i)=>`<figure class="figure reveal" data-index="${i}" tabindex="0"><img src="${path}${x.file}" alt="${d.title}照片${i+1}" loading="lazy"><figcaption>${x.caption}</figcaption></figure>`).join('');
