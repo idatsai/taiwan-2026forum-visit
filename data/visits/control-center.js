@@ -46,6 +46,26 @@ window.RHB_VISITS["control-center"] = {
       initials: "K"
     }
   ],
+
+  welcomeDinner: {
+  title: "Welcome Dinner at AKA Cafe",
+  description: "Welcome to AKA Cafe, a dining space housed in a century-old historical building in Dadaocheng. Here, guests can enjoy a meal while experiencing the unique charm of Taipei's preserved heritage and traditional architecture.",
+  images: [
+    {
+      file: "welcome-dinner-01.jpg",
+      alt: "Historic interior of AKA Cafe"
+    },
+    {
+      file: "welcome-dinner-02.jpg",
+      alt: "Courtyard view at AKA Cafe"
+    },
+    {
+      file: "welcome-dinner-03.jpg",
+      alt: "Garden and historic architecture at AKA Cafe"
+    }
+  ]
+},
+  
 facts: [
   {value:20260529, display:"2026.09.01", label:"DATES", animate:false},
   {value:2, suffix:" Hours", label:"Mountain town guided"},
