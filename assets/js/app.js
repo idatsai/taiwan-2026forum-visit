@@ -462,6 +462,7 @@
         const maxScroll = Math.max(0, navInner.scrollWidth - navInner.clientWidth);
         const hasOverflow = maxScroll > 8;
 
+        navInner.classList.toggle('has-overflow', hasOverflow);
         prevNav.hidden = !hasOverflow;
         nextNav.hidden = !hasOverflow;
         prevNav.disabled = navInner.scrollLeft <= 4;
