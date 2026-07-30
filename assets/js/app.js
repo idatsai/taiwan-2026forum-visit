@@ -17,8 +17,6 @@
     document.title = `${d.title}｜2026 International Forum on Taiwan Cultural Heritage`;
     document.documentElement.style.setProperty('--hero-image', `url('${d.heroImage}')`); const heroBg=$('#heroBg'); heroBg.src=d.heroImage; heroBg.alt=`${d.title}現地參訪資訊`; 
     $('#eyebrow').textContent=d.eyebrow; $('#title').textContent=d.title; $('#subtitle').textContent=d.subtitle;
-    $('#journeyTitle').textContent=site.title||'ON-SITE VISIT ITINERARY'; $('#journeyIntro').textContent=site.intro||'';
-    $('#journeyStrip').innerHTML=(site.itinerary||[]).map((x,i)=>{const clickable=x.visit&&visits[x.visit];return `<${clickable?'a':'article'} ${clickable?`href="#visit=${x.visit}"`:''} class="journey-stop ${x.visit===d.id?'current':''} ${x.status||''}"><span class="journey-index">${String(i+1).padStart(2,'0')}</span><time>${x.date}</time><small>${x.place}</small><b>${x.title}</b><p>${x.note}</p>${clickable?'<span class="journey-link">查看單元 →</span>':''}</${clickable?'a':'article'}>`}).join('');
     $('#heroText').textContent=d.heroText; $('#meta').innerHTML=d.meta.map(x=>`<span>${x}</span>`).join(''); $('#lead').textContent=d.lead;
     $('#visitSwitcher').innerHTML=`
       <a href="#visit=control-center" class="active">ON-SITE VISITS</a>
