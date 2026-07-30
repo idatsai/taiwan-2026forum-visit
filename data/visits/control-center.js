@@ -172,9 +172,14 @@ window.RHB_VISITS["control-center"] = {
     },
     {
       icon: "plug",
-      label: "PLUG TYPE",
+      label: "ELECTRICAL OUTLETS",
       value: "Type A / Type B",
-      text: "Two-flat-pin and three-pin sockets are commonly used. Travellers may need a power adapter."
+      text: "Taiwan commonly uses Type A and Type B electrical outlets. A travel adapter may be required.",
+      exampleLabel: "View Example",
+      closeLabel: "Close Example",
+      exampleImage: "taiwan-plug-outlet-guide.jpg",
+      exampleAlt: "Examples of Type A and Type B plugs and electrical outlets commonly used in Taiwan",
+      exampleCaption: "Common plugs and electrical outlets used in Taiwan."
     },
     {
       icon: "clothing",
