@@ -279,3 +279,21 @@ main{max-width:1120px;margin:auto;padding:58px 28px 100px}.lead{font-size:1.3rem
 .venue-detail-copy a{display:inline-block;margin-top:17px;color:var(--red);font-size:.84rem;font-weight:800;text-underline-offset:3px}
 @media(max-width:760px){.itinerary-day-header{grid-template-columns:72px 1fr;gap:16px;padding:28px 24px}.itinerary-day-number{font-size:3.3rem}.itinerary-meta{padding:18px 24px 0}.itinerary-notice{margin:18px 24px 0}.itinerary-timeline{padding:22px 24px 30px}.itinerary-timeline:before{left:105px}.itinerary-entry{grid-template-columns:63px 1fr;gap:35px}.itinerary-entry:before{left:77px}.itinerary-entry time{text-align:left;font-size:.78rem}.venue-detail-card{grid-template-columns:1fr}.venue-detail-card img,.venue-photo-placeholder{min-height:210px;height:210px}.venue-detail-copy{padding:23px 21px}}
 @media(max-width:480px){.itinerary-day-header{grid-template-columns:1fr}.itinerary-day-number{display:none}.itinerary-timeline:before{display:none}.itinerary-entry{grid-template-columns:1fr;gap:4px;padding:14px 0}.itinerary-entry:before{display:none}.itinerary-entry time{color:var(--red);font-size:.82rem}.itinerary-meta{gap:6px}.itinerary-meta span{font-size:.7rem}.itinerary-notice{font-size:.85rem}}
+
+
+/* v9 · practical information icon chart */
+#lessons .section-head{align-items:end}
+#lessons .section-intro{max-width:660px;margin:10px 0 0;color:var(--muted);font-size:.95rem;line-height:1.7}
+.practical-info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.practical-info-card{position:relative;min-height:255px;padding:26px;border:1px solid #dde3e6;border-radius:20px;background:linear-gradient(145deg,#fff 0%,#faf8f3 100%);box-shadow:0 14px 34px rgba(23,35,48,.07);overflow:hidden;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.practical-info-card:nth-child(2n){background:linear-gradient(145deg,#f7f9fa 0%,#eef3f4 100%)}
+.practical-info-card:hover{transform:translateY(-4px);border-color:#d7b5bc;box-shadow:0 20px 42px rgba(23,35,48,.11)}
+.practical-info-card:after{content:"";position:absolute;width:110px;height:110px;right:-44px;bottom:-50px;border-radius:50%;background:rgba(142,11,34,.055)}
+.practical-icon{display:grid;place-items:center;width:58px;height:58px;margin-bottom:28px;border-radius:17px;background:#8e0b22;color:#fff;box-shadow:0 10px 22px rgba(142,11,34,.18)}
+.practical-icon svg{width:31px;height:31px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.practical-card-copy{position:relative;z-index:1}
+.practical-card-copy>span{display:block;color:var(--red);font-size:.68rem;font-weight:900;letter-spacing:.14em;line-height:1.45}
+.practical-card-copy h3{margin:8px 0 10px;font-family:Georgia,"Noto Serif TC",serif;font-size:clamp(1.25rem,2vw,1.62rem);line-height:1.25;color:var(--ink)}
+.practical-card-copy p{margin:0;color:#64717c;font-size:.88rem;line-height:1.7}
+@media(max-width:900px){.practical-info-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.practical-info-grid{grid-template-columns:1fr}.practical-info-card{min-height:auto;padding:23px}.practical-icon{margin-bottom:21px}}
