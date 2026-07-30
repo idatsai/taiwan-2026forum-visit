@@ -39,23 +39,37 @@
     $('#operationCards').innerHTML=cardGrid(d.operationCards);
     $('#process').innerHTML=d.process.map((x,i)=>`<details class="process-item reveal" ${i===0?'open':''}><summary><span class="step">${String(i+1).padStart(2,'0')}</span><span><b>${x.title}</b><small>${x.summary}</small></span><span class="plus">＋</span></summary><p>${x.detail}</p></details>`).join('');
     if(d.accommodations?.length){
-      $('#peopleText').innerHTML=`<div class="hotel-list">${d.accommodations.map(h=>`
-        <article class="hotel-card reveal">
-          <div class="hotel-photo-placeholder" aria-label="Hotel photo placeholder">
-            <span>${h.initials||'HOTEL'}</span>
-            <small>HOTEL PHOTO</small>
-          </div>
-          <div class="hotel-info">
-            <div class="hotel-stay"><span>STAY</span><b>${h.stay}</b></div>
-            <h3>${h.name}</h3>
-            <dl>
-              <div><dt>Address</dt><dd>${h.address}</dd></div>
-              <div><dt>Telephone</dt><dd><a href="${h.phoneHref||'#'}">${h.phone}</a></dd></div>
-              ${h.note?`<div><dt>Reception</dt><dd>${h.note}</dd></div>`:''}
-            </dl>
-          </div>
-        </article>`).join('')}</div>`;
-    }else{
+  $('#peopleText').innerHTML=`<div class="hotel-list">${d.accommodations.map(h=>`
+    <article class="hotel-card reveal">
+      <div class="hotel-photo-placeholder" aria-label="Hotel photo placeholder">
+        <span>${h.initials||'HOTEL'}</span>
+        <small>HOTEL PHOTO</small>
+      </div>
+      <div class="hotel-info">
+        <div class="hotel-stay"><span>STAY</span><b>${h.stay}</b></div>
+        <h3>${h.name}</h3>
+        <dl>
+          <div><dt>Address</dt><dd>${h.address}</dd></div>
+          <div><dt>Telephone</dt><dd><a href="${h.phoneHref||'#'}">${h.phone}</a></dd></div>
+          ${h.note?`<div><dt>Reception</dt><dd>${h.note}</dd></div>`:''}
+          ${h.mapUrl?`
+            <div>
+              <dt>Location</dt>
+              <dd>
+                <a
+                  href="${h.mapUrl}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View on Google Maps ↗
+                </a>
+              </dd>
+            </div>
+          `:''}
+        </dl>
+      </div>
+    </article>`).join('')}</div>`;
+}else{
       $('#peopleText').innerHTML=(d.people||[]).map(x=>`<p>${x}</p>`).join('');
     }
     $('#responseCards').innerHTML=cardGrid(d.responseCards); $('#lessonCards').innerHTML=cardGrid(d.lessons);
