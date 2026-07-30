@@ -297,3 +297,68 @@ main{max-width:1120px;margin:auto;padding:58px 28px 100px}.lead{font-size:1.3rem
 .practical-card-copy p{margin:0;color:#64717c;font-size:.88rem;line-height:1.7}
 @media(max-width:900px){.practical-info-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.practical-info-grid{grid-template-columns:1fr}.practical-info-card{min-height:auto;padding:23px}.practical-icon{margin-bottom:21px}}
+
+
+/* v10 · electrical outlet example */
+.practical-example{
+  position:relative;
+  z-index:2;
+  margin-top:18px;
+  border-top:1px solid rgba(88,103,114,.16);
+}
+.practical-example summary{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 0 0;
+  list-style:none;
+  cursor:pointer;
+  color:var(--red);
+  font-size:.76rem;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.practical-example summary::-webkit-details-marker{display:none}
+.practical-example summary b{
+  display:grid;
+  place-items:center;
+  width:28px;
+  height:28px;
+  flex:0 0 28px;
+  border:1px solid rgba(142,11,34,.25);
+  border-radius:50%;
+  font-size:1rem;
+  line-height:1;
+  transition:transform .2s ease,background .2s ease,color .2s ease;
+}
+.practical-example[open] summary b{
+  transform:rotate(45deg);
+  background:var(--red);
+  color:#fff;
+}
+.example-close-label{display:none}
+.practical-example[open] .example-open-label{display:none}
+.practical-example[open] .example-close-label{display:inline}
+.practical-example-panel{
+  margin-top:14px;
+  padding:12px;
+  border:1px solid #dde3e6;
+  border-radius:14px;
+  background:#fff;
+}
+.practical-example-panel img{
+  display:block;
+  width:100%;
+  max-height:340px;
+  object-fit:contain;
+  border-radius:10px;
+  background:#f7f7f5;
+}
+.practical-example-panel p{
+  margin:10px 2px 0;
+  color:#6a7680;
+  font-size:.76rem;
+  line-height:1.55;
+}
