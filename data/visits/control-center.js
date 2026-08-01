@@ -7,8 +7,8 @@ window.RHB_VISITS["control-center"] = {
   heroText: "Focusing on the Shuei-Jin-Jiou Mining Sites, one of the potential World Heritage sites in Taiwan.",
   heroImage: "assets/images/control-center/forum-hero-banner-1920.jpg",
   meta: [
-    {label:"Emergency · Ida Tsai  +886 9 3652 5410", href:"tel:+886936525410"},
-    {label:"Emergency · Pei Lin  +886 983 129 837", href:"tel:+886983129837"}
+    {label:"Contact · Ida Tsai  +886 9 3652 5410", href:"tel:+886936525410"},
+    {label:"Contact · Pei Lin  +886 983 129 837", href:"tel:+886983129837"}
   ],
   host: {name:"Wu Chao-tan", role:"金瓜石的天公仔囝故事館創辦人", image:"assets/images/control-center/wu-chaotan.jpg", note:"由礦工後代吳朝潭與妻子王佳蘭共同創辦的在地文化空間，致力於保存金瓜石的礦業歷史、礦山生活記憶與藝術傳承。"},
   lead: "The Shuei-Jin-Jiou Mining Sites is not only a significant testament to the development of Taiwan's mining industry, but also a cultural landscape shaped by the intertwined histories of local communities, industry, transportation, and everyday life.",
@@ -28,19 +28,19 @@ window.RHB_VISITS["control-center"] = {
   },
 
   overviewCards: [
-    {date:"September 1", title:"Shuinandong · Jinguashi · Jiufen", note:"Mining Heritage Landscape Visit"},
-    {date:"September 2", title:"Houtong · Shifen", note:"Coal Mining Heritage Visit"},
-    {date:"September 3 Morning", title:"National Railway Museum", note:"Railway Industrial Heritage Visit"},
-    {date:"September 3 Afternoon", title:"International Experts Exchange Meeting", note:"Discussion and Knowledge Exchange"}
+    {date:"September 1", title:"Shuinandong · Jinguashi · Jiufen", note:"Shuei-Jin-Jiou Mining Sites Visit"},
+    {date:"September 2", title:"Houtong · Shifen", note:"Coal Mining Heritage Sites Visit"},
+    {date:"September 3 Morning", title:"National Railway Museum", note:"Railway Heritage Site Visit"},
+    {date:"September 3 Afternoon", title:"International Experts Exchange Meeting", note:"Discussion and Exchange on Taiwan Mining Heritage"}
   ],
 
   detailedItinerary: [
     {
       label:"DAY 01",
       date:"September 1",
-      title:"Shuinandong · Jinguashi · Jiufen — Mining Heritage Landscape Visit",
-      meta:["Private coach", "Outdoor and hillside routes", "Stay: K Hotels Keelung"],
-      notice:"Meet at the AKA Hotel lobby at 08:00. Please check out before meeting. Guests are advised to carry an overnight bag; other luggage may be stored at AKA Hotel.",
+      title:"Shuinandong · Jinguashi · Shuei-Jin-Jiou Mining Sites",
+      meta:["Chartered Bus", "Outdoor and hillside routes", "Stay: AKA Hotel"],
+      notice:"Meet at the AKA Hotel lobby at 08:00. Please check out before meeting. Guests are advised to bring an overnight bag. Any luggage not required for the trip may be stored at AKA Hotel.",
       items:[
         {time:"08:00", title:"Meet at AKA Hotel Lobby", type:"meeting"},
         {time:"08:10–09:30", title:"Transfer to Shuinandong", type:"transfer"},
