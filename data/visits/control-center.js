@@ -40,7 +40,8 @@ window.RHB_VISITS["control-center"] = {
       date:"September 1",
       title:"Shuinandong · Jinguashi · Shuei-Jin-Jiou Mining Sites",
       meta:["Chartered Bus", "Outdoor and hillside routes", "Stay: AKA Hotel"],
-      notice:"Meet at the AKA Hotel lobby at 08:00. Please check out before meeting. Guests are advised to bring an overnight bag. Any luggage not required for the trip may be stored at AKA Hotel.",
+      notice:"Meet at the AKA Hotel lobby at 08:00. Please check out before meeting. 
+        Guests are advised to bring an overnight bag. Any luggage not required for the trip may be stored at AKA Hotel.",
       items:[
         {time:"08:00", title:"Meet at AKA Hotel Lobby", type:"meeting"},
         {time:"08:10–09:30", title:"Transfer to Shuinandong", type:"transfer"},
