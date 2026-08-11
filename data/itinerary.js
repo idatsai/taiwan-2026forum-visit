@@ -71,7 +71,7 @@ window.RHB_ITINERARIES["control-center"] = {
         {time:"11:30–12:00", title:"Head to NCCU Public Administration and Business Administration Education Center", type:"transfer"},
         {time:"12:00–13:30", title:"Lunch", type:"meal"},
         {section:"AFTERNOON PROGRAMME", sectionTitle:"International Experts Exchange Meeting on Taiwan's Mining Heritage"},
-        {time:"13:30–13:40", title:"Opening Remarks", location:"A616, Room A616, Center for Public and Business Administration Education (CPBAE), National Chengchi University (NCCU)"},
+        {time:"13:30–13:40", title:"Opening Remarks", location:"Room A616, Center for Public and Business Administration Education (CPBAE), National Chengchi University (NCCU)"},
         {time:"13:40–13:55", title:"Potential World Heritage Sites in Taiwan: Briefing on the “Shuei-Jin-Jiou Mining Sites” Tentative List Documentation", note:"Speaker: Lin Hsiao-Wei, Chair of the Advisory Committee, Asian Network of Industrial Heritage (ANIH); Professor, Department of Architecture, Chung Yuan Christian University"},
         {time:"13:55–14:10", title:"Discussion and Feedback"},
         {time:"14:10–14:30", title:"Session 2 · Directions for Further Development of the “Shuei-Jin-Jiou Mining Sites” Documentation and Key Issues for Future Implementation", note:"Representative of the Cultural Affairs Department, New Taipei City Government"},
