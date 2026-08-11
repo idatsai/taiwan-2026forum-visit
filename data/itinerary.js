@@ -66,7 +66,7 @@ window.RHB_ITINERARIES["control-center"] = {
       items:[
         {section:"MORNING PROGRAMME", sectionTitle:"National Railway Museum Visit"},
         {time:"08:50", title:"Meet at AKA Hotel Lobby", type:"meeting"},
-        {time:"09:00–09:30", title:"Head to National Railway Museum bu taxi.", type:"transfer"},
+        {time:"09:00–09:30", title:"Head to National Railway Museum by taxi.", type:"transfer"},
         {time:"09:30–11:30", title:"National Railway Museum", note:"This visit includes an approximately 10-minute train ride at the museum.", venue:{name:"National Railway Museum", description:"Located within the nationally designated Taipei Railway Workshop historic site, the National Railway Museum preserves and revitalizes Taiwan’s railway industrial heritage. Through exhibitions, restoration workshops, and operational spaces, it presents the development of Taiwan’s railway technology and history. The museum has been opening to the public in phases since 2025.", focus:"Railway Industrial Heritage · Conservation · Adaptive Reuse"}},
         {time:"11:30–12:00", title:"Head to NCCU Public Administration and Business Administration Education Center", type:"transfer"},
         {time:"12:00–13:30", title:"Lunch", type:"meal"},
