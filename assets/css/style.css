@@ -1432,3 +1432,21 @@ main{
     letter-spacing:-.01em;
   }
 }
+
+
+/* Accommodation policy note */
+.accommodation-notice{
+  max-width:1120px;
+  margin:4px auto 24px;
+  color:var(--muted);
+  font-size:.88rem;
+  line-height:1.7;
+}
+
+@media(max-width:760px){
+  .accommodation-notice{
+    margin:2px 0 20px;
+    font-size:.84rem;
+    line-height:1.65;
+  }
+}
