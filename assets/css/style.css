@@ -1410,3 +1410,25 @@ main{
     justify-content:flex-start;
   }
 }
+
+
+/* v18 · keep itinerary time ranges on one line */
+.itinerary-entry time{
+  white-space:nowrap;
+  word-break:keep-all;
+  overflow-wrap:normal;
+  font-variant-numeric:tabular-nums;
+}
+
+/* Give the time column a little more breathing room on tablet-sized screens. */
+@media (min-width:481px) and (max-width:900px){
+  .itinerary-entry{
+    grid-template-columns:78px minmax(0,1fr);
+    gap:40px;
+  }
+
+  .itinerary-entry time{
+    font-size:.80rem;
+    letter-spacing:-.01em;
+  }
+}
