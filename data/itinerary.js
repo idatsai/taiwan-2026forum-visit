@@ -34,11 +34,11 @@ window.RHB_ITINERARIES["control-center"] = {
     {
       label:"DAY 02",
       date:"September 2",
-      title:"Houtong · Shifen — Coal Mining Heritage Visit",
-      meta:["Private coach and TRA local train", "Mining-site experiences", "Welcome Dinner in Taipei"],
+      title:"Houtong · Shifen — Coal Mining Heritage Site Visit",
+      meta:["Transportation: Chartered Vehicles and TRA local train", "Miner for a Day Experience", "Welcome Dinner in Taipei"],
       notice:"Meet at the K Hotels Keelung lobby at 08:10. Please check out before meeting.",
       items:[
-        {time:"08:10–09:00", title:"Transfer to Houtong", type:"transfer"},
+        {time:"08:10–09:00", title:"Heading to Houtong", type:"transfer"},
         {time:"09:00–09:50", title:"Houtong Miners’ Culture and History Museum", venue:{name:"Houtong Miners’ Culture and History Museum", description:"Founded by retired miners, the museum documents local mining operations, miners’ lives and the formation of the settlement. It represents community-led preservation, mutual support and the regeneration of industrial heritage.", focus:"Labour Heritage · Community Action · Local Memory"}},
         {time:"09:50–10:00", title:"Walk to Houtong Station", type:"transfer"},
         {time:"10:09–10:30", title:"TRA Local Train No. 4816", location:"Houtong Station → Shifen Station", note:"Please remain with the group when boarding and alighting.", type:"train"},
@@ -60,7 +60,7 @@ window.RHB_ITINERARIES["control-center"] = {
       label:"DAY 03",
       date:"September 3",
       title:"Railway Heritage Visit and International Experts Exchange Meeting",
-      meta:["Private coach", "Museum visit", "Expert exchange meeting"],
+      meta:["Transportation: Chartered Vehicles", "Museum visit", "Expert exchange meeting"],
       notice:"Meet at the AKA Hotel lobby at 08:50.",
       items:[
         {section:"MORNING PROGRAMME", sectionTitle:"National Railway Museum Visit"},
