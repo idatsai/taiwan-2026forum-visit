@@ -24,6 +24,7 @@ window.RHB_VISITS["control-center"] = {
     peopleKicker: "Stay",
     peopleTitle: "Accommodation"
   },
+  accommodationNotice: "In accordance with Taiwan government policy, disposable personal hygiene items are not provided in guest rooms unless requested. These include toothbrush and toothpaste sets, shower caps, razors, and personal care kits. Drinking water dispensers are available on guest-room floors, and guests are encouraged to bring a reusable bottle or cup. If you require any of these amenities, please contact the hotel reception desk.",
   accommodations: [
     {
       name: "AKA Hotel",
