@@ -5,10 +5,10 @@ window.RHB_VISITS["control-center"] = {
   title: "ON-SITE VISITS",
   subtitle: "2026 International Forum on Taiwan Cultural Heritage",
   heroText: "Focusing on the Shuei-Jin-Jiou Mining Sites, one of the potential World Heritage sites in Taiwan.",
-  heroImage: "assets/images/control-center/forum-hero-banner-1920.jpg",
+  heroImage: "assets/images/control-center/index_main.jpg",
   meta: [
-    {label:"Contact · Ida Tsai  +886 9 3652 5410", href:"tel:+886936525410"},
-    {label:"Contact · Pei Lin  +886 983 129 837", href:"tel:+886983129837"}
+    {label:"Emergency · Ida Tsai  +886 9 3652 5410", href:"tel:+886936525410"},
+    {label:"Emergency · Pei Lin  +886 983 129 837", href:"tel:+886983129837"}
   ],
   host: {name:"Wu Chao-tan", role:"金瓜石的天公仔囝故事館創辦人", image:"assets/images/control-center/wu-chaotan.jpg", note:"由礦工後代吳朝潭與妻子王佳蘭共同創辦的在地文化空間，致力於保存金瓜石的礦業歷史、礦山生活記憶與藝術傳承。"},
   lead: "The Shuei-Jin-Jiou Mining Sites is not only a significant testament to the development of Taiwan's mining industry, but also a cultural landscape shaped by the intertwined histories of local communities, industry, transportation, and everyday life.",
@@ -26,89 +26,6 @@ window.RHB_VISITS["control-center"] = {
     peopleKicker: "Stay",
     peopleTitle: "Accommodation"
   },
-
-  overviewCards: [
-    {date:"September 1", title:"Shuinandong · Jinguashi · Jiufen", note:"Shuei-Jin-Jiou Mining Sites Visit"},
-    {date:"September 2", title:"Houtong · Shifen", note:"Coal Mining Heritage Sites Visit"},
-    {date:"September 3 Morning", title:"National Railway Museum", note:"Railway Heritage Site Visit"},
-    {date:"September 3 Afternoon", title:"International Experts Exchange Meeting", note:"Discussion and Exchange on Taiwan Mining Heritage"}
-  ],
-
-  detailedItinerary: [
-    {
-      label:"DAY 01",
-      date:"September 1",
-      title:"Shuinandong · Jinguashi · Shuei-Jin-Jiou Mining Sites",
-      meta:["Chartered Bus", "Outdoor and hillside routes", "Stay: AKA Hotel"],
-      notice:"Meet at the AKA Hotel lobby at 08:00. Please check out before meeting. Guests are advised to bring an overnight bag. Any luggage not required for the trip may be stored at AKA Hotel.",
-      items:[
-        {time:"08:00", title:"Meet at AKA Hotel Lobby", type:"meeting"},
-        {time:"08:10–09:30", title:"Transfer to Shuinandong", type:"transfer"},
-        {time:"09:30–09:55", title:"Shuinandong Smelter", venue:{name:"Shuinandong Smelter", description:"Also known as the Remains of the Thirteen Levels, this was once the largest ore-dressing and smelting complex serving Shuinandong, Jinguashi and Jiufen. It processed gold, silver and copper ores and remains a landmark of Taiwan’s mining landscape.", focus:"Mining Industry · Industrial Heritage · Cultural Landscape"}},
-        {time:"09:55–10:00", title:"Transfer to Golden Waterfall", type:"transfer"},
-        {time:"10:00–10:10", title:"Golden Waterfall", venue:{name:"Golden Waterfall", description:"Rainwater infiltrating the former mining area reacts with mineral-bearing rock and produces iron-rich acidic drainage. The water flows over the steep terrain, creating the distinctive golden-coloured landscape seen today.", focus:"Mining Environment · Natural and Industrial Landscape"}},
-        {time:"10:10–10:20", title:"Transfer to Cyuanji Temple", type:"transfer"},
-        {time:"10:20–11:50", title:"Jinguashi Mining Heritage Walk", note:"A guided walk linking transport infrastructure, mountain and coastal scenery, religious life, settlement history, wartime memory and miners’ welfare.", venue:{name:"Jinguashi Mining Heritage Landscape", description:"The route presents the layered history of Jinguashi through industrial facilities, community life, religious practices and the mountain-sea landscape. It highlights how mining shaped both the physical environment and local identity.", focus:"Mining Settlement · Community Memory · Cultural Landscape"}},
-        {time:"11:50–13:00", title:"Lunch", type:"meal"},
-        {time:"13:00–15:00", title:"Gold Museum, New Taipei City Government", note:"Including tunnel and gold-panning experiences.", venue:{name:"Gold Museum", description:"Taiwan’s first eco-museum preserves and interprets the mining history and culture of Jinguashi. The museum integrates industrial remains, settlement spaces and community heritage through exhibitions and hands-on experiences.", focus:"Eco-museum · Mining Heritage · Interpretation"}},
-        {time:"15:00–15:15", title:"Transfer to Jiufen", type:"transfer"},
-        {time:"15:15–17:00", title:"Jiufen Gold Ore Museum and Historic Town Walk", venue:{name:"Jiufen Gold Ore Museum", description:"Created from the ancestral home of a late veteran miner, the museum emphasises mining craftsmanship. Guided demonstrations introduce traditional carbide lamps, gold washing and historical mercury-amalgamation techniques.", focus:"Mining Craftsmanship · Community Museum · Local Memory"}},
-        {time:"17:00–18:30", title:"Dinner and Informal Exchange at Jiufen Teahouse", note:"Local speciality meal boxes will be provided.", type:"meal"},
-        {time:"18:30–19:10", title:"Transfer to K Hotels Keelung", type:"transfer"},
-        {time:"19:10", title:"Check-in at K Hotels Keelung", type:"hotel"}
-      ]
-    },
-    {
-      label:"DAY 02",
-      date:"September 2",
-      title:"Houtong · Shifen — Coal Mining Heritage Visit",
-      meta:["Private coach and TRA local train", "Mining-site experiences", "Welcome Dinner in Taipei"],
-      notice:"Meet at the K Hotels Keelung lobby at 08:10. Please check out before meeting.",
-      items:[
-        {time:"08:10–09:00", title:"Transfer to Houtong", type:"transfer"},
-        {time:"09:00–09:50", title:"Houtong Miners’ Culture and History Museum", venue:{name:"Houtong Miners’ Culture and History Museum", description:"Founded by retired miners, the museum documents local mining operations, miners’ lives and the formation of the settlement. It represents community-led preservation, mutual support and the regeneration of industrial heritage.", focus:"Labour Heritage · Community Action · Local Memory"}},
-        {time:"09:50–10:00", title:"Walk to Houtong Station", type:"transfer"},
-        {time:"10:09–10:30", title:"TRA Local Train No. 4816", location:"Houtong Station → Shifen Station", note:"Please remain with the group when boarding and alighting.", type:"train"},
-        {time:"10:30–10:45", title:"Transfer to New Pingxi Coal Mine Museum", type:"transfer"},
-        {time:"10:45–11:45", title:"Underground Mining Experience", note:"Mock tunnel, training tunnel and miners’ inspection room.", venue:{name:"New Pingxi Coal Mine Museum", description:"The museum preserves facilities associated with coal extraction, transport and miners’ daily life. Through tunnels, rail systems and operational spaces, visitors can understand mining production, labour conditions and safety management.", focus:"Coal Mining · Labour Environment · Safety Management"}},
-        {time:"11:45–13:00", title:"Lunch", type:"meal"},
-        {time:"13:00–14:00", title:"Heritage Conservation Tour and Discussion", note:"Discussion on the preservation, interpretation and adaptive reuse of the former mining site."},
-        {time:"14:00–14:30", title:"Historic Mine Train Ride", note:"Ride the century-old mine train into a former mining area.", type:"train"},
-        {time:"14:30–15:30", title:"Coal Preparation Plant and Local Cultural Experience", note:"An eco-friendly sky lantern activity may be arranged, subject to weather conditions."},
-        {time:"15:30–16:30", title:"Return to Taipei", type:"transfer"},
-        {time:"16:30–17:30", title:"Check-in and Rest at AKA Hotel", type:"hotel"},
-        {time:"17:30", title:"Meet at AKA Hotel Lobby", type:"meeting"},
-        {time:"17:30–18:00", title:"Transfer to Dinner Venue", type:"transfer"},
-        {time:"18:00–20:30", title:"Welcome Dinner at AKA Café", type:"meal"},
-        {time:"20:30", title:"Return to AKA Hotel", type:"transfer"}
-      ]
-    },
-    {
-      label:"DAY 03",
-      date:"September 3",
-      title:"Railway Heritage Visit and International Experts Exchange Meeting",
-      meta:["Private coach", "Museum visit", "Expert exchange meeting"],
-      notice:"Meet at the AKA Hotel lobby at 08:50.",
-      items:[
-        {section:"MORNING PROGRAMME", sectionTitle:"National Railway Museum Visit"},
-        {time:"08:50", title:"Meet at AKA Hotel Lobby", type:"meeting"},
-        {time:"09:00–09:30", title:"Transfer to National Railway Museum", type:"transfer"},
-        {time:"09:30–11:30", title:"National Railway Museum", note:"The programme includes an approximately 10-minute train ride.", venue:{name:"National Railway Museum", description:"Located within the nationally designated Taipei Railway Workshop historic site, the museum preserves and revitalises Taiwan’s railway industrial heritage. Exhibitions, restoration workshops and operational spaces present the development of railway technology and history.", focus:"Railway Industrial Heritage · Conservation · Adaptive Reuse"}},
-        {time:"11:30–12:00", title:"Transfer to NCCU Public Administration and Business Administration Education Center", type:"transfer"},
-        {time:"12:00–13:00", title:"Lunch", type:"meal"},
-        {section:"AFTERNOON PROGRAMME", sectionTitle:"International Experts Exchange Meeting"},
-        {time:"13:00–13:10", title:"Opening Remarks", location:"Room A616, NCCU Public Administration and Business Administration Education Center"},
-        {time:"13:10–13:50", title:"Session 1 · Characteristics of Taiwan’s Industrial Heritage", note:"Case sharing by a representative of Taiwan’s competent authority for industrial cultural heritage."},
-        {time:"13:50–14:10", title:"Discussion and Feedback"},
-        {time:"14:10–14:30", title:"Session 2 · Mining Heritage Cases in Taiwan", note:"Speaker: Lin Hsiao-wei, Convener of the Steering Committee of the Asian Network of Industrial Heritage and Professor, Department of Architecture, Chung Yuan Christian University."},
-        {time:"14:30–14:50", title:"Discussion and Feedback"},
-        {time:"14:50–15:00", title:"Group Photo and Closing"},
-        {time:"15:00", title:"Return to AKA Hotel", type:"transfer"},
-        {time:"15:30–18:00", title:"Free Time"},
-        {time:"18:00–19:00", title:"Light Dinner", type:"meal"}
-      ]
-    }
-  ],
   accommodations: [
     {
       name: "AKA Hotel",
@@ -116,10 +33,8 @@ window.RHB_VISITS["control-center"] = {
       address: "No. 187, Jinhua St., Daan Dist., Taipei City 106, Taiwan",
       phone: "+886 2 2341 8828",
       phoneHref: "tel:+886223418828",
-      note: "Enter through the main entrance and take the elevator on the left to the 2nd floor.",
+      note: "Reception: Enter through the main entrance and take the elevator on the left to the 2nd floor.",
       mapUrl: "https://maps.app.goo.gl/XvsuMLHi2wmdtYCz8",
-      image: "aka-hotel-exterior.jpg",
-      imageAlt: "Exterior of AKA Hotel",
       initials: "AKA"
     },
     {
@@ -130,8 +45,6 @@ window.RHB_VISITS["control-center"] = {
       phoneHref: "tel:+886224230111",
       note: "",
       mapUrl: "https://maps.app.goo.gl/2F8HCCM6UDPxfnvLA",
-      image: "k-hotel-exterior.jpeg",
-      imageAlt: "Exterior of K Hotels Keelung",
       initials: "K"
     }
   ],
@@ -155,50 +68,6 @@ window.RHB_VISITS["control-center"] = {
   ]
 },
   
-  practicalInfo: [
-    {
-      icon: "weather",
-      label: "WEATHER",
-      value: "26–32°C",
-      text: "September in northern Taiwan is generally warm and humid. Light clothing and sun protection are recommended."
-    },
-    {
-      icon: "rain",
-      label: "RAIN & TYPHOON SEASON",
-      value: "Umbrella Recommended",
-      text: "Short showers may occur, and September is still within Taiwan’s typhoon season. Please check the latest weather updates."
-    },
-    {
-      icon: "power",
-      label: "POWER SUPPLY",
-      value: "110V · 60Hz",
-      text: "Please check whether your electronic devices support Taiwan’s voltage before use."
-    },
-    {
-      icon: "plug",
-      label: "ELECTRICAL OUTLETS",
-      value: "Type A / Type B",
-      text: "Taiwan commonly uses Type A and Type B electrical outlets. A travel adapter may be required.",
-      exampleLabel: "View Example",
-      closeLabel: "Close Example",
-      exampleImage: "taiwan-plug-outlet-guide.jpg",
-      exampleAlt: "Examples of Type A and Type B plugs and electrical outlets commonly used in Taiwan",
-      exampleCaption: "Common plugs and electrical outlets used in Taiwan."
-    },
-    {
-      icon: "clothing",
-      label: "CLOTHING & FOOTWEAR",
-      value: "Light · Comfortable · Non-slip",
-      text: "Wear comfortable walking shoes for hillside routes and mining sites. Bring a light jacket for air-conditioned venues."
-    },
-    {
-      icon: "connectivity",
-      label: "CONNECTIVITY",
-      value: "Wi-Fi · SIM · Roaming",
-      text: "Hotel and venue Wi-Fi is generally available. A local SIM card or roaming service is recommended for travel days."
-    }
-  ],
-
 facts: [
   {value:20260529, display:"2026.09.01", label:"DATES", animate:false},
   {value:2, suffix:" Hours", label:"Mountain town guided"},
