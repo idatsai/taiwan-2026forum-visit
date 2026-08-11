@@ -3,33 +3,6 @@
   const site = window.RHB_SITE || {itinerary:[]};
   const order = ["control-center"];
   const forumUrl = "https://ezsign.easymap.tw/TCH2026/#/";
-  const itineraryScriptPath = "data/itinerary.js";
-
-  const loadItineraryScript = () => new Promise(resolve => {
-    if(window.__RHB_ITINERARY_SCRIPT_LOADED || window.RHB_ITINERARIES){
-      window.__RHB_ITINERARY_SCRIPT_LOADED = true;
-      resolve();
-      return;
-    }
-
-    const existing = document.querySelector('script[data-itinerary-script="true"]');
-    if(existing){
-      existing.addEventListener('load', () => resolve(), {once:true});
-      existing.addEventListener('error', () => resolve(), {once:true});
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.src = itineraryScriptPath;
-    script.defer = true;
-    script.dataset.itineraryScript = 'true';
-    script.addEventListener('load', () => {
-      window.__RHB_ITINERARY_SCRIPT_LOADED = true;
-      resolve();
-    }, {once:true});
-    script.addEventListener('error', () => resolve(), {once:true});
-    document.head.appendChild(script);
-  });
 
   const getId = () => {
     const id = location.hash.replace(/^#visit=/, "");
@@ -47,7 +20,6 @@
 
   function render(){
     d = visits[getId()];
-    const itinerarySource = ((window.RHB_ITINERARIES || {})[d.id]) || {};
     observers.forEach(o => o.disconnect());
     observers = [];
 
@@ -92,7 +64,7 @@
     }
 
     const overviewSection = $('#overview');
-    const overviewCards = itinerarySource.overviewCards || d.overviewCards || [
+    const overviewCards = d.overviewCards || [
       {date:'September 1', title:'Mining Heritage Landscape Visit'},
       {date:'September 2', title:'Coal Mining Heritage Visit'},
       {date:'September 3 Morning', title:'National Railway Museum Visit'},
@@ -168,7 +140,7 @@
     responseKicker.hidden = true;
     $('#responseTitle').textContent = 'Welcome Dinner · 2 September';
 
-    const itineraryDays = itinerarySource.detailedItinerary || d.detailedItinerary || [];
+    const itineraryDays = d.detailedItinerary || [];
     $('#operationCards').innerHTML = `
       <div class="detailed-itinerary">
         ${itineraryDays.map((day, dayIndex) => `
@@ -242,6 +214,7 @@
 
     if(d.accommodations?.length){
       $('#peopleText').innerHTML = `
+        ${d.accommodationNotice ? `<p class="accommodation-notice">${d.accommodationNotice}</p>` : ''}
         <div class="hotel-list">
           ${d.accommodations.map(h => `
             <article class="hotel-card reveal">
@@ -659,14 +632,9 @@
     if(e.target === $('#lightbox')) $('#lightbox').close();
   };
 
-  const boot = async () => {
-    await loadItineraryScript();
-    render();
-  };
-
   addEventListener('hashchange', () => {
     if(location.hash.startsWith('#visit=')) render();
   });
 
-  boot();
+  render();
 })();
