@@ -21,8 +21,6 @@ window.RHB_VISITS["control-center"] = {
     {id:"gallery", label:"Emergency Contact"}
   ],
   sectionLabels: {
-    systemKicker: "Three-Day Programme",
-    systemTitle: "Detailed Itinerary",
     peopleKicker: "Stay",
     peopleTitle: "Accommodation"
   },
@@ -35,8 +33,6 @@ window.RHB_VISITS["control-center"] = {
       phoneHref: "tel:+886223418828",
       note: "Reception: Enter through the main entrance and take the elevator on the left to the 2nd floor.",
       mapUrl: "https://maps.app.goo.gl/XvsuMLHi2wmdtYCz8",
-      image: "aka-hotel-exterior.jpg",
-      imageAlt: "Exterior of AKA Hotel",
       initials: "AKA"
     },
     {
@@ -47,8 +43,6 @@ window.RHB_VISITS["control-center"] = {
       phoneHref: "tel:+886224230111",
       note: "",
       mapUrl: "https://maps.app.goo.gl/2F8HCCM6UDPxfnvLA",
-      image: "k-hotel-exterior.jpeg",
-      imageAlt: "Exterior of K Hotels Keelung",
       initials: "K"
     }
   ],
@@ -71,6 +65,50 @@ window.RHB_VISITS["control-center"] = {
     }
   ]
 },
+  practicalInfo: [
+    {
+      icon: "weather",
+      label: "WEATHER",
+      value: "26–32°C",
+      text: "September in northern Taiwan is generally warm and humid. Light clothing and sun protection are recommended."
+    },
+    {
+      icon: "rain",
+      label: "RAIN & TYPHOON SEASON",
+      value: "Umbrella Recommended",
+      text: "Short showers may occur, and September is still within Taiwan’s typhoon season. Please check the latest weather updates."
+    },
+    {
+      icon: "power",
+      label: "POWER SUPPLY",
+      value: "110V · 60Hz",
+      text: "Please check whether your electronic devices support Taiwan’s voltage before use."
+    },
+    {
+      icon: "plug",
+      label: "ELECTRICAL OUTLETS",
+      value: "Type A / Type B",
+      text: "Taiwan commonly uses Type A and Type B electrical outlets. A travel adapter may be required.",
+      exampleLabel: "View Example",
+      closeLabel: "Close Example",
+      exampleImage: "taiwan-plug-outlet-guide.jpg",
+      exampleAlt: "Examples of Type A and Type B plugs and electrical outlets commonly used in Taiwan",
+      exampleCaption: "Common plugs and electrical outlets used in Taiwan."
+    },
+    {
+      icon: "clothing",
+      label: "CLOTHING & FOOTWEAR",
+      value: "Light · Comfortable · Non-slip",
+      text: "Wear comfortable walking shoes for hillside routes and mining sites. Bring a light jacket for air-conditioned venues."
+    },
+    {
+      icon: "connectivity",
+      label: "CONNECTIVITY",
+      value: "Wi-Fi · SIM · Roaming",
+      text: "Hotel and venue Wi-Fi is generally available. A local SIM card or roaming service is recommended for travel days."
+    }
+  ],
+
   
 facts: [
   {value:20260529, display:"2026.09.01", label:"DATES", animate:false},
