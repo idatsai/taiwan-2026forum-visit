@@ -1,7 +1,7 @@
 window.RHB_ITINERARIES = window.RHB_ITINERARIES || {};
 window.RHB_ITINERARIES["control-center"] = {
   overviewCards: [
-    {date:"September 1", title:"Shuinandong · Jinguashi · Jiufen", note:"Mining Heritage Landscape Visit"},
+    {date:"September 1", title:"Shueinandong · Jinguashi · Jiufen", note:"Mining Heritage Landscape Visit"},
     {date:"September 2", title:"Houtong · Shifen", note:"Coal Mining Heritage Visit"},
     {date:"September 3 Morning", title:"National Railway Museum", note:"Railway Industrial Heritage Visit"},
     {date:"September 3 Afternoon", title:"International Experts Exchange Meeting", note:"Discussion and Knowledge Exchange"}
@@ -11,13 +11,13 @@ window.RHB_ITINERARIES["control-center"] = {
     {
       label:"DAY 01",
       date:"September 1",
-      title:"Shuinandong · Jinguashi · Jiufen — Mining Heritage Landscape Visit",
-      meta:["Private coach", "Outdoor and hillside routes", "Stay: K Hotels Keelung"],
+      title:"Shueinandong · Jinguashi · Jiufen — Mining Heritage Landscape Visit",
+      meta:["Transportation: Chartered Vehicles", "Mining Museum & Mining Settlement", "Stay: K Hotels Keelung"],
       notice:"Meet at the AKA Hotel lobby at 08:00. Please check out before meeting. Guests are advised to carry an overnight bag; other luggage may be stored at AKA Hotel.",
       items:[
         {time:"08:00", title:"Meet at AKA Hotel Lobby", type:"meeting"},
-        {time:"08:10–09:30", title:"Transfer to Shuinandong", type:"transfer"},
-        {time:"09:30–09:55", title:"Shuinandong Smelter", venue:{name:"Shuinandong Smelter", description:"Also known as the Remains of the Thirteen Levels, this was once the largest ore-dressing and smelting complex serving Shuinandong, Jinguashi and Jiufen. It processed gold, silver and copper ores and remains a landmark of Taiwan’s mining landscape.", focus:"Mining Industry · Industrial Heritage · Cultural Landscape"}},
+        {time:"08:10–09:30", title:"Heading to Shueinandong", type:"transfer"},
+        {time:"09:30–09:55", title:"The Site of Shueinandong Mine Selection Field and Refinery", venue:{name:"The Site of Shueinandong Mine Selection Field and Refinery", description:"Also known as "The Thirteen-Level Ruins", this was once the largest ore-dressing and smelting complex serving Shueinandong, Jinguashi and Jiufen. It processed gold, silver and copper ores and remains a landmark of Taiwan’s mining landscape.", focus:"Mining Industry · Industrial Heritage · Cultural Landscape"}},
         {time:"09:55–10:00", title:"Transfer to Golden Waterfall", type:"transfer"},
         {time:"10:00–10:10", title:"Golden Waterfall", venue:{name:"Golden Waterfall", description:"Rainwater infiltrating the former mining area reacts with mineral-bearing rock and produces iron-rich acidic drainage. The water flows over the steep terrain, creating the distinctive golden-coloured landscape seen today.", focus:"Mining Environment · Natural and Industrial Landscape"}},
         {time:"10:10–10:20", title:"Transfer to Cyuanji Temple", type:"transfer"},
