@@ -37,7 +37,7 @@ window.RHB_ITINERARIES["control-center"] = {
       date:"September 2",
       title:"Houtong · Shifen — Coal Mining Heritage Site Visit",
       meta:["Transportation: Chartered Vehicles and TRA local train", "Miner for a Day Experience", "Welcome Dinner in Taipei"],
-      notice:"Meet at the K Hotels Keelung lobby at 08:10. Please check out before meeting.",
+      notice:"Meet at the K Hotels Keelung lobby at 08:10. Please check out before meeting. As today’s programme includes hands-on mining activities, we recommend wearing clothes and shoes that you do not mind getting dirty.",
       items:[
         {time:"08:10–09:00", title:"Head to Houtong", type:"transfer"},
         {time:"09:00–09:50", title:"Houtong Miners’ Culture and History Museum", venue:{name:"Houtong Miners’ Culture and History Museum", image:"assets/images/control-center/day02-houtong-museum.jpg", description:"Founded by retired miners, the museum documents local mining operations, miners’ lives and the formation of the settlement. It represents community-led preservation, mutual support and the regeneration of industrial heritage.", focus:"Labour Heritage · Community Action · Local Memory"}},
@@ -71,7 +71,7 @@ window.RHB_ITINERARIES["control-center"] = {
         {time:"11:30–12:00", title:"Head to NCCU Public Administration and Business Administration Education Center", type:"transfer"},
         {time:"12:00–13:30", title:"Lunch", type:"meal"},
         {section:"AFTERNOON PROGRAMME", sectionTitle:"International Experts Exchange Meeting on Taiwan's Mining Heritage"},
-        {time:"13:30–13:40", title:"Opening Remarks", location:"Room A616, Center for Public and Business Administration Education (CPBAE), National Chengchi University (NCCU)"},
+        {time:"13:30–13:40", title:"Opening Remarks", location:"A616, Room A616, Center for Public and Business Administration Education (CPBAE), National Chengchi University (NCCU)"},
         {time:"13:40–13:55", title:"Potential World Heritage Sites in Taiwan: Briefing on the “Shuei-Jin-Jiou Mining Sites” Tentative List Documentation", note:"Speaker: Lin Hsiao-Wei, Chair of the Advisory Committee, Asian Network of Industrial Heritage (ANIH); Professor, Department of Architecture, Chung Yuan Christian University"},
         {time:"13:55–14:10", title:"Discussion and Feedback"},
         {time:"14:10–14:30", title:"Session 2 · Directions for Further Development of the “Shuei-Jin-Jiou Mining Sites” Documentation and Key Issues for Future Implementation", note:"Representative of the Cultural Affairs Department, New Taipei City Government"},
