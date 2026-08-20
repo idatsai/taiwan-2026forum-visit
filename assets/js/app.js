@@ -168,6 +168,20 @@
     responseKicker.hidden = true;
     $('#responseTitle').textContent = 'Welcome Dinner · 2 September';
 
+    const responseHead = $('#responseTitle')?.closest('.section-head');
+    if(responseHead && d.welcomeDinner?.kicker){
+      const existingKicker = responseHead.querySelector('.section-kicker');
+      if(existingKicker){
+        existingKicker.textContent = d.welcomeDinner.kicker;
+        existingKicker.hidden = false;
+      }else{
+        const kicker = document.createElement('div');
+        kicker.className = 'section-kicker';
+        kicker.textContent = d.welcomeDinner.kicker;
+        $('#responseTitle').before(kicker);
+      }
+    }
+
     const itineraryDays = itinerarySource.detailedItinerary || d.detailedItinerary || [];
     $('#operationCards').innerHTML = `
       <div class="detailed-itinerary">
@@ -355,6 +369,17 @@
           <div class="welcome-dinner-info">
             <h3>AKA Café</h3>
             <p>${dinner.description}</p>
+            ${dinner.menu?.file ? `
+              <button
+                type="button"
+                class="dinner-menu-button"
+                data-menu-image="${dinnerPath}${dinner.menu.file}"
+                data-menu-alt="${dinner.menu.alt || 'Dinner menu'}"
+              >
+                ${dinner.menu.buttonLabel || 'View Dinner Menu'}
+                <span aria-hidden="true">↗</span>
+              </button>
+            ` : ''}
           </div>
         </article>
       `;
@@ -585,6 +610,17 @@
         }
       };
     });
+
+    const dinnerMenuButton = $('.dinner-menu-button');
+
+    if(dinnerMenuButton){
+      dinnerMenuButton.addEventListener('click', () => {
+        modalImg.src = dinnerMenuButton.dataset.menuImage || '';
+        modalImg.alt = dinnerMenuButton.dataset.menuAlt || 'Dinner menu';
+        modalCap.textContent = 'Welcome Dinner Menu · AKA Café';
+        modal.showModal();
+      });
+    }
 
     const dinnerTrack = $('#welcomeDinnerTrack');
 
