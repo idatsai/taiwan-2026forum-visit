@@ -1,717 +1,1552 @@
-(() => {
-  const visits = window.RHB_VISITS || {};
-  const site = window.RHB_SITE || {itinerary:[]};
-  const order = ["control-center"];
-  const forumUrl = "https://ezsign.easymap.tw/TCH2026/#/";
-  const itineraryScriptPath = "data/itinerary.js";
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;800;900&display=swap");
 
-  const loadItineraryScript = () => new Promise(resolve => {
-    if(window.__RHB_ITINERARY_SCRIPT_LOADED || window.RHB_ITINERARIES){
-      window.__RHB_ITINERARY_SCRIPT_LOADED = true;
-      resolve();
-      return;
-    }
+/* Welcome dinner */
+.welcome-dinner-card{
+  display:grid;
+  grid-template-columns:minmax(0, 1.08fr) minmax(320px, .92fr);
+  overflow:hidden;
+  border-radius:24px;
+  background:#172430;
+  box-shadow:0 18px 45px rgba(20,31,40,.14);
+}
 
-    const existing = document.querySelector('script[data-itinerary-script="true"]');
-    if(existing){
-      existing.addEventListener('load', () => resolve(), {once:true});
-      existing.addEventListener('error', () => resolve(), {once:true});
-      return;
-    }
+.welcome-dinner-gallery{
+  position:relative;
+  min-width:0;
+  min-height:460px;
+  overflow:hidden;
+  background:#101820;
+}
 
-    const script = document.createElement('script');
-    script.src = itineraryScriptPath;
-    script.defer = true;
-    script.dataset.itineraryScript = 'true';
-    script.addEventListener('load', () => {
-      window.__RHB_ITINERARY_SCRIPT_LOADED = true;
-      resolve();
-    }, {once:true});
-    script.addEventListener('error', () => resolve(), {once:true});
-    document.head.appendChild(script);
-  });
+.welcome-dinner-track{
+  display:flex;
+  width:100%;
+  height:100%;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scrollbar-width:none;
+  overscroll-behavior-x:contain;
+}
 
-  const getId = () => {
-    const id = location.hash.replace(/^#visit=/, "");
-    return visits[id] ? id : order[0];
-  };
+.welcome-dinner-track::-webkit-scrollbar{
+  display:none;
+}
 
-  const $ = (s, root=document) => root.querySelector(s);
+.welcome-dinner-slide{
+  flex:0 0 100%;
+  width:100%;
+  height:460px;
+  margin:0;
+  scroll-snap-align:start;
+}
 
-  const cardGrid = items =>
-    `<div class="grid">${(items || []).map(x =>
-      `<article class="card reveal"><strong>${x.title}</strong><p>${x.text}</p></article>`
-    ).join('')}</div>`;
+.welcome-dinner-slide img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+}
 
-  let d, observers=[];
+.welcome-dinner-info{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:54px 48px;
+  color:#fff;
+}
 
-  function render(){
-    d = visits[getId()];
-    const itinerarySource = ((window.RHB_ITINERARIES || {})[d.id]) || {};
-    observers.forEach(o => o.disconnect());
-    observers = [];
+.welcome-dinner-info > span{
+  margin-bottom:18px;
+  color:#efb2b5;
+  font-size:.78rem;
+  font-weight:800;
+  letter-spacing:.17em;
+}
 
-    document.title = `${d.title}｜2026 International Forum on Taiwan Cultural Heritage`;
+.welcome-dinner-info h3{
+  margin:0 0 24px;
+  color:#fff;
+  font-size:clamp(2rem, 3vw, 3.2rem);
+  line-height:1.06;
+}
 
-    document.documentElement.style.setProperty('--hero-image', `url('${d.heroImage}')`);
-    const heroBg = $('#heroBg');
-    heroBg.src = d.heroImage;
-    heroBg.alt = `${d.title}現地參訪資訊`;
+.welcome-dinner-info p{
+  margin:0;
+  color:rgba(255,255,255,.82);
+  font-size:1.04rem;
+  line-height:1.9;
+}
 
-    $('#eyebrow').textContent = d.eyebrow;
-    $('#title').textContent = d.title;
-    $('#subtitle').textContent = d.subtitle;
-    $('#heroText').textContent = d.heroText;
+.dinner-arrow{
+  position:absolute;
+  top:50%;
+  z-index:2;
+  display:grid;
+  width:46px;
+  height:46px;
+  padding:0;
+  border:1px solid rgba(255,255,255,.5);
+  border-radius:50%;
+  background:rgba(15,25,34,.68);
+  color:#fff;
+  font-size:1.2rem;
+  cursor:pointer;
+  place-items:center;
+  transform:translateY(-50%);
+  backdrop-filter:blur(6px);
+}
 
-    $('#meta').innerHTML = (d.meta || []).map(x => {
-      if(typeof x === 'string') return `<span>${x}</span>`;
-      const label = x.label || '';
-      return x.href
-        ? `<a href="${x.href}" class="meta-contact">${label}</a>`
-        : `<span>${label}</span>`;
-    }).join('');
+.dinner-prev{
+  left:18px;
+}
 
-    $('#lead').textContent = d.lead;
+.dinner-next{
+  right:18px;
+}
 
-    $('#visitSwitcher').innerHTML = `
-      <a href="#visit=control-center" class="active">ON-SITE VISITS</a>
-      <a href="${forumUrl}" target="_blank" rel="noopener noreferrer" class="external-link">FORUM WEBSITE ↗</a>
-    `;
+.dinner-arrow:hover{
+  background:rgba(15,25,34,.9);
+}
 
-    const hiddenNavSections = new Set(['gallery']);
-    $('#navLinks').innerHTML = (d.nav || [])
-      .filter(x => !hiddenNavSections.has(x.id))
-      .map(x => `<a href="#${x.id}" data-section="${x.id}">${x.label}</a>`)
-      .join('');
+.dinner-dots{
+  position:absolute;
+  bottom:18px;
+  left:50%;
+  z-index:2;
+  display:flex;
+  gap:8px;
+  transform:translateX(-50%);
+}
 
-    // Four-part programme overview.
-    const oldJourney = $('#journey');
-    if(oldJourney){
-      oldJourney.hidden = true;
-      oldJourney.style.display = 'none';
-    }
+.dinner-dots button{
+  width:9px;
+  height:9px;
+  padding:0;
+  border:1px solid rgba(255,255,255,.85);
+  border-radius:50%;
+  background:transparent;
+  cursor:pointer;
+}
 
-    const overviewSection = $('#overview');
-    const overviewCards = itinerarySource.overviewCards || d.overviewCards || [
-      {date:'September 1', title:'Mining Heritage Landscape Visit'},
-      {date:'September 2', title:'Coal Mining Heritage Visit'},
-      {date:'September 3 Morning', title:'National Railway Museum Visit'},
-      {date:'September 3 Afternoon', title:'International Experts Exchange Meeting'}
-    ];
+.dinner-dots button.active{
+  background:#fff;
+}
 
-    const firstDay = overviewCards[0] || {};
-    const secondDay = overviewCards[1] || {};
-    const thirdMorning = overviewCards[2] || {};
-    const thirdAfternoon = overviewCards[3] || {};
-
-    const overviewDayCard = (item) => `
-      <a class="journey-stop study-journey-stop overview-day-card reveal" href="#system">
-        <time class="overview-date">${item.date || ''}</time>
-        <b>${item.title || ''}</b>
-        ${item.note ? `<p>${item.note}</p>` : ''}
-        <span class="journey-link">View detailed itinerary ↓</span>
-      </a>
-    `;
-
-    overviewSection.innerHTML = `
-      <div class="journey-intro study-journey-block">
-        <div class="journey-copy reveal">
-          <div class="section-kicker">Overview</div>
-          <h2>Programme at a Glance</h2>
-          <p>A quick overview of the three-day on-site visit programme.</p>
-        </div>
-
-        <div class="journey-strip study-journey-strip overview-three-day-grid">
-          ${overviewDayCard(firstDay)}
-          ${overviewDayCard(secondDay)}
-
-          <article class="journey-stop study-journey-stop overview-day-three reveal">
-            <time class="overview-date">September 3</time>
-
-            <div class="overview-day-three-sessions">
-              <a class="overview-session" href="#system">
-                <span class="overview-session-label">Morning</span>
-                <b>${thirdMorning.title || ''}</b>
-                ${thirdMorning.note ? `<p>${thirdMorning.note}</p>` : ''}
-                <span class="journey-link">View detailed itinerary ↓</span>
-              </a>
-
-              <a class="overview-session" href="#system">
-                <span class="overview-session-label">Afternoon</span>
-                <b>${thirdAfternoon.title || ''}</b>
-                ${thirdAfternoon.note ? `<p>${thirdAfternoon.note}</p>` : ''}
-                <span class="journey-link">View detailed itinerary ↓</span>
-              </a>
-            </div>
-          </article>
-        </div>
-      </div>
-    `;
-
-    const quoteElement = $('#quote');
-    if(quoteElement){
-      const quoteSection = quoteElement.closest('section');
-      if(quoteSection){
-        quoteSection.hidden = true;
-        quoteSection.style.display = 'none';
-      }
-    }
-
-    const labels = d.sectionLabels || {};
-
-    $('#systemKicker').textContent = labels.systemKicker || 'Three-Day Programme';
-    $('#systemTitle').textContent = labels.systemTitle || 'Detailed Itinerary';
-    $('#peopleKicker').textContent = labels.peopleKicker || 'Stay';
-    $('#peopleTitle').textContent = labels.peopleTitle || 'Accommodation';
-    const responseKicker = $('#responseKicker');
-    responseKicker.textContent = '';
-    responseKicker.hidden = true;
-    $('#responseTitle').textContent = 'Welcome Dinner · 2 September';
-
-    const responseHead = $('#responseTitle')?.closest('.section-head');
-    if(responseHead && d.welcomeDinner?.kicker){
-      const existingKicker = responseHead.querySelector('.section-kicker');
-      if(existingKicker){
-        existingKicker.textContent = d.welcomeDinner.kicker;
-        existingKicker.hidden = false;
-      }else{
-        const kicker = document.createElement('div');
-        kicker.className = 'section-kicker';
-        kicker.textContent = d.welcomeDinner.kicker;
-        $('#responseTitle').before(kicker);
-      }
-    }
-
-    const itineraryDays = itinerarySource.detailedItinerary || d.detailedItinerary || [];
-    $('#operationCards').innerHTML = `
-      <div class="detailed-itinerary">
-        ${itineraryDays.map((day, dayIndex) => `
-          <article class="itinerary-day reveal" id="itinerary-day-${dayIndex + 1}">
-            <header class="itinerary-day-header">
-              <div class="itinerary-day-number">${String(dayIndex + 1).padStart(2, '0')}</div>
-              <div>
-                <span>${day.label || `DAY ${dayIndex + 1}`}</span>
-                <h3>${day.date}</h3>
-                <p>${day.title || ''}</p>
-              </div>
-            </header>
-
-            ${day.meta?.length ? `
-              <div class="itinerary-meta">
-                ${day.meta.map(item => `<span>${item}</span>`).join('')}
-              </div>
-            ` : ''}
-
-            ${day.notice ? `<div class="itinerary-notice">${day.notice}</div>` : ''}
-
-            <div class="itinerary-timeline">
-              ${(day.items || []).map(item => `
-                ${item.section ? `
-                  <div class="itinerary-period">
-                    <span>${item.section}</span>
-                    ${item.sectionTitle ? `<b>${item.sectionTitle}</b>` : ''}
-                  </div>
-                ` : `
-                  <div class="itinerary-entry ${item.type ? `is-${item.type}` : ''}">
-                    <time>${item.time || ''}</time>
-                    <div class="itinerary-entry-body">
-                      <h4>${item.title || ''}</h4>
-                      ${item.location ? `<p class="itinerary-location">${item.location}</p>` : ''}
-                      ${item.note ? `<p>${item.note}</p>` : ''}
-
-                      ${item.venue ? `
-                        <details class="venue-detail">
-                          <summary>Explore Venue <span>＋</span></summary>
-                          <div class="venue-detail-card">
-                            ${item.venue.image
-                              ? `<img src="${item.venue.image}" alt="${item.venue.name || item.title}" loading="lazy">`
-                              : `<div class="venue-photo-placeholder"><span>VENUE PHOTO</span></div>`
-                            }
-                            <div class="venue-detail-copy">
-                              <span>HERITAGE SITE</span>
-                              <h5>${item.venue.name || item.title}</h5>
-                              <p>${item.venue.description || ''}</p>
-                              ${item.venue.focus ? `<div class="venue-focus"><b>Heritage Focus</b><span>${item.venue.focus}</span></div>` : ''}
-                              ${item.venue.mapUrl ? `<a href="${item.venue.mapUrl}" target="_blank" rel="noopener noreferrer">View on Google Maps ↗</a>` : ''}
-                            </div>
-                          </div>
-                        </details>
-                      ` : ''}
-                    </div>
-                  </div>
-                `}
-              `).join('')}
-            </div>
-          </article>
-        `).join('')}
-      </div>
-    `;
-
-    const processBlock = $('#process');
-    if(processBlock){
-      processBlock.innerHTML = '';
-      processBlock.hidden = true;
-      processBlock.style.display = 'none';
-    }
-
-    if(d.accommodations?.length){
-      $('#peopleText').innerHTML = `
-        ${d.accommodationNotice ? `<p class="accommodation-notice">${d.accommodationNotice}</p>` : ''}
-        <div class="hotel-list">
-          ${d.accommodations.map(h => `
-            <article class="hotel-card reveal">
-              <div class="hotel-photo-placeholder">
-                ${h.image ? `
-                  <img
-                    class="hotel-photo-image"
-                    src="${d.imagePath || 'assets/images/control-center/'}${h.image}"
-                    alt="${h.imageAlt || `${h.name} exterior`}"
-                    loading="lazy"
-                  >
-                ` : `
-                  <span>${h.initials || 'HOTEL'}</span>
-                  <small>HOTEL PHOTO</small>
-                `}
-              </div>
-
-              <div class="hotel-info">
-                <div class="hotel-stay">
-                  <span>STAY</span>
-                  <b>${h.stay}</b>
-                </div>
-
-                <h3>${h.name}</h3>
-
-                <dl>
-                  <div>
-                    <dt>Address</dt>
-                    <dd>${h.address}</dd>
-                  </div>
-
-                  <div>
-                    <dt>Telephone</dt>
-                    <dd><a href="${h.phoneHref || '#'}">${h.phone}</a></dd>
-                  </div>
-
-                  ${h.note
-                    ? `<div><dt>Reception</dt><dd>${h.note}</dd></div>`
-                    : ''
-                  }
-
-                  ${h.mapUrl
-                    ? `<div>
-                         <dt>Location</dt>
-                         <dd>
-                           <a href="${h.mapUrl}" target="_blank" rel="noopener noreferrer">
-                             View on Google Maps ↗
-                           </a>
-                         </dd>
-                       </div>`
-                    : ''
-                  }
-                </dl>
-              </div>
-            </article>
-          `).join('')}
-        </div>
-      `;
-    }else{
-      $('#peopleText').innerHTML = (d.people || []).map(x => `<p>${x}</p>`).join('');
-    }
-
-    if(d.welcomeDinner){
-      const dinner = d.welcomeDinner;
-      const dinnerPath = d.imagePath || 'assets/images/control-center/';
-
-      $('#responseCards').innerHTML = `
-        <article class="welcome-dinner-card reveal">
-          <div class="welcome-dinner-gallery">
-            <div class="welcome-dinner-track" id="welcomeDinnerTrack">
-              ${(dinner.images || []).map((image, index) => `
-                <figure class="welcome-dinner-slide">
-                  <img
-                    src="${dinnerPath}${image.file}"
-                    alt="${image.alt || `Welcome dinner photo ${index + 1}`}"
-                    loading="lazy"
-                  >
-                </figure>
-              `).join('')}
-            </div>
-
-            <button
-              class="dinner-arrow dinner-prev"
-              type="button"
-              aria-label="Previous photo"
-            >
-              ←
-            </button>
-
-            <button
-              class="dinner-arrow dinner-next"
-              type="button"
-              aria-label="Next photo"
-            >
-              →
-            </button>
-
-            <div class="dinner-dots">
-              ${(dinner.images || []).map((_, index) => `
-                <button
-                  type="button"
-                  class="${index === 0 ? 'active' : ''}"
-                  data-dinner-index="${index}"
-                  aria-label="View photo ${index + 1}"
-                ></button>
-              `).join('')}
-            </div>
-          </div>
-
-          <div class="welcome-dinner-info">
-            <h3>AKA Café</h3>
-            <p>${dinner.description}</p>
-            ${dinner.menu?.file ? `
-              <button
-                type="button"
-                class="dinner-menu-button"
-                data-menu-image="${dinnerPath}${dinner.menu.file}"
-                data-menu-alt="${dinner.menu.alt || 'Dinner menu'}"
-              >
-                ${dinner.menu.buttonLabel || 'View Dinner Menu'}
-                <span aria-hidden="true">↗</span>
-              </button>
-            ` : ''}
-          </div>
-        </article>
-      `;
-    }else{
-      $('#responseCards').innerHTML = cardGrid(d.responseCards);
-    }
-
-    // Practical Information · icon-based information chart.
-    const practicalSection = $('#lessons');
-    const practicalHeading = practicalSection?.querySelector('.section-head');
-    if(practicalHeading){
-      practicalHeading.innerHTML = `
-        <div>
-          <div class="section-kicker">Visitor Essentials</div>
-          <h2>Practical Information</h2>
-          <p class="section-intro">A quick guide to weather, electricity and everyday essentials during your visit to Taiwan.</p>
-        </div>
-      `;
-    }
-
-    const practicalIcons = {
-      weather: `<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="18" cy="18" r="7"></circle><path d="M18 4v5M18 27v5M4 18h5M27 18h5M8.1 8.1l3.5 3.5M24.4 24.4l3.5 3.5M27.9 8.1l-3.5 3.5"></path><path d="M17 35h19a7 7 0 0 0 0-14 10 10 0 0 0-18.5 3.8A5.2 5.2 0 0 0 17 35Z"></path></svg>`,
-      rain: `<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 25a15 15 0 0 1 30 0Z"></path><path d="M24 10v27a5 5 0 0 0 10 0"></path><path d="M13 30l-2 5M22 30l-2 5M31 30l-2 5"></path></svg>`,
-      power: `<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M27 3 13 27h10l-2 18 14-25H25Z"></path></svg>`,
-      plug: `<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M16 8v10M32 8v10M12 18h24v5a12 12 0 0 1-12 12h0a12 12 0 0 1-12-12Z"></path><path d="M24 35v9"></path></svg>`,
-      clothing: `<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M17 9 8 14l4 9 5-2v19h14V21l5 2 4-9-9-5a8 8 0 0 1-14 0Z"></path><path d="M18 8a7 7 0 0 0 12 0"></path></svg>`,
-      connectivity: `<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="15" y="5" width="18" height="38" rx="3"></rect><path d="M21 10h6M22 37h4"></path><path d="M6 18a15 15 0 0 1 8-8M8 26a8 8 0 0 1 6-6"></path></svg>`
-    };
-
-    const practicalInfo = d.practicalInfo || [];
-    $('#lessonCards').innerHTML = `
-      <div class="practical-info-grid">
-        ${practicalInfo.map(item => `
-          <article class="practical-info-card reveal">
-            <div class="practical-icon">${practicalIcons[item.icon] || practicalIcons.weather}</div>
-            <div class="practical-card-copy">
-              <span>${item.label || ''}</span>
-              <h3>${item.value || ''}</h3>
-              <p>${item.text || ''}</p>
-              ${item.linkUrl ? `
-                <a
-                  class="practical-info-link"
-                  href="${item.linkUrl}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >${item.linkLabel || 'Learn More ↗'}</a>
-              ` : ''}
-              ${item.exampleImage ? `
-                <details class="practical-example">
-                  <summary>
-                    <span class="example-open-label">${item.exampleLabel || 'View Example'}</span>
-                    <span class="example-close-label">${item.closeLabel || 'Close Example'}</span>
-                    <b aria-hidden="true">＋</b>
-                  </summary>
-                  <div class="practical-example-panel">
-                    <img
-                      src="${d.imagePath || 'assets/images/control-center/'}${item.exampleImage}"
-                      alt="${item.exampleAlt || item.value || 'Example'}"
-                      loading="lazy"
-                    >
-                    ${item.exampleCaption ? `<p>${item.exampleCaption}</p>` : ''}
-                  </div>
-                </details>
-              ` : ''}
-            </div>
-          </article>
-        `).join('')}
-      </div>
-    `;
-
-    // Hide unused sections: Reflection, Gallery and Topics.
-    const unusedSectionTargets = ['#reflection', '#galleryGrid', '#tags'];
-    unusedSectionTargets.forEach(selector => {
-      const target = $(selector);
-      const section = target?.closest('.section');
-      if(section){
-        section.hidden = true;
-        section.style.display = 'none';
-      }
-    });
-
-    const path = d.imagePath || 'assets/images/control-center/';
-
-    const footer = site.footer || {};
-    $('#footer').innerHTML = `
-      <div class="footer-inner">
-        <div class="footer-label">${footer.label || ''}</div>
-        <div class="footer-title">${footer.title || ''}</div>
-        <div class="footer-rule"></div>
-        <div class="footer-copy">${footer.copyright || ''}</div>
-      </div>
-    `;
-
-    const idx = order.indexOf(d.id);
-    const prev = order[idx - 1];
-    const next = order[idx + 1];
-
-    $('#visitPager').innerHTML = `
-      ${prev
-        ? `<a href="#visit=${prev}">
-             <small>上一個參訪</small>
-             <b>← ${visits[prev].title}</b>
-           </a>`
-        : '<span></span>'
-      }
-
-      ${next
-        ? `<a class="next" href="#visit=${next}">
-             <small>下一個參訪</small>
-             <b>${visits[next].title} →</b>
-           </a>`
-        : '<span></span>'
-      }
-    `;
-
-    setupInteractions(path);
-    scrollTo({top:0, behavior:'instant'});
+@media (max-width: 820px){
+  .welcome-dinner-card{
+    grid-template-columns:1fr;
   }
 
-  function setupInteractions(path){
-    document.querySelectorAll('.reveal').forEach(x => x.classList.remove('visible'));
-
-    const siteNav = document.querySelector('.site-nav');
-    const navInner = document.querySelector('.nav-inner');
-
-    if(siteNav && navInner && !siteNav.querySelector('.nav-scroll-prev')){
-      const prevNav = document.createElement('button');
-      const nextNav = document.createElement('button');
-
-      prevNav.type = 'button';
-      nextNav.type = 'button';
-      prevNav.className = 'nav-scroll-button nav-scroll-prev';
-      nextNav.className = 'nav-scroll-button nav-scroll-next';
-      prevNav.setAttribute('aria-label', 'Scroll navigation left');
-      nextNav.setAttribute('aria-label', 'Scroll navigation right');
-      prevNav.innerHTML = '&#8592;';
-      nextNav.innerHTML = '&#8594;';
-
-      siteNav.append(prevNav, nextNav);
-
-      const updateNavButtons = () => {
-        const maxScroll = Math.max(0, navInner.scrollWidth - navInner.clientWidth);
-        const hasOverflow = maxScroll > 8;
-
-        navInner.classList.toggle('has-overflow', hasOverflow);
-        prevNav.hidden = !hasOverflow;
-        nextNav.hidden = !hasOverflow;
-        prevNav.disabled = navInner.scrollLeft <= 4;
-        nextNav.disabled = navInner.scrollLeft >= maxScroll - 4;
-      };
-
-      const scrollNavigation = direction => {
-        navInner.scrollBy({
-          left: direction * Math.max(260, navInner.clientWidth * 0.62),
-          behavior: 'smooth'
-        });
-      };
-
-      prevNav.addEventListener('click', () => scrollNavigation(-1));
-      nextNav.addEventListener('click', () => scrollNavigation(1));
-      navInner.addEventListener('scroll', updateNavButtons, {passive:true});
-      window.addEventListener('resize', updateNavButtons);
-      requestAnimationFrame(updateNavButtons);
-    }
-
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => {
-        if(e.isIntersecting) e.target.classList.add('visible');
-      }),
-      {threshold:.12}
-    );
-
-    document.querySelectorAll('.reveal').forEach(x => observer.observe(x));
-    observers.push(observer);
-
-    const factsObserver = new IntersectionObserver(
-      entries => entries.forEach(e => {
-        if(!e.isIntersecting) return;
-
-        document.querySelectorAll('.counter').forEach(node => {
-          const item = d.facts[Number(node.dataset.index)];
-          if(item.animate === false) return;
-
-          const target = Number(item.value);
-          const start = performance.now();
-
-          const run = t => {
-            const p = Math.min((t - start) / 900, 1);
-            const v = Math.round(target * (1 - Math.pow(1 - p, 3)));
-
-            node.textContent =
-              `${item.prefix || ''}${v.toLocaleString('zh-TW')}${item.suffix || ''}`;
-
-            if(p < 1) requestAnimationFrame(run);
-          };
-
-          requestAnimationFrame(run);
-        });
-
-        factsObserver.disconnect();
-      }),
-      {threshold:.4}
-    );
-
-    const factsTarget = $('#facts');
-    if(factsTarget){
-      factsObserver.observe(factsTarget);
-      observers.push(factsObserver);
-    }
-
-    const modal = $('#lightbox');
-    const modalImg = $('#lightboxImg');
-    const modalCap = $('#lightboxCap');
-
-    const open = i => {
-      const x = d.gallery[i];
-      modalImg.src = `${path}${x.file}`;
-      modalImg.alt = x.caption;
-      modalCap.textContent = x.caption;
-      modal.showModal();
-    };
-
-    document.querySelectorAll('.figure').forEach(f => {
-      f.onclick = () => open(Number(f.dataset.index));
-      f.onkeydown = e => {
-        if(e.key === 'Enter' || e.key === ' ') {
-          open(Number(f.dataset.index));
-        }
-      };
-    });
-
-    const dinnerMenuButton = $('.dinner-menu-button');
-
-    if(dinnerMenuButton){
-      dinnerMenuButton.addEventListener('click', () => {
-        modalImg.src = dinnerMenuButton.dataset.menuImage || '';
-        modalImg.alt = dinnerMenuButton.dataset.menuAlt || 'Dinner menu';
-        modalCap.textContent = 'Welcome Dinner Menu · AKA Café';
-        modal.showModal();
-      });
-    }
-
-    const dinnerTrack = $('#welcomeDinnerTrack');
-
-    if(dinnerTrack){
-      const slides = [...dinnerTrack.querySelectorAll('.welcome-dinner-slide')];
-      const dots = [...document.querySelectorAll('[data-dinner-index]')];
-      const prevButton = $('.dinner-prev');
-      const nextButton = $('.dinner-next');
-
-      const goToDinnerSlide = index => {
-        const safeIndex = Math.max(0, Math.min(index, slides.length - 1));
-
-        dinnerTrack.scrollTo({
-          left: safeIndex * dinnerTrack.clientWidth,
-          behavior: 'smooth'
-        });
-
-        dots.forEach((dot, dotIndex) => {
-          dot.classList.toggle('active', dotIndex === safeIndex);
-        });
-      };
-
-      prevButton?.addEventListener('click', () => {
-        const current = Math.round(
-          dinnerTrack.scrollLeft / dinnerTrack.clientWidth
-        );
-
-        goToDinnerSlide(current - 1);
-      });
-
-      nextButton?.addEventListener('click', () => {
-        const current = Math.round(
-          dinnerTrack.scrollLeft / dinnerTrack.clientWidth
-        );
-
-        goToDinnerSlide(current + 1);
-      });
-
-      dots.forEach(dot => {
-        dot.addEventListener('click', () => {
-          goToDinnerSlide(Number(dot.dataset.dinnerIndex));
-        });
-      });
-
-      dinnerTrack.addEventListener('scroll', () => {
-        const current = Math.round(
-          dinnerTrack.scrollLeft / dinnerTrack.clientWidth
-        );
-
-        dots.forEach((dot, dotIndex) => {
-          dot.classList.toggle('active', dotIndex === current);
-        });
-      }, {passive:true});
-    }
+  .welcome-dinner-gallery,
+  .welcome-dinner-slide{
+    min-height:340px;
+    height:340px;
   }
 
-  const progress = $('#progress');
-  const back = $('#backTop');
+  .welcome-dinner-info{
+    padding:36px 28px 42px;
+  }
+}
+:root{--red:#c8102e;--red-dark:#8e0b22;--ink:#1b2733;--muted:#66717c;--paper:#f6f4ef;--card:#fff;--line:#dde2e6;--accent:#e8efe9;--hero-image:none}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:86px}body{margin:0;font-family:"Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.8}a{color:inherit}.progress{position:fixed;left:0;top:0;height:4px;background:var(--red);width:0;z-index:99;transition:width .08s linear}
+.hero{min-height:78vh;background:linear-gradient(90deg,rgba(14,23,32,.94),rgba(14,23,32,.48)),var(--hero-image) center/cover;display:flex;align-items:flex-end;color:#fff;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;inset:auto -10% -40% 30%;height:70%;background:radial-gradient(circle,rgba(200,16,46,.32),transparent 65%);pointer-events:none}.hero-inner{max-width:1120px;margin:auto;width:100%;padding:90px 28px 72px;position:relative;z-index:1}.eyebrow{letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#ffd8df}.hero h1{font-size:clamp(2.5rem,6vw,5rem);line-height:1.05;margin:.45rem 0 .2rem}.hero h2{font-size:clamp(1.25rem,2.4vw,2rem);font-weight:500;margin:0 0 1.1rem;color:#ffd8df}.hero p{max-width:790px;font-size:1.12rem;color:#f1f3f5}.meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}.meta span{border:1px solid rgba(255,255,255,.42);padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.08);backdrop-filter:blur(8px)}.scroll-cue{position:absolute;right:28px;bottom:24px;font-size:.82rem;letter-spacing:.08em;writing-mode:vertical-rl;opacity:.75}
+.site-nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.nav-inner{max-width:1120px;margin:auto;padding:11px 28px;display:flex;align-items:center;gap:22px}.brand{font-weight:900;color:var(--red);letter-spacing:.06em}.nav-links{display:flex;gap:18px;overflow:auto;white-space:nowrap;font-size:.92rem;scrollbar-width:none}.nav-links::-webkit-scrollbar{display:none}.nav-links a{text-decoration:none;color:#40505f;padding:5px 0;position:relative}.nav-links a:after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--red);transform:scaleX(0);transform-origin:left;transition:.25s}.nav-links a:hover,.nav-links a.active{color:var(--red)}.nav-links a.active:after{transform:scaleX(1)}
+main{max-width:1120px;margin:auto;padding:58px 28px 100px}.lead{font-size:1.3rem;max-width:880px;margin:0 auto 62px;text-align:center}.section{margin:78px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:24px}.section h2{font-size:2rem;margin:0;border-left:6px solid var(--red);padding-left:15px}.section-kicker{color:var(--red);text-transform:uppercase;letter-spacing:.12em;font-size:.78rem;font-weight:800}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 8px 28px rgba(23,35,48,.05);transition:transform .25s,box-shadow .25s}.card:hover{transform:translateY(-5px);box-shadow:0 15px 34px rgba(23,35,48,.1)}.card strong{display:block;color:var(--red);font-size:1.08rem;margin-bottom:6px}.card p{margin:0}.quote{background:var(--ink);color:#fff;padding:40px;border-radius:20px;font-size:1.36rem;line-height:1.75;position:relative;overflow:hidden}.quote:before{content:"“";position:absolute;right:28px;top:-35px;font-size:10rem;color:rgba(255,255,255,.07);font-family:serif}.quote em{color:#ffd8df;font-style:normal}.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.fact{background:#fff;padding:22px;border-top:4px solid var(--red);border-radius:12px;box-shadow:0 8px 25px rgba(23,35,48,.04)}.fact b{font-size:1.65rem;display:block;line-height:1.2}.fact span{color:var(--muted);font-size:.92rem}.process{display:grid;gap:12px;margin-top:32px}.process-item{background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden}.process-item summary{list-style:none;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;cursor:pointer;padding:19px 22px}.process-item summary::-webkit-details-marker{display:none}.process-item .step{font-weight:900;color:var(--red);font-size:1.15rem}.process-item summary b{display:block}.process-item summary small{display:block;color:var(--muted);font-size:.88rem}.process-item p{margin:0;padding:0 22px 22px 58px}.process-item .plus{font-size:1.4rem;transition:.25s}.process-item[open] .plus{transform:rotate(45deg);color:var(--red)}.tag{display:inline-block;padding:5px 11px;border-radius:999px;background:var(--accent);margin:4px;font-size:.86rem;transition:.2s}.tag:hover{transform:translateY(-2px);background:#dce9df}.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.figure{margin:0;background:#fff;border-radius:14px;overflow:hidden;border:1px solid var(--line);cursor:zoom-in;transition:transform .25s,box-shadow .25s}.figure:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(23,35,48,.12)}.figure img{width:100%;height:100%;max-height:360px;object-fit:cover;display:block;transition:transform .45s}.figure:hover img{transform:scale(1.035)}.figure figcaption{padding:13px 15px;font-size:.9rem;color:#4e5d69}.figure:nth-child(1),.figure:nth-child(2){grid-column:span 6}.figure:nth-child(n+3){grid-column:span 4}.footer{background:#17222d;color:#cad2d9;padding:42px 28px;text-align:center}.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}.reveal.visible{opacity:1;transform:none}.back-top{position:fixed;right:22px;bottom:22px;border:0;background:var(--red);color:#fff;width:46px;height:46px;border-radius:50%;font-size:1.2rem;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(12px);transition:.25s;z-index:30;box-shadow:0 8px 25px rgba(142,11,34,.3)}.back-top.show{opacity:1;pointer-events:auto;transform:none}.lightbox{width:min(1000px,92vw);border:0;padding:0;background:transparent}.lightbox::backdrop{background:rgba(5,9,14,.86);backdrop-filter:blur(5px)}.lightbox-box{background:#111923;color:#fff;border-radius:16px;overflow:hidden;position:relative}.lightbox img{display:block;width:100%;max-height:76vh;object-fit:contain;background:#080d12}.lightbox p{margin:0;padding:16px 20px;color:#e5e9ed}.lightbox button{position:absolute;right:12px;top:12px;border:0;background:rgba(0,0,0,.55);color:#fff;width:40px;height:40px;border-radius:50%;font-size:1.5rem;cursor:pointer}
+@media(max-width:800px){.grid,.facts{grid-template-columns:1fr}.figure,.figure:nth-child(1),.figure:nth-child(2),.figure:nth-child(n+3){grid-column:span 12}.hero{min-height:68vh}.hero-inner{padding-bottom:54px}.scroll-cue{display:none}.nav-inner{gap:14px}.brand{display:none}.section-head{display:block}.section-kicker{margin-bottom:5px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.card,.figure,.figure img{transition:none}}
 
-  addEventListener('scroll', () => {
-    const h = document.documentElement.scrollHeight - innerHeight;
-    progress.style.width = `${h > 0 ? scrollY / h * 100 : 0}%`;
-    back.classList.toggle('show', scrollY > 700);
+.brand{text-decoration:none}.visit-switcher{display:flex;gap:6px;padding-right:10px;border-right:1px solid var(--line);white-space:nowrap}.visit-switcher a{text-decoration:none;padding:5px 10px;border-radius:999px;font-size:.84rem;color:#55636f;background:#f1f3f4;transition:.2s}.visit-switcher a:hover,.visit-switcher a.active{background:var(--red);color:#fff}.visit-pager{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:80px;padding-top:28px;border-top:1px solid var(--line)}.visit-pager a{display:flex;flex-direction:column;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;transition:.25s}.visit-pager a:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(23,35,48,.09);border-color:#c7cdd2}.visit-pager a.next{text-align:right}.visit-pager small{color:var(--muted)}.visit-pager b{color:var(--red)}
+@media(max-width:980px){.nav-inner{flex-wrap:wrap}.nav-links{width:100%;order:3}.visit-switcher{margin-left:auto;border-right:0}}@media(max-width:600px){.visit-switcher{width:100%;overflow:auto;order:2}.visit-pager{grid-template-columns:1fr}.visit-pager a.next{text-align:left}}
 
-    let current = 'overview';
+/* v3 · magazine journey and host profile */
+.journey-intro{margin:0 0 88px;background:#fff;border:1px solid var(--line);border-radius:0 0 24px 24px;overflow:hidden;box-shadow:0 18px 55px rgba(23,35,48,.07)}
+.journey-copy{display:grid;grid-template-columns:minmax(250px,.8fr) 1.5fr;gap:28px;align-items:end;padding:42px 42px 30px;border-bottom:1px solid var(--line)}
+.journey-copy .section-kicker{grid-column:1/-1}.journey-copy h2{font-family:Georgia,"Noto Serif TC",serif;font-size:clamp(2rem,4vw,3.25rem);line-height:1.1;border:0;padding:0;margin:0}.journey-copy p{margin:0;color:var(--muted);font-size:1.02rem}
+.journey-strip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;padding:0 14px 8px}.journey-stop{position:relative;flex:0 0 245px;min-height:248px;padding:30px 24px 26px;border-right:1px solid var(--line);text-decoration:none;scroll-snap-align:start;background:#fff;transition:.28s}.journey-stop:last-child{border-right:0}.journey-stop:hover{background:#faf7f1}.journey-stop.current{background:linear-gradient(155deg,#fff4f5,#fff);box-shadow:inset 0 4px 0 var(--red)}.journey-stop .journey-index{position:absolute;right:17px;top:12px;font:700 2.4rem/1 Georgia,serif;color:#edf0f1}.journey-stop.current .journey-index{color:#f1cbd2}.journey-stop time{display:block;color:var(--red);font-weight:900;letter-spacing:.08em;margin-bottom:8px}.journey-stop small{display:block;color:var(--muted);min-height:28px}.journey-stop b{display:block;font-family:Georgia,"Noto Serif TC",serif;font-size:1.18rem;line-height:1.35;margin:14px 0 8px}.journey-stop p{font-size:.88rem;line-height:1.65;color:#596672;margin:0}.journey-link{display:block;color:var(--red);font-size:.82rem;font-weight:800;margin-top:14px}
+.overview-layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(280px,.75fr);gap:34px;align-items:start}.host-card{position:sticky;top:112px;background:#18232e;color:#fff;border-radius:18px;overflow:hidden;box-shadow:0 18px 45px rgba(16,28,39,.18)}.host-card img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center 25%;filter:saturate(.9)}.host-card div{padding:24px}.host-card span{display:block;color:#f4aeb9;font-size:.72rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase}.host-card h3{font-family:Georgia,"Noto Serif TC",serif;font-size:1.65rem;margin:7px 0 2px}.host-card b{display:block;color:#f4c8cf;font-size:.9rem}.host-card p{margin:13px 0 0;color:#d9e0e5;font-size:.9rem;line-height:1.7}
+.hero-inner{max-width:1180px}.hero h1,.hero h2{font-family:Georgia,"Noto Serif TC",serif}.hero h1{max-width:900px}.hero{background-position:center 35%}.lead{font-family:Georgia,"Noto Serif TC",serif;line-height:1.95}.section h2{font-family:Georgia,"Noto Serif TC",serif}
+@media(max-width:900px){.journey-copy{grid-template-columns:1fr;padding:32px 26px 24px}.overview-layout{grid-template-columns:1fr}.host-card{position:static;display:grid;grid-template-columns:190px 1fr}.host-card img{height:100%;aspect-ratio:auto}.journey-stop{flex-basis:220px}}
+@media(max-width:560px){.journey-intro{margin-left:-12px;margin-right:-12px;border-radius:0}.journey-copy{padding:28px 22px 22px}.journey-stop{flex-basis:205px;min-height:235px;padding:25px 20px}.host-card{display:block}.host-card img{aspect-ratio:5/4;height:auto}}
 
-    d?.nav.forEach(x => {
-      const s = document.getElementById(x.id);
-      if(s && s.getBoundingClientRect().top <= 150) current = x.id;
-    });
+/* v4 · global editorial footer */
+.footer{padding:58px 28px 44px;background:#17222d;color:#cad2d9;text-align:left}
+.footer-inner{max-width:1120px;margin:auto}
+.footer-label{color:#f2b5bf;font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px}
+.footer-title{max-width:760px;color:#fff;font-family:Georgia,"Noto Serif TC",serif;font-size:clamp(1.2rem,2.4vw,1.85rem);line-height:1.55}
+.footer-rule{width:54px;height:3px;background:var(--red);margin:24px 0 20px}
+.footer-copy{color:#aeb8c0;font-size:.82rem;letter-spacing:.02em}
+@media(max-width:560px){.footer{padding:46px 22px 36px}.footer-title{font-size:1.18rem}.footer-copy{line-height:1.7}}
 
-    document.querySelectorAll('#navLinks a').forEach(a =>
-      a.classList.toggle('active', a.dataset.section === current)
-    );
-  }, {passive:true});
 
-  back.onclick = () => scrollTo({top:0, behavior:'smooth'});
-  $('#closeLightbox').onclick = () => $('#lightbox').close();
+/* v5 · full-bleed editorial hero, itinerary shortcut, refined portraits and footer */
+.hero{background:#111923;isolation:isolate;min-height:78vh}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:-3;display:block}
+.hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,18,27,.94) 0%,rgba(10,18,27,.74) 43%,rgba(10,18,27,.28) 78%,rgba(10,18,27,.18) 100%);z-index:-2}
+.hero:after{z-index:-1}
+.hero-inner{max-width:1180px}
+.hero h1{font-family:Georgia,"Noto Serif TC",serif;font-weight:800;letter-spacing:-.025em;text-shadow:0 3px 24px rgba(0,0,0,.25)}
+.hero h2{max-width:820px}
+.journey-button{flex:0 0 auto;text-decoration:none;border:1px solid var(--red);color:var(--red);padding:5px 12px;border-radius:999px;font-size:.84rem;font-weight:800;transition:.2s;background:#fff}
+.journey-button:hover{background:var(--red);color:#fff}
+.host-card img{aspect-ratio:3/4;object-fit:cover;object-position:center top;filter:none;background:#e9ecef}
+.footer{padding:32px 28px 26px}
+.footer-label{font-size:.68rem;margin-bottom:6px;letter-spacing:.14em}
+.footer-title{max-width:820px;font-size:clamp(.94rem,1.55vw,1.18rem);line-height:1.5;font-family:"Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;font-weight:600}
+.footer-rule{width:42px;height:2px;margin:16px 0 14px}
+.footer-copy{font-size:.72rem;line-height:1.55;color:#9eabb5}
+@media(max-width:980px){.journey-button{margin-left:auto}.visit-switcher{margin-left:0}.hero-shade{background:linear-gradient(90deg,rgba(10,18,27,.92),rgba(10,18,27,.48))}}
+@media(max-width:600px){.journey-button{order:2;margin-left:0}.nav-links{order:4}.hero{min-height:72vh}.hero-bg{object-position:center}.footer{padding:28px 22px 24px}.footer-title{font-size:.94rem}.footer-copy{font-size:.68rem}}
 
-  $('#lightbox').onclick = e => {
-    if(e.target === $('#lightbox')) $('#lightbox').close();
-  };
+/* v6 · clearer primary navigation */
+.visit-switcher{gap:8px;padding-right:0;border-right:0}
+.visit-switcher a{
+  padding:7px 14px;
+  border:1px solid var(--red);
+  color:var(--red);
+  background:#fff4f5;
+  font-weight:800;
+  box-shadow:0 2px 8px rgba(142,11,34,.08);
+}
+.visit-switcher a:hover{
+  background:var(--red);
+  color:#fff;
+  transform:translateY(-1px);
+  box-shadow:0 6px 16px rgba(142,11,34,.18);
+}
+.visit-switcher a.active{
+  background:var(--red);
+  color:#fff;
+  box-shadow:0 5px 14px rgba(142,11,34,.2);
+}
 
-  const boot = async () => {
-    await loadItineraryScript();
-    render();
-  };
 
-  addEventListener('hashchange', () => {
-    if(location.hash.startsWith('#visit=')) render();
-  });
+/* v7 · emergency contacts and horizontal accommodation cards */
+.meta a.meta-contact{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(255,255,255,.58);padding:8px 14px;border-radius:999px;background:rgba(9,24,35,.42);backdrop-filter:blur(10px);color:#fff;text-decoration:none;font-weight:700;box-shadow:0 8px 22px rgba(0,0,0,.12);transition:background .2s,transform .2s,border-color .2s}
+.meta a.meta-contact:before{content:"☎";font-size:.9em;color:#ffd8df}.meta a.meta-contact:hover{background:var(--red);border-color:var(--red);transform:translateY(-2px)}
+.hotel-list{display:grid;gap:24px}.hotel-card{display:grid;grid-template-columns:minmax(220px,.72fr) minmax(0,1.5fr);min-height:270px;background:#18232e;color:#fff;border-radius:20px;overflow:hidden;box-shadow:0 18px 45px rgba(16,28,39,.14)}
+.hotel-photo-placeholder{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:270px;padding:28px;background:linear-gradient(145deg,#d8d1c2,#b7aa93);color:#18232e;text-align:center;overflow:hidden}
+.hotel-photo-placeholder:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 0 48%,rgba(255,255,255,.22) 48% 52%,transparent 52%)}
+.hotel-photo-placeholder span{position:relative;font-family:Georgia,"Noto Serif TC",serif;font-size:3.2rem;font-weight:800;letter-spacing:.05em}.hotel-photo-placeholder small{position:relative;margin-top:8px;font-size:.68rem;font-weight:900;letter-spacing:.18em}
+.hotel-info{padding:34px 38px;display:flex;flex-direction:column;justify-content:center}.hotel-info h3{font-family:Georgia,"Noto Serif TC",serif;font-size:clamp(1.65rem,3vw,2.35rem);margin:10px 0 22px;color:#fff}.hotel-stay span{display:block;color:#f4aeb9;font-size:.7rem;font-weight:900;letter-spacing:.16em}.hotel-stay b{display:block;margin-top:4px;color:#f4c8cf;font-size:.95rem;line-height:1.55}
+.hotel-info dl{margin:0;display:grid;gap:14px}.hotel-info dl>div{display:grid;grid-template-columns:94px 1fr;gap:15px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}.hotel-info dt{color:#f4aeb9;font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.hotel-info dd{margin:0;color:#e2e8ec;line-height:1.65}.hotel-info a{color:#fff;text-underline-offset:3px}
+@media(max-width:760px){.hotel-card{grid-template-columns:1fr}.hotel-photo-placeholder{min-height:180px}.hotel-info{padding:28px 24px}.hotel-info dl>div{grid-template-columns:1fr;gap:4px}}
 
-  boot();
-})();
+
+/* v8 · overview and detailed itinerary */
+.study-journey-stop b{display:block;margin:12px 0 6px;font-family:Georgia,"Noto Serif TC",serif;font-size:1.08rem;line-height:1.35;color:var(--ink)}
+.study-journey-stop p{min-height:auto;margin:0;color:var(--muted)}
+.study-journey-stop .journey-link{margin-top:16px}
+.detailed-itinerary{display:grid;gap:52px}
+.itinerary-day{overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 18px 50px rgba(23,35,48,.07)}
+.itinerary-day-header{display:grid;grid-template-columns:116px 1fr;gap:28px;align-items:center;padding:38px 42px;background:linear-gradient(135deg,#172430,#243747);color:#fff}
+.itinerary-day-number{font-family:Georgia,serif;font-size:4.6rem;line-height:1;color:rgba(255,255,255,.16);font-weight:800}
+.itinerary-day-header span{display:block;color:#f4aeb9;font-size:.72rem;font-weight:900;letter-spacing:.18em}
+.itinerary-day-header h3{margin:5px 0 4px;font-family:Georgia,"Noto Serif TC",serif;font-size:clamp(2rem,4vw,3.15rem);line-height:1.05;color:#fff}
+.itinerary-day-header p{margin:0;color:#dce4e9;font-size:1rem;line-height:1.65}
+.itinerary-meta{display:flex;flex-wrap:wrap;gap:9px;padding:20px 42px 0}
+.itinerary-meta span{padding:6px 12px;border-radius:999px;background:#f3e6e8;color:var(--red-dark);font-size:.78rem;font-weight:800}
+.itinerary-notice{margin:20px 42px 0;padding:17px 19px;border-left:4px solid var(--red);border-radius:0 12px 12px 0;background:#fff4f5;color:#4b5660;font-size:.92rem;line-height:1.7}
+.itinerary-timeline{position:relative;padding:28px 42px 42px}
+.itinerary-timeline:before{content:"";position:absolute;left:151px;top:32px;bottom:45px;width:1px;background:#d9dfe3}
+.itinerary-entry{position:relative;display:grid;grid-template-columns:86px 1fr;gap:42px;padding:17px 0}
+.itinerary-entry:before{content:"";position:absolute;left:104px;top:29px;width:9px;height:9px;border:3px solid #fff;border-radius:50%;background:var(--red);box-shadow:0 0 0 1px var(--red)}
+.itinerary-entry time{padding-top:2px;color:var(--red);font-size:.86rem;font-weight:900;line-height:1.4;text-align:right}
+.itinerary-entry-body{min-width:0;padding:0 0 17px;border-bottom:1px solid #edf0f2}
+.itinerary-entry:last-child .itinerary-entry-body{border-bottom:0}
+.itinerary-entry h4{margin:0;font-family:Georgia,"Noto Serif TC",serif;font-size:1.18rem;line-height:1.45;color:var(--ink)}
+.itinerary-entry p{margin:6px 0 0;color:#64717c;font-size:.9rem;line-height:1.7}
+.itinerary-location{color:var(--red-dark)!important;font-weight:700}
+.itinerary-entry.is-transfer h4,.itinerary-entry.is-train h4{color:#3d6378}
+.itinerary-entry.is-meal h4{color:#9a602d}
+.itinerary-entry.is-hotel h4{color:#75508a}
+.itinerary-period{margin:30px 0 10px;padding:14px 18px;border-radius:12px;background:#eef2f3}
+.itinerary-period:first-child{margin-top:0}
+.itinerary-period span{display:block;color:var(--red);font-size:.7rem;font-weight:900;letter-spacing:.16em}
+.itinerary-period b{display:block;margin-top:2px;font-family:Georgia,"Noto Serif TC",serif;font-size:1.15rem;color:var(--ink)}
+.venue-detail{margin-top:14px;border:1px solid #dfe4e7;border-radius:14px;overflow:hidden;background:#faf9f6}
+.venue-detail summary{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:12px 16px;list-style:none;cursor:pointer;color:var(--red);font-size:.78rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.venue-detail summary::-webkit-details-marker{display:none}
+.venue-detail summary span{font-size:1.15rem;transition:transform .2s}
+.venue-detail[open] summary span{transform:rotate(45deg)}
+.venue-detail-card{display:grid;grid-template-columns:minmax(210px,.8fr) minmax(0,1.2fr);border-top:1px solid #dfe4e7;background:#fff}
+.venue-detail-card img,.venue-photo-placeholder{width:100%;height:100%;min-height:250px;object-fit:cover;display:block}
+.venue-photo-placeholder{display:grid;place-items:center;background:linear-gradient(145deg,#d8d1c2,#b7aa93);color:#3e403d;font-size:.7rem;font-weight:900;letter-spacing:.18em}
+.venue-detail-copy{padding:28px}
+.venue-detail-copy>span{display:block;color:var(--red);font-size:.68rem;font-weight:900;letter-spacing:.15em}
+.venue-detail-copy h5{margin:6px 0 12px;font-family:Georgia,"Noto Serif TC",serif;font-size:1.45rem;line-height:1.3}
+.venue-detail-copy p{margin:0;color:#5b6872;line-height:1.75}
+.venue-focus{display:flex;flex-direction:column;gap:2px;margin-top:18px;padding-top:15px;border-top:1px solid #e5e8ea}
+.venue-focus b{color:var(--red);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+.venue-focus span{color:#52616c;font-size:.88rem}
+.venue-detail-copy a{display:inline-block;margin-top:17px;color:var(--red);font-size:.84rem;font-weight:800;text-underline-offset:3px}
+@media(max-width:760px){.itinerary-day-header{grid-template-columns:72px 1fr;gap:16px;padding:28px 24px}.itinerary-day-number{font-size:3.3rem}.itinerary-meta{padding:18px 24px 0}.itinerary-notice{margin:18px 24px 0}.itinerary-timeline{padding:22px 24px 30px}.itinerary-timeline:before{left:105px}.itinerary-entry{grid-template-columns:63px 1fr;gap:35px}.itinerary-entry:before{left:77px}.itinerary-entry time{text-align:left;font-size:.78rem}.venue-detail-card{grid-template-columns:1fr}.venue-detail-card img,.venue-photo-placeholder{min-height:210px;height:210px}.venue-detail-copy{padding:23px 21px}}
+@media(max-width:480px){.itinerary-day-header{grid-template-columns:1fr}.itinerary-day-number{display:none}.itinerary-timeline:before{display:none}.itinerary-entry{grid-template-columns:1fr;gap:4px;padding:14px 0}.itinerary-entry:before{display:none}.itinerary-entry time{color:var(--red);font-size:.82rem}.itinerary-meta{gap:6px}.itinerary-meta span{font-size:.7rem}.itinerary-notice{font-size:.85rem}}
+
+
+/* v9 · practical information icon chart */
+#lessons .section-head{align-items:end}
+#lessons .section-intro{max-width:660px;margin:10px 0 0;color:var(--muted);font-size:.95rem;line-height:1.7}
+.practical-info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.practical-info-card{position:relative;min-height:255px;padding:26px;border:1px solid #dde3e6;border-radius:20px;background:linear-gradient(145deg,#fff 0%,#faf8f3 100%);box-shadow:0 14px 34px rgba(23,35,48,.07);overflow:hidden;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.practical-info-card:nth-child(2n){background:linear-gradient(145deg,#f7f9fa 0%,#eef3f4 100%)}
+.practical-info-card:hover{transform:translateY(-4px);border-color:#d7b5bc;box-shadow:0 20px 42px rgba(23,35,48,.11)}
+.practical-info-card:after{content:"";position:absolute;width:110px;height:110px;right:-44px;bottom:-50px;border-radius:50%;background:rgba(142,11,34,.055)}
+.practical-icon{display:grid;place-items:center;width:58px;height:58px;margin-bottom:28px;border-radius:17px;background:#8e0b22;color:#fff;box-shadow:0 10px 22px rgba(142,11,34,.18)}
+.practical-icon svg{width:31px;height:31px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.practical-card-copy{position:relative;z-index:1}
+.practical-card-copy>span{display:block;color:var(--red);font-size:.68rem;font-weight:900;letter-spacing:.14em;line-height:1.45}
+.practical-card-copy h3{margin:8px 0 10px;font-family:Georgia,"Noto Serif TC",serif;font-size:clamp(1.25rem,2vw,1.62rem);line-height:1.25;color:var(--ink)}
+.practical-card-copy p{margin:0;color:#64717c;font-size:.88rem;line-height:1.7}
+@media(max-width:900px){.practical-info-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.practical-info-grid{grid-template-columns:1fr}.practical-info-card{min-height:auto;padding:23px}.practical-icon{margin-bottom:21px}}
+
+
+/* v10 · electrical outlet example */
+.practical-example{
+  position:relative;
+  z-index:2;
+  margin-top:18px;
+  border-top:1px solid rgba(88,103,114,.16);
+}
+.practical-example summary{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 0 0;
+  list-style:none;
+  cursor:pointer;
+  color:var(--red);
+  font-size:.76rem;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.practical-example summary::-webkit-details-marker{display:none}
+.practical-example summary b{
+  display:grid;
+  place-items:center;
+  width:28px;
+  height:28px;
+  flex:0 0 28px;
+  border:1px solid rgba(142,11,34,.25);
+  border-radius:50%;
+  font-size:1rem;
+  line-height:1;
+  transition:transform .2s ease,background .2s ease,color .2s ease;
+}
+.practical-example[open] summary b{
+  transform:rotate(45deg);
+  background:var(--red);
+  color:#fff;
+}
+.example-close-label{display:none}
+.practical-example[open] .example-open-label{display:none}
+.practical-example[open] .example-close-label{display:inline}
+.practical-example-panel{
+  margin-top:14px;
+  padding:12px;
+  border:1px solid #dde3e6;
+  border-radius:14px;
+  background:#fff;
+}
+.practical-example-panel img{
+  display:block;
+  width:100%;
+  max-height:340px;
+  object-fit:contain;
+  border-radius:10px;
+  background:#f7f7f5;
+}
+.practical-example-panel p{
+  margin:10px 2px 0;
+  color:#6a7680;
+  font-size:.76rem;
+  line-height:1.55;
+}
+
+
+/* v11 · 2026 forum visual identity
+   Warm paper base + ore gold + mountain green + deep teal.
+   Appended as theme overrides so all previous functions remain intact. */
+:root{
+  --red:#b68b34;
+  --red-dark:#8d6823;
+  --ink:#252624;
+  --muted:#68716c;
+  --paper:#f5f0e5;
+  --card:rgba(255,255,255,.76);
+  --line:rgba(159,126,57,.25);
+  --accent:rgba(62,118,48,.10);
+  --forum-gold:#b68b34;
+  --forum-gold-light:#d9bd69;
+  --forum-green:#39752f;
+  --forum-teal:#0f5965;
+  --forum-teal-dark:#0b414b;
+  --forum-paper:#f5f0e5;
+  --forum-ink:#252624;
+}
+
+html,body,
+button,input,select,textarea{
+  font-family:"Manrope","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;
+}
+
+body{
+  color:var(--forum-ink);
+  background:
+    radial-gradient(circle at 8% 10%,rgba(217,189,105,.11),transparent 28%),
+    radial-gradient(circle at 94% 34%,rgba(15,89,101,.07),transparent 30%),
+    var(--forum-paper);
+}
+
+.hero h1,
+.hero h2,
+.lead,
+.section h2,
+.host-card h3,
+.footer-title,
+.hotel-info h3,
+.hotel-photo-placeholder span,
+.study-journey-stop b,
+.itinerary-day-number,
+.itinerary-day-header h3,
+.itinerary-entry h4,
+.welcome-dinner-info h3{
+  font-family:"Manrope","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;
+}
+
+.hero h1,
+.section h2,
+.itinerary-day-header h3,
+.hotel-info h3,
+.welcome-dinner-info h3{
+  font-weight:800;
+  letter-spacing:-.035em;
+}
+
+.hero h2,
+.lead{
+  font-weight:500;
+  letter-spacing:-.015em;
+}
+
+/* Main navigation and buttons */
+.progress{
+  background:linear-gradient(90deg,var(--forum-gold),var(--forum-green),var(--forum-teal));
+}
+
+.site-nav{
+  background:rgba(249,246,238,.90);
+  border-bottom-color:rgba(159,126,57,.25);
+}
+
+.brand,
+.nav-links a:hover,
+.nav-links a.active,
+.section-kicker,
+.card strong,
+.process-item .step,
+.journey-link{
+  color:var(--forum-teal);
+}
+
+.nav-links a:after{
+  background:linear-gradient(90deg,var(--forum-gold),var(--forum-teal));
+}
+
+.visit-switcher a,
+.journey-button{
+  border-color:var(--forum-teal);
+  color:var(--forum-teal);
+  background:rgba(255,255,255,.72);
+  font-family:"Manrope","Noto Sans TC",sans-serif;
+  font-weight:800;
+}
+
+.visit-switcher a:hover,
+.visit-switcher a.active,
+.journey-button:hover{
+  background:var(--forum-teal);
+  border-color:var(--forum-teal);
+  color:#fff;
+  box-shadow:0 7px 18px rgba(15,89,101,.20);
+}
+
+.back-top{
+  background:var(--forum-teal);
+  box-shadow:0 8px 25px rgba(15,89,101,.28);
+}
+
+.meta a.meta-contact:hover{
+  background:var(--forum-gold);
+  border-color:var(--forum-gold);
+}
+
+/* Section titles */
+.section h2{
+  color:var(--forum-teal-dark);
+  border-left-color:var(--forum-gold);
+}
+
+.section-kicker{
+  color:var(--forum-gold);
+}
+
+/* Cards */
+.card,
+.fact,
+.process-item,
+.figure{
+  background:rgba(255,255,255,.72);
+  border-color:rgba(159,126,57,.22);
+  box-shadow:0 12px 34px rgba(28,58,55,.06);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+.card:hover,
+.figure:hover{
+  box-shadow:0 18px 42px rgba(28,58,55,.12);
+}
+
+.fact{
+  border-top-color:var(--forum-gold);
+}
+
+/* Overview */
+.study-journey-stop{
+  background:rgba(255,255,255,.74);
+  border-color:rgba(159,126,57,.24);
+  box-shadow:0 15px 38px rgba(28,58,55,.07);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+.study-journey-stop b{
+  color:var(--forum-teal-dark);
+}
+
+.study-journey-stop .journey-link{
+  color:var(--forum-gold);
+}
+
+/* Detailed Itinerary: translucent paper cards */
+.detailed-itinerary{
+  gap:58px;
+}
+
+.itinerary-day{
+  position:relative;
+  overflow:hidden;
+  background:rgba(255,255,255,.68);
+  border:1px solid rgba(182,139,52,.32);
+  box-shadow:0 20px 52px rgba(25,67,69,.09);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+
+.itinerary-day:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 94% 8%,rgba(217,189,105,.13),transparent 24%),
+    linear-gradient(120deg,rgba(255,255,255,.20),transparent 45%);
+}
+
+.itinerary-day > *{
+  position:relative;
+  z-index:1;
+}
+
+.itinerary-day-header{
+  background:
+    linear-gradient(120deg,rgba(12,65,75,.97),rgba(15,89,101,.91)),
+    linear-gradient(135deg,var(--forum-teal-dark),var(--forum-teal));
+}
+
+.itinerary-day:nth-child(2) .itinerary-day-header{
+  background:linear-gradient(120deg,#315f2c,#4b8138);
+}
+
+.itinerary-day:nth-child(3) .itinerary-day-header{
+  background:linear-gradient(120deg,#80601f,#b68b34);
+}
+
+.itinerary-day-header span{
+  color:#f2d989;
+}
+
+.itinerary-day-header p{
+  color:rgba(255,255,255,.82);
+}
+
+.itinerary-day-number{
+  color:rgba(255,255,255,.18);
+  font-weight:800;
+}
+
+.itinerary-meta span{
+  background:rgba(182,139,52,.12);
+  color:#765619;
+  border:1px solid rgba(182,139,52,.20);
+}
+
+.itinerary-notice{
+  border-left-color:var(--forum-gold);
+  background:rgba(217,189,105,.12);
+}
+
+.itinerary-timeline:before{
+  width:2px;
+  background:linear-gradient(
+    to bottom,
+    var(--forum-gold) 0%,
+    var(--forum-green) 52%,
+    var(--forum-teal) 100%
+  );
+  opacity:.48;
+}
+
+.itinerary-entry:before{
+  background:var(--forum-paper);
+  border-color:var(--forum-gold);
+  box-shadow:0 0 0 1px var(--forum-gold),0 0 0 5px rgba(182,139,52,.10);
+}
+
+.itinerary-entry time{
+  color:var(--forum-teal);
+  font-family:"Manrope",sans-serif;
+  font-weight:800;
+}
+
+.itinerary-entry h4{
+  color:var(--forum-teal-dark);
+  font-weight:700;
+}
+
+.itinerary-entry-body{
+  border-bottom-color:rgba(116,125,118,.16);
+}
+
+.itinerary-location{
+  color:#8a6827!important;
+}
+
+.itinerary-entry.is-transfer h4,
+.itinerary-entry.is-train h4{
+  color:var(--forum-teal);
+}
+
+.itinerary-entry.is-meal h4{
+  color:#9a6b20;
+}
+
+.itinerary-entry.is-hotel h4{
+  color:#526f3c;
+}
+
+.itinerary-period{
+  background:rgba(15,89,101,.08);
+  color:var(--forum-teal-dark);
+  border:1px solid rgba(15,89,101,.12);
+}
+
+/* Accommodation */
+.hotel-card,
+.host-card{
+  background:linear-gradient(135deg,var(--forum-teal-dark),#153b42);
+  box-shadow:0 20px 48px rgba(13,57,63,.16);
+}
+
+.hotel-info h3{
+  color:#fff;
+}
+
+.hotel-stay span,
+.hotel-info dt,
+.host-card span{
+  color:#e1c66f;
+}
+
+.hotel-stay b,
+.host-card b{
+  color:#f0dda2;
+}
+
+/* Welcome dinner */
+.welcome-dinner-card{
+  background:linear-gradient(135deg,var(--forum-teal-dark),#153b42);
+  box-shadow:0 20px 50px rgba(13,57,63,.16);
+}
+
+.welcome-dinner-info h3{
+  color:#fff;
+}
+
+.dinner-arrow{
+  background:rgba(8,56,65,.72);
+}
+
+.dinner-arrow:hover{
+  background:var(--forum-gold);
+}
+
+/* Practical information */
+.practical-info-card{
+  background:rgba(255,255,255,.68);
+  border-color:rgba(159,126,57,.24);
+  box-shadow:0 14px 38px rgba(28,58,55,.07);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+.practical-info-card:nth-child(3n+2){
+  background:rgba(217,189,105,.10);
+}
+
+.practical-info-card:nth-child(3n){
+  background:rgba(15,89,101,.07);
+}
+
+.practical-icon{
+  color:var(--forum-teal);
+  background:rgba(15,89,101,.08);
+}
+
+.practical-card-copy span{
+  color:var(--forum-gold);
+}
+
+.practical-card-copy h3{
+  color:var(--forum-teal-dark);
+  font-family:"Manrope","Noto Sans TC",sans-serif;
+  font-weight:800;
+}
+
+.practical-example summary{
+  color:var(--forum-teal);
+}
+
+.practical-example summary b{
+  border-color:rgba(15,89,101,.30);
+}
+
+.practical-example[open] summary b{
+  background:var(--forum-teal);
+}
+
+/* Footer */
+.footer{
+  background:linear-gradient(135deg,#0b414b,#12343a);
+}
+
+.footer-label{
+  color:#e1c66f;
+}
+
+.footer-rule{
+  background:linear-gradient(90deg,var(--forum-gold),var(--forum-green));
+}
+
+/* Subtle flowing-line atmosphere inspired by the forum key visual */
+main{
+  position:relative;
+}
+
+main:before{
+  content:"";
+  position:absolute;
+  left:-12vw;
+  right:-12vw;
+  top:9%;
+  height:360px;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.18;
+  background:
+    radial-gradient(ellipse at 28% 50%,transparent 0 52%,rgba(182,139,52,.34) 53% 54%,transparent 55% 60%,rgba(182,139,52,.21) 61% 62%,transparent 63%),
+    radial-gradient(ellipse at 78% 52%,transparent 0 55%,rgba(15,89,101,.24) 56% 57%,transparent 58%);
+}
+
+@media(max-width:800px){
+  .itinerary-day{
+    background:rgba(255,255,255,.78);
+  }
+
+  main:before{
+    opacity:.10;
+  }
+}
+
+@media(prefers-reduced-transparency:reduce){
+  .card,
+  .fact,
+  .process-item,
+  .figure,
+  .study-journey-stop,
+  .itinerary-day,
+  .practical-info-card{
+    background:#fff;
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+}
+
+
+/* v12 · keep Morning / Afternoon programme panels clear of the timeline */
+.itinerary-period{
+  position:relative;
+  z-index:2;
+  margin-left:128px;
+  width:auto;
+  box-sizing:border-box;
+  background:rgba(225,236,234,.72);
+  border-left:3px solid var(--forum-gold);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+
+.itinerary-period:first-child{
+  margin-top:0;
+}
+
+@media(max-width:760px){
+  .itinerary-period{
+    margin-left:98px;
+  }
+}
+
+@media(max-width:480px){
+  .itinerary-period{
+    margin-left:0;
+  }
+}
+
+
+/* v13 · accommodation photography */
+.hotel-photo-placeholder{
+  padding:0;
+  background:linear-gradient(145deg,#d8d1c2,#b7aa93);
+}
+
+.hotel-photo-image{
+  display:block;
+  width:100%;
+  height:100%;
+  min-height:270px;
+  object-fit:cover;
+  object-position:center;
+}
+
+.hotel-photo-placeholder:has(.hotel-photo-image):before{
+  display:none;
+}
+
+@media(max-width:760px){
+  .hotel-photo-image{
+    min-height:220px;
+    max-height:340px;
+  }
+}
+
+
+/* v14 · navigation readability, Shuei-Jin-Jiou callout, and spacing cleanup */
+
+/* Keep the complete navigation on one line.
+   On narrower screens it becomes a smooth horizontal scroller instead of
+   shrinking or wrapping Practical Information onto a second row. */
+.nav-inner{
+  display:flex;
+  align-items:center;
+  flex-wrap:nowrap;
+  gap:18px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(182,139,52,.48) transparent;
+  -webkit-overflow-scrolling:touch;
+  scroll-behavior:smooth;
+  padding-bottom:4px;
+}
+
+.nav-inner::-webkit-scrollbar{
+  height:5px;
+}
+
+.nav-inner::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+.nav-inner::-webkit-scrollbar-thumb{
+  background:rgba(182,139,52,.45);
+  border-radius:999px;
+}
+
+.brand,
+.visit-switcher,
+.nav-links{
+  flex:0 0 auto;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  flex-wrap:nowrap;
+  gap:24px;
+  min-width:max-content;
+}
+
+.nav-links a{
+  flex:0 0 auto;
+  white-space:nowrap;
+  font-family:"Manrope","Noto Sans TC",sans-serif;
+  font-size:.88rem;
+  font-weight:800;
+  letter-spacing:.025em;
+  line-height:1.2;
+  padding:17px 0 15px;
+}
+
+.visit-switcher{
+  display:flex;
+  align-items:center;
+  flex-wrap:nowrap;
+  gap:8px;
+}
+
+.visit-switcher a,
+.journey-button{
+  white-space:nowrap;
+  font-size:.79rem;
+}
+
+@media(min-width:1180px){
+  .nav-inner{
+    gap:22px;
+  }
+
+  .nav-links{
+    gap:27px;
+  }
+
+  .nav-links a{
+    font-size:.92rem;
+  }
+}
+
+@media(max-width:900px){
+  .site-nav{
+    overflow:hidden;
+  }
+
+  .nav-inner{
+    width:100%;
+    max-width:none;
+    padding-left:20px;
+    padding-right:20px;
+  }
+
+  .nav-links{
+    gap:22px;
+  }
+
+  .nav-links a{
+    font-size:.86rem;
+  }
+}
+
+/* Introductory Shuei-Jin-Jiou statement */
+.lead{
+  max-width:1180px;
+  margin:46px auto 20px;
+  padding:28px 34px;
+  box-sizing:border-box;
+  color:#fff;
+  background:
+    linear-gradient(118deg,rgba(11,65,75,.97),rgba(15,89,101,.92));
+  border:1px solid rgba(217,189,105,.34);
+  border-left:6px solid var(--forum-gold);
+  border-radius:18px;
+  box-shadow:0 18px 42px rgba(12,65,75,.14);
+  font-family:"Manrope","Noto Sans TC",sans-serif;
+  font-size:clamp(1.02rem,1.25vw,1.18rem);
+  font-weight:500;
+  line-height:1.85;
+  letter-spacing:-.01em;
+}
+
+@media(max-width:760px){
+  .lead{
+    margin:30px 18px 12px;
+    padding:22px 22px;
+    border-radius:15px;
+    font-size:.98rem;
+    line-height:1.72;
+  }
+}
+
+/* Once the legacy Core Observation section is hidden, prevent excess spacing
+   between the introductory content and Detailed Itinerary. */
+#overview + section[hidden],
+#overview + section[style*="display: none"]{
+  margin:0!important;
+  padding:0!important;
+}
+
+#system{
+  margin-top:18px;
+}
+
+
+/* v15 · Programme at a Glance: three-day editorial layout */
+.overview-three-day-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,2fr);
+  overflow:visible;
+  padding:0;
+  scroll-snap-type:none;
+}
+
+.overview-three-day-grid .study-journey-stop{
+  min-width:0;
+  min-height:270px;
+  padding:30px 30px 28px;
+  border-right:1px solid rgba(159,126,57,.24);
+  border-radius:0;
+  box-shadow:none;
+  text-decoration:none;
+}
+
+.overview-three-day-grid .study-journey-stop:last-child{
+  border-right:0;
+}
+
+/* Remove the pale 01 / 02 / 03 / 04 numerals */
+.overview-three-day-grid .journey-index{
+  display:none!important;
+}
+
+/* Large, left-aligned dates */
+.overview-date{
+  display:block;
+  margin:0 0 22px!important;
+  color:var(--forum-gold)!important;
+  font-family:"Manrope","Noto Sans TC",sans-serif!important;
+  font-size:clamp(1.8rem,2.25vw,2.55rem)!important;
+  font-weight:800!important;
+  line-height:1.02!important;
+  letter-spacing:-.045em!important;
+  text-transform:none;
+}
+
+.overview-day-card b,
+.overview-session b{
+  margin:0 0 8px;
+  color:var(--forum-teal-dark);
+  font-family:"Manrope","Noto Sans TC",sans-serif;
+  font-size:1.05rem;
+  font-weight:750;
+  line-height:1.35;
+}
+
+.overview-day-card p,
+.overview-session p{
+  margin:0;
+  color:var(--muted);
+  font-size:.82rem;
+  line-height:1.55;
+}
+
+.overview-day-card .journey-link,
+.overview-session .journey-link{
+  margin-top:18px;
+  font-size:.76rem;
+}
+
+/* September 3 is one day card, split evenly into morning / afternoon */
+.overview-day-three{
+  display:block;
+  background:
+    linear-gradient(135deg,rgba(15,89,101,.055),rgba(217,189,105,.06)),
+    rgba(255,255,255,.74);
+}
+
+.overview-day-three-sessions{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  min-height:165px;
+  border-top:1px solid rgba(159,126,57,.22);
+}
+
+.overview-session{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  padding:20px 24px 4px 0;
+  color:inherit;
+  text-decoration:none;
+}
+
+.overview-session + .overview-session{
+  padding-left:24px;
+  padding-right:0;
+  border-left:1px solid rgba(159,126,57,.24);
+}
+
+.overview-session-label{
+  display:block;
+  margin-bottom:10px;
+  color:var(--forum-gold);
+  font-family:"Manrope","Noto Sans TC",sans-serif;
+  font-size:.72rem;
+  font-weight:900;
+  letter-spacing:.14em;
+  line-height:1;
+  text-transform:uppercase;
+}
+
+.overview-session .journey-link{
+  margin-top:auto;
+  padding-top:18px;
+}
+
+/* Gentle hover without changing the editorial structure */
+.overview-day-card:hover,
+.overview-session:hover{
+  background:rgba(217,189,105,.07);
+}
+
+@media(max-width:980px){
+  .overview-three-day-grid{
+    display:flex;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:thin;
+  }
+
+  .overview-three-day-grid .overview-day-card{
+    flex:0 0 285px;
+    scroll-snap-align:start;
+  }
+
+  .overview-three-day-grid .overview-day-three{
+    flex:0 0 560px;
+    scroll-snap-align:start;
+  }
+
+  .overview-date{
+    font-size:2rem!important;
+  }
+}
+
+@media(max-width:620px){
+  .overview-three-day-grid .overview-day-card{
+    flex-basis:82vw;
+  }
+
+  .overview-three-day-grid .overview-day-three{
+    flex-basis:88vw;
+  }
+
+  .overview-day-three-sessions{
+    grid-template-columns:1fr;
+  }
+
+  .overview-session{
+    padding:18px 0;
+  }
+
+  .overview-session + .overview-session{
+    padding-left:0;
+    border-left:0;
+    border-top:1px solid rgba(159,126,57,.24);
+  }
+}
+
+
+/* v16 · navigation arrow controls and compact intro spacing */
+
+/* Remove the native horizontal scrollbar and reserve room for arrow controls. */
+.site-nav{
+  position:sticky;
+  overflow:hidden;
+}
+
+.nav-inner{
+  max-width:none;
+  padding-left:56px;
+  padding-right:56px;
+  padding-bottom:0;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+}
+
+.nav-inner::-webkit-scrollbar{
+  display:none;
+}
+
+.nav-scroll-button{
+  position:absolute;
+  top:50%;
+  z-index:6;
+  display:grid;
+  place-items:center;
+  width:34px;
+  height:34px;
+  padding:0;
+  border:1px solid rgba(182,139,52,.36);
+  border-radius:50%;
+  color:var(--forum-teal);
+  background:rgba(249,246,238,.96);
+  box-shadow:0 6px 18px rgba(15,89,101,.12);
+  font-family:"Manrope",sans-serif;
+  font-size:1.05rem;
+  font-weight:800;
+  line-height:1;
+  cursor:pointer;
+  transform:translateY(-50%);
+  transition:background .2s ease,color .2s ease,border-color .2s ease,opacity .2s ease;
+}
+
+.nav-scroll-prev{
+  left:12px;
+}
+
+.nav-scroll-next{
+  right:12px;
+}
+
+.nav-scroll-button:hover:not(:disabled){
+  color:#fff;
+  background:var(--forum-teal);
+  border-color:var(--forum-teal);
+}
+
+.nav-scroll-button:disabled{
+  opacity:.28;
+  cursor:default;
+}
+
+.nav-scroll-button[hidden]{
+  display:none;
+}
+
+/* Increase the navigation labels while keeping them on one horizontal line. */
+.nav-links a{
+  font-size:.98rem;
+  font-weight:800;
+  letter-spacing:.015em;
+}
+
+.visit-switcher a,
+.journey-button{
+  font-size:.84rem;
+}
+
+@media(min-width:1180px){
+  .nav-links a{
+    font-size:1rem;
+  }
+}
+
+@media(max-width:900px){
+  .nav-inner{
+    padding-left:52px;
+    padding-right:52px;
+  }
+
+  .nav-links a{
+    font-size:.94rem;
+  }
+}
+
+@media(max-width:600px){
+  .nav-scroll-button{
+    width:31px;
+    height:31px;
+  }
+
+  .nav-scroll-prev{
+    left:8px;
+  }
+
+  .nav-scroll-next{
+    right:8px;
+  }
+}
+
+/* Bring the Shuei-Jin-Jiou statement closer to the navigation and following content. */
+main{
+  padding-top:24px;
+}
+
+.lead{
+  margin:12px auto 14px;
+  padding:22px 32px;
+  font-size:clamp(1.12rem,1.45vw,1.3rem);
+  line-height:1.68;
+}
+
+#system{
+  margin-top:10px;
+}
+
+@media(max-width:760px){
+  main{
+    padding-top:18px;
+  }
+
+  .lead{
+    margin:8px 16px 10px;
+    padding:20px 20px;
+    font-size:1.04rem;
+    line-height:1.62;
+  }
+}
+
+
+/* v17 · centered navigation and day-colour overview cards */
+
+/* Center the complete navigation row whenever it fits.
+   When it overflows, JavaScript adds .has-overflow and the row starts from
+   the left so the arrow controls can scroll it normally. */
+.nav-inner{
+  justify-content:center;
+}
+
+.nav-inner.has-overflow{
+  justify-content:flex-start;
+}
+
+/* Overview day colours matching Detailed Itinerary:
+   Day 1 = deep teal, Day 2 = green, Day 3 = ore gold. */
+.overview-three-day-grid > .overview-day-card:nth-child(1){
+  color:#fff;
+  background:linear-gradient(145deg,#0b414b,#0f5965);
+  border-right-color:rgba(255,255,255,.18);
+}
+
+.overview-three-day-grid > .overview-day-card:nth-child(2){
+  color:#fff;
+  background:linear-gradient(145deg,#315f2c,#4b8138);
+  border-right-color:rgba(255,255,255,.18);
+}
+
+.overview-three-day-grid > .overview-day-three{
+  color:#233137;
+  background:linear-gradient(145deg,#c99d3d,#e0bf6f);
+}
+
+/* Day 1 and Day 2 typography */
+.overview-three-day-grid > .overview-day-card:nth-child(-n+2) .overview-date{
+  color:#f2d989!important;
+}
+
+.overview-three-day-grid > .overview-day-card:nth-child(-n+2) b{
+  color:#fff;
+}
+
+.overview-three-day-grid > .overview-day-card:nth-child(-n+2) p{
+  color:rgba(255,255,255,.76);
+}
+
+.overview-three-day-grid > .overview-day-card:nth-child(-n+2) .journey-link{
+  color:#f2d989;
+}
+
+/* Day 3 typography */
+.overview-day-three .overview-date{
+  color:#173f48!important;
+}
+
+.overview-day-three .overview-session-label{
+  color:#173f48;
+}
+
+.overview-day-three .overview-session b{
+  color:#173f48;
+}
+
+.overview-day-three .overview-session p{
+  color:rgba(35,49,55,.72);
+}
+
+.overview-day-three .journey-link{
+  color:#173f48;
+}
+
+.overview-day-three-sessions{
+  border-top-color:rgba(23,63,72,.26);
+}
+
+.overview-session + .overview-session{
+  border-left-color:rgba(23,63,72,.26);
+}
+
+/* Keep hover subtle and preserve the three theme colours */
+.overview-three-day-grid > .overview-day-card:nth-child(1):hover{
+  background:linear-gradient(145deg,#0d4b56,#126774);
+}
+
+.overview-three-day-grid > .overview-day-card:nth-child(2):hover{
+  background:linear-gradient(145deg,#386c31,#568f40);
+}
+
+.overview-day-three:hover{
+  background:linear-gradient(145deg,#d1a746,#e7c979);
+}
+
+.overview-day-three .overview-session:hover{
+  background:rgba(255,255,255,.10);
+}
+
+@media(max-width:980px){
+  /* In scroll mode, keep cards aligned from the left edge. */
+  .overview-three-day-grid{
+    justify-content:flex-start;
+  }
+}
+
+
+/* v18 · keep itinerary time ranges on one line */
+.itinerary-entry time{
+  white-space:nowrap;
+  word-break:keep-all;
+  overflow-wrap:normal;
+  font-variant-numeric:tabular-nums;
+}
+
+/* Give the time column a little more breathing room on tablet-sized screens. */
+@media (min-width:481px) and (max-width:900px){
+  .itinerary-entry{
+    grid-template-columns:78px minmax(0,1fr);
+    gap:40px;
+  }
+
+  .itinerary-entry time{
+    font-size:.80rem;
+    letter-spacing:-.01em;
+  }
+}
+
+
+/* Practical Information action links */
+.practical-info-link{
+  display:inline-flex;
+  align-items:center;
+  width:max-content;
+  margin-top:12px;
+  padding:7px 12px;
+  border:1px solid rgba(15,89,101,.22);
+  border-radius:999px;
+  color:var(--forum-teal);
+  background:rgba(255,255,255,.52);
+  font-family:"Manrope","Noto Sans TC",sans-serif;
+  font-size:.78rem;
+  font-weight:800;
+  line-height:1;
+  text-decoration:none;
+  transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease;
+}
+
+.practical-info-link:hover{
+  color:#fff;
+  background:var(--forum-teal);
+  border-color:var(--forum-teal);
+  transform:translateY(-1px);
+}
+
+
+/* Welcome Dinner kicker + menu action */
+.dinner-menu-button{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:22px;
+  padding:10px 15px;
+  border:1px solid rgba(255,255,255,.34);
+  border-radius:999px;
+  color:#fff;
+  background:rgba(255,255,255,.06);
+  font-family:"Manrope","Noto Sans TC",sans-serif;
+  font-size:.82rem;
+  font-weight:800;
+  letter-spacing:.02em;
+  line-height:1;
+  cursor:pointer;
+  transition:background .2s ease,border-color .2s ease,transform .2s ease;
+}
+
+.dinner-menu-button:hover{
+  background:rgba(255,255,255,.14);
+  border-color:rgba(255,255,255,.62);
+  transform:translateY(-1px);
+}
+
+.dinner-menu-button span{
+  font-size:.92rem;
+}
+
+#lightboxImg{
+  max-height:78vh;
+  object-fit:contain;
+}
+
+@media(max-width:760px){
+  .dinner-menu-button{
+    margin-top:18px;
+    font-size:.8rem;
+  }
+}
+
+
+/* Mobile horizontal overflow fix
+   Prevent decorative elements and wide inner components from creating
+   a small blank strip on the right side of iOS Safari. */
+html,
+body{
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden;
+}
+
+.hero,
+.site-nav,
+.footer{
+  max-width:100%;
+}
+
+/* Keep the desktop content width from the original layout. */
+main{
+  max-width:1120px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+main{
+  overflow-x:clip;
+}
+
+/* The decorative flowing-line pseudo element intentionally extends beyond
+   the content area; clip it so it does not enlarge the page canvas. */
+main:before{
+  max-width:none;
+}
+
+/* Safety for mobile cards / media */
+img,
+svg,
+video,
+canvas{
+  max-width:100%;
+}
+
+@supports not (overflow:clip){
+  main{
+    overflow-x:hidden;
+  }
+}
