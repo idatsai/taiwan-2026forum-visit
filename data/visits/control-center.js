@@ -82,7 +82,7 @@ window.RHB_VISITS["control-center"] = {
       label: "RAIN & TYPHOON SEASON",
       value: "Umbrella Recommended",
       text: "Short showers may occur, and September is still within Taiwan’s typhoon season. Please check the latest weather updates.",
-      linkLabel: "Check Taiwan Weather Forecast ↗",
+      linkLabel: "Click to Check ↗",
       linkUrl: "https://www.cwa.gov.tw/eng/"
     },
     {
@@ -113,7 +113,7 @@ window.RHB_VISITS["control-center"] = {
       label: "TAIWAN ARRIVAL CARD",
       value: "Online Arrival Card (TWAC)",
       text: "Travelers who are required to submit an arrival card should complete and submit the Taiwan Arrival Card online within 7 days before arrival in Taiwan. Submission is free.",
-      linkLabel: "Complete the Taiwan Arrival Card ↗",
+      linkLabel: "Click to Submit ↗",
       linkUrl: "https://twac.immigration.gov.tw/"
     }
   ],
