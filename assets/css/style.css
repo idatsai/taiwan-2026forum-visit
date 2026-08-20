@@ -1459,3 +1459,46 @@ main{
   border-color:var(--forum-teal);
   transform:translateY(-1px);
 }
+
+
+/* Welcome Dinner kicker + menu action */
+.dinner-menu-button{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:22px;
+  padding:10px 15px;
+  border:1px solid rgba(255,255,255,.34);
+  border-radius:999px;
+  color:#fff;
+  background:rgba(255,255,255,.06);
+  font-family:"Manrope","Noto Sans TC",sans-serif;
+  font-size:.82rem;
+  font-weight:800;
+  letter-spacing:.02em;
+  line-height:1;
+  cursor:pointer;
+  transition:background .2s ease,border-color .2s ease,transform .2s ease;
+}
+
+.dinner-menu-button:hover{
+  background:rgba(255,255,255,.14);
+  border-color:rgba(255,255,255,.62);
+  transform:translateY(-1px);
+}
+
+.dinner-menu-button span{
+  font-size:.92rem;
+}
+
+#lightboxImg{
+  max-height:78vh;
+  object-fit:contain;
+}
+
+@media(max-width:760px){
+  .dinner-menu-button{
+    margin-top:18px;
+    font-size:.8rem;
+  }
+}
