@@ -71,7 +71,21 @@
         : `<span>${label}</span>`;
     }).join('');
 
-    $('#lead').textContent = d.lead;
+        const leadEl = $('#lead');
+    if(d.leadBannerImage){
+      leadEl.classList.add('lead-has-banner');
+      leadEl.innerHTML = `
+        <div class="lead-banner reveal">
+          <img src="${d.leadBannerImage}" alt="${d.leadBannerAlt || 'Introduction banner'}" loading="lazy">
+          <div class="lead-banner-content">
+            <p>${d.lead}</p>
+          </div>
+        </div>
+      `;
+    }else{
+      leadEl.classList.remove('lead-has-banner');
+      leadEl.textContent = d.lead || '';
+    }
 
     $('#visitSwitcher').innerHTML = `
       <a href="#visit=control-center" class="active">ON-SITE VISITS</a>
