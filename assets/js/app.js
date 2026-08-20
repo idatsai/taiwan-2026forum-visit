@@ -394,6 +394,14 @@
               <span>${item.label || ''}</span>
               <h3>${item.value || ''}</h3>
               <p>${item.text || ''}</p>
+              ${item.linkUrl ? `
+                <a
+                  class="practical-info-link"
+                  href="${item.linkUrl}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >${item.linkLabel || 'Learn More ↗'}</a>
+              ` : ''}
               ${item.exampleImage ? `
                 <details class="practical-example">
                   <summary>
