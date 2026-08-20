@@ -71,7 +71,20 @@
         : `<span>${label}</span>`;
     }).join('');
 
-    $('#lead').textContent = d.lead;
+        const leadEl = $('#lead');
+    if(d.leadImage){
+      leadEl.classList.add('lead-image-only');
+      leadEl.innerHTML = `
+        <img
+          src="${d.leadImage}"
+          alt="${d.leadImageAlt || 'Introduction banner'}"
+          loading="lazy"
+        >
+      `;
+    }else{
+      leadEl.classList.remove('lead-image-only');
+      leadEl.textContent = d.lead || '';
+    }
 
     $('#visitSwitcher').innerHTML = `
       <a href="#visit=control-center" class="active">ON-SITE VISITS</a>
