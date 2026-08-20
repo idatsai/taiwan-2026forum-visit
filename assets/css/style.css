@@ -1502,3 +1502,77 @@ main{
     font-size:.8rem;
   }
 }
+
+
+/* v20 · Introduction image replaces the original lead text block */
+.lead.lead-image-only{
+  max-width:1120px;
+  margin:12px auto 34px;
+  padding:0!important;
+  border:0!important;
+  border-left:0!important;
+  border-radius:0;
+  background:none!important;
+  box-shadow:none!important;
+  overflow:hidden;
+  line-height:0;
+}
+
+.lead.lead-image-only img{
+  display:block;
+  width:100%;
+  height:auto;
+  max-width:100%;
+  border-radius:26px;
+}
+
+/* Safe mobile horizontal-overflow fix.
+   This does NOT change the desktop main content width. */
+html,
+body{
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden;
+}
+
+body{
+  position:relative;
+}
+
+.hero,
+.site-nav,
+.footer{
+  max-width:100%;
+  overflow-x:clip;
+}
+
+main{
+  overflow-x:clip;
+}
+
+img,
+svg,
+video,
+canvas{
+  max-width:100%;
+}
+
+@supports not (overflow:clip){
+  .hero,
+  .site-nav,
+  main,
+  .footer{
+    overflow-x:hidden;
+  }
+}
+
+@media(max-width:760px){
+  .lead.lead-image-only{
+    width:auto;
+    margin:10px 16px 26px;
+  }
+
+  .lead.lead-image-only img{
+    border-radius:18px;
+  }
+}
