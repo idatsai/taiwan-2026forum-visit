@@ -71,7 +71,7 @@ window.RHB_ITINERARIES["control-center"] = {
         {time:"11:30–12:00", title:"Head to NCCU Public Administration and Business Administration Education Center", type:"transfer"},
         {time:"12:00–13:30", title:"Lunch", type:"meal"},
         {section:"AFTERNOON PROGRAMME", sectionTitle:"International Experts Exchange Meeting on Taiwan's Mining Heritage"},
-        {time:"13:30–13:40", title:"Opening Remarks", location:"A616, Room A616, Center for Public and Business Administration Education (CPBAE), National Chengchi University (NCCU)"},
+        {time:"13:30–13:40", title:"Opening Remarks", location:"Room A616, Center for Public and Business Administration Education (CPBAE), National Chengchi University (NCCU)"},
         {time:"13:40–14:30", title:"Case Studies on Mining Heritage in Taiwan", note:"Case 1 · Potential World Heritage Sites in Taiwan – “Shuei-Jin-Jiou Mining Sites”<br>Case 2 · Mining Heritage in Northeast Taiwan: Historical Context and World Heritage Potential"},
         {time:"14:30–14:50", title:"Discussion and Feedback"},
         {time:"14:50–15:00", title:"Group Photo and Closing"},
