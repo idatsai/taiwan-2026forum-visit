@@ -51,7 +51,6 @@ window.RHB_ITINERARIES["control-center"] = {
         {time:"14:00–14:30", title:"Historic Mine Train Ride", note:"Ride the century-old mine train into a former mining area.", type:"train"},
         {time:"14:30–15:30", title:"Coal Preparation Plant and Local Cultural Experience", note:"An eco-friendly sky lantern activity may be arranged, subject to weather conditions."},
         {time:"15:30–16:30", title:"Return to Taipei by chartered vehicles.", type:"transfer"},
-        {time:"17:30", title:"Meet at AKA Hotel Lobby", type:"meeting"},
         {time:"16:30–18:00", title:"Check-in and Rest at AKA Hotel", type:"hotel"},
         {time:"18:00–18:30", title:"Head to Welcome Dinner Venue", type:"transfer"},
         {time:"18:30-20:30", title:"Welcome Dinner at AKA Café", type:"meal"}
